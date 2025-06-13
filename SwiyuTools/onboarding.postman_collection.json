@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "fbb4e600-c270-48d3-b752-5cdd5e9a141d",
+		"name": "onboarding",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15636546"
+	},
+	"item": [
+		{
+			"name": "Create Swiyu DID space",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{SWIYU_IDENTIFIER_REGISTRY_URL}}/api/v1/identifier/business-entities/{{SWIYU_PARTNER_ID}}/identifier-entries",
+					"host": [
+						"{{SWIYU_IDENTIFIER_REGISTRY_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"identifier",
+						"business-entities",
+						"{{SWIYU_PARTNER_ID}}",
+						"identifier-entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload DID Log",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/jsonl+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{YOUR_GENERATED_DIDLOG}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://identifier-reg-api.trust-infra.swiyu-int.admin.ch/api/v1/identifier/business-entities/{{SWIYU_PARTNER_ID}}/identifier-entries/{{IDENTIFIER_REGISTRY_ID}}",
+					"protocol": "https",
+					"host": [
+						"identifier-reg-api",
+						"trust-infra",
+						"swiyu-int",
+						"admin",
+						"ch"
+					],
+					"path": [
+						"api",
+						"v1",
+						"identifier",
+						"business-entities",
+						"{{SWIYU_PARTNER_ID}}",
+						"identifier-entries",
+						"{{IDENTIFIER_REGISTRY_ID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
