@@ -8,5 +8,20 @@ https://www.eid.admin.ch/en/public-beta-e
 
 https://www.npmjs.com/package/ngrok
 
+https://swiyu-admin-ch.github.io/specifications/interoperability-profile/
+
 ## Standards
 
+https://identity.foundation/trustdidweb/
+
+https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html
+
+https://openid.net/specs/openid-4-verifiable-presentations-1_0.html
+
+https://datatracker.ietf.org/doc/draft-ietf-oauth-selective-disclosure-jwt/
+
+https://datatracker.ietf.org/doc/draft-ietf-oauth-sd-jwt-vc/
+
+https://datatracker.ietf.org/doc/draft-ietf-oauth-status-list/
+
+https://www.w3.org/TR/vc-data-model-2.0/
