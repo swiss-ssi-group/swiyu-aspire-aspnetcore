@@ -1,5 +1,9 @@
 # swiyu-employee
 
+Getting started:
+
+https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/
+
 ## Links
 
 https://swiyu-admin-ch.github.io/
