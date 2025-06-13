@@ -17,3 +17,16 @@ java -jar didtoolbox.jar create --identifier-registry-url https://identifier-reg
 # Upload DID log content
 
 https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/#upload-did-log
+
+$SWIYU_IDENTIFIER_REGISTRY_ACCESS_TOKEN: Select from correct application
+$YOUR_GENERATED_DIDLOG: console result from the **Create Your First DID** didtoolbox.jar request
+$SWIYU_PARTNER_ID: https://portal.trust-infra.swiyu-int.admin.ch/ui/organizations
+$IDENTIFIER_REGISTRY_ID: ID returned when the **Create Swiyu DID space** was created
+
+```
+curl \
+  -H "Authorization: Bearer $SWIYU_IDENTIFIER_REGISTRY_ACCESS_TOKEN" \
+  -H "Content-Type: application/jsonl+json" \
+  -d '$YOUR_GENERATED_DIDLOG' \
+  -X PUT "https://identifier-reg-api.trust-infra.swiyu-int.admin.ch/api/v1/identifier/business-entities/$SWIYU_PARTNER_ID/identifier-entries/$IDENTIFIER_REGISTRY_ID"
+```
