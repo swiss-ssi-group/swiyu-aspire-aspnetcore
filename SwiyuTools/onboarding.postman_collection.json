@@ -104,6 +104,49 @@
 				"header": []
 			},
 			"response": []
+		},
+		{
+			"name": "Update Status list",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/statuslist+jwt",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\"Status list content according to https://www.ietf.org/archive/id/draft-ietf-oauth-status-list-02.html#name-status-list-request\"",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://status-reg-api.trust-infra.swiyu-int.admin.ch/api/v1/status/business-entities/{{SWIYU_PARTNER_ID}}/status-list-entries/{{STATUS_REGISTRY_ID}}",
+					"protocol": "https",
+					"host": [
+						"status-reg-api",
+						"trust-infra",
+						"swiyu-int",
+						"admin",
+						"ch"
+					],
+					"path": [
+						"api",
+						"v1",
+						"status",
+						"business-entities",
+						"{{SWIYU_PARTNER_ID}}",
+						"status-list-entries",
+						"{{STATUS_REGISTRY_ID}}"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
