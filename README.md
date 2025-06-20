@@ -16,6 +16,8 @@ https://www.npmjs.com/package/ngrok
 
 https://swiyu-admin-ch.github.io/specifications/interoperability-profile/
 
+https://andrewlock.net/converting-a-docker-compose-file-to-aspire/
+
 ## Standards
 
 https://identity.foundation/trustdidweb/
