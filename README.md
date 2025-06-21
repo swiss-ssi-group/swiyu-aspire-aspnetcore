@@ -18,6 +18,8 @@ https://swiyu-admin-ch.github.io/specifications/interoperability-profile/
 
 https://andrewlock.net/converting-a-docker-compose-file-to-aspire/
 
+https://swiyu-admin-ch.github.io/cookbooks/onboarding-generic-verifier/
+
 ## Standards
 
 https://identity.foundation/trustdidweb/
