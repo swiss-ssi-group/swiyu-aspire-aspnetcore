@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
 
@@ -24,5 +24,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4swiyu-oid4vp_4verifier_3metadata_1json__JsonSchema="lient_name#en&quot;: &quot;swiyu Employee Verfifier&quot;," /></VisualStudio></ProjectExtensions>
 
 </Project>
