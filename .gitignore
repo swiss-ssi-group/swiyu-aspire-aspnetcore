@@ -409,3 +409,6 @@ FodyWeavers.xsd
 /Employee.AppHost/id_ed25519.pub
 /Employee.AppHost/Properties/swiyu-oid4vp/id_ed25519
 /Employee.AppHost/Properties/swiyu-oid4vp/id_ed25519.pub
+/Employee.AppHost/Properties/swiyu-oid4vp/ConfigFiles/assert-key-01
+/Employee.AppHost/Properties/swiyu-oid4vp/ConfigFiles/auth-key-01
+/Employee.AppHost/Properties/swiyu-oid4vp/ConfigFiles/id_ed25519

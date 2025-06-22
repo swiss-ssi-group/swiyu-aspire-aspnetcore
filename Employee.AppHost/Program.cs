@@ -26,7 +26,6 @@ var PostGresDb = builder.AddParameter("PostGresDb");
 var PostGresJdbc = builder.AddParameter("PostGresJdbc");
 
 var swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-oid4vp", "latest")
-    .WithBindMount(Path.GetFullPath("Properties/swiyu-oid4vp"), "/configfiles")
     .WithEnvironment("EXTERNAL_URL", ExternalVerifierUrl)
     .WithEnvironment("OPENID_CLIENT_METADATA_FILE", OpenIdClientMetaDataFile)
     .WithEnvironment("VERIFIER_DID", VerifierDid)
@@ -37,7 +36,7 @@ var swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/e
     .WithEnvironment("POSTGRES_PASSWORD", PostGresPassword)
     .WithEnvironment("POSTGRES_DB", PostGresDb)
     .WithEnvironment("POSTGRES_JDBC", PostGresJdbc)
-    .WithHttpEndpoint(port: 8083, targetPort:8080, name: "swiyu-oid4vp-endpoint");
+    .WithHttpEndpoint(port: 80, targetPort:8080, name: "swiyu-oid4vp-endpoint");
 
 //OID4VP_URL: ${ OID4VP_URL}
 //# Persistence
@@ -46,15 +45,15 @@ var swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/e
 //POSTGRES_DB: "verifier_db"
 //POSTGRES_JDBC: "jdbc:postgresql://verifier_postgres:5432/verifier_db"
 
-var swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-management", "latest")
-    .WithEnvironment("EXTERNAL_URL", "verifier_db")
-    .WithEnvironment("POSTGRES_USER", PostGresUser)
-    .WithEnvironment("POSTGRES_PASSWORD", PostGresPassword)
-    .WithEnvironment("POSTGRES_DB", PostGresDb)
-    .WithEnvironment("POSTGRES_JDBC", PostGresJdbc)
-    .WithHttpEndpoint(port: 8082, targetPort: 8080, name: "swiyu-verifier-mgmt-endpoint");
+//var swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-management", "latest")
+//    .WithEnvironment("EXTERNAL_URL", "verifier_db")
+//    .WithEnvironment("POSTGRES_USER", PostGresUser)
+//    .WithEnvironment("POSTGRES_PASSWORD", PostGresPassword)
+//    .WithEnvironment("POSTGRES_DB", PostGresDb)
+//    .WithEnvironment("POSTGRES_JDBC", PostGresJdbc)
+//    .WithHttpEndpoint(port: 8082, targetPort: 8080, name: "swiyu-verifier-mgmt-endpoint");
 
-builder.AddProject<Projects.EmployeeOnboarding>("employeeonboarding");
+//builder.AddProject<Projects.EmployeeOnboarding>("employeeonboarding");
 
 builder.Build().Run();
 
