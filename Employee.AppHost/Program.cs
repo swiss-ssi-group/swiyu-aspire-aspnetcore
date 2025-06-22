@@ -14,28 +14,28 @@ var builder = DistributedApplication.CreateBuilder(args);
 //POSTGRES_JDBC: "jdbc:postgresql://verifier_postgres:5432/verifier_db"
 
 // Add a parameter named "example-parameter-name"
-var EXTERNAL_URL = builder.AddParameter("EXTERNAL_URL");
-var OPENID_CLIENT_METADATA_FILE = builder.AddParameter("OPENID_CLIENT_METADATA_FILE");
-var VERIFIER_DID = builder.AddParameter("VERIFIER_DID");
-var DID_VERIFICATION_METHOD = builder.AddParameter("DID_VERIFICATION_METHOD");
-var VERIFIER_NAME = builder.AddParameter("VERIFIER_NAME");
-var SIGNING_KEY = builder.AddParameter("SIGNING_KEY", secret: true);
-var POSTGRES_USER = builder.AddParameter("POSTGRES_USER");
-var POSTGRES_PASSWORD = builder.AddParameter("POSTGRES_PASSWORD", secret: true);
-var POSTGRES_DB = builder.AddParameter("POSTGRES_DB");
-var POSTGRES_JDBC = builder.AddParameter("POSTGRES_JDBC");
+var ExternalVerifierUrl = builder.AddParameter("ExternalVerifierUrl");
+var OpenIdClientMetaDataFile = builder.AddParameter("OpenIdClientMetaDataFile");
+var VerifierDid = builder.AddParameter("VerifierDid");
+var DidVerifierMethod = builder.AddParameter("DidVerifierMethod");
+var VerifierName = builder.AddParameter("VerifierName");
+var SigningKey = builder.AddParameter("SigningKey", secret: true);
+var PostGresUser = builder.AddParameter("PostGresUser");
+var PostGresPassword = builder.AddParameter("PostGresPassword", secret: true);
+var PostGresDb = builder.AddParameter("PostGresDb");
+var PostGresJdbc = builder.AddParameter("PostGresJdbc");
 
 var swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-oid4vp", "latest")
-    .WithEnvironment("EXTERNAL_URL", EXTERNAL_URL)
-    .WithEnvironment("OPENID_CLIENT_METADATA_FILE", OPENID_CLIENT_METADATA_FILE)
-    .WithEnvironment("VERIFIER_DID", VERIFIER_DID)
-    .WithEnvironment("DID_VERIFICATION_METHOD", DID_VERIFICATION_METHOD)
-    .WithEnvironment("VERIFIER_NAME", VERIFIER_NAME)
-    .WithEnvironment("SIGNING_KEY", SIGNING_KEY)
-    .WithEnvironment("POSTGRES_USER", POSTGRES_USER)
-    .WithEnvironment("POSTGRES_PASSWORD", POSTGRES_PASSWORD)
-    .WithEnvironment("POSTGRES_DB", POSTGRES_DB)
-    .WithEnvironment("POSTGRES_JDBC", POSTGRES_JDBC)
+    .WithEnvironment("EXTERNAL_URL", ExternalVerifierUrl)
+    .WithEnvironment("OPENID_CLIENT_METADATA_FILE", OpenIdClientMetaDataFile)
+    .WithEnvironment("VERIFIER_DID", VerifierDid)
+    .WithEnvironment("DID_VERIFICATION_METHOD", DidVerifierMethod)
+    .WithEnvironment("VERIFIER_NAME", VerifierName)
+    .WithEnvironment("SIGNING_KEY", SigningKey)
+    .WithEnvironment("POSTGRES_USER", PostGresUser)
+    .WithEnvironment("POSTGRES_PASSWORD", PostGresPassword)
+    .WithEnvironment("POSTGRES_DB", PostGresDb)
+    .WithEnvironment("POSTGRES_JDBC", PostGresJdbc)
     .WithHttpEndpoint(port: 8083, targetPort:8080, name: "swiyu-oid4vp-endpoint");
 
 //OID4VP_URL: ${ OID4VP_URL}
@@ -47,10 +47,10 @@ var swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/e
 
 var swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-management", "latest")
     .WithEnvironment("EXTERNAL_URL", "verifier_db")
-    .WithEnvironment("POSTGRES_USER", POSTGRES_USER)
-    .WithEnvironment("POSTGRES_PASSWORD", POSTGRES_PASSWORD)
-    .WithEnvironment("POSTGRES_DB", POSTGRES_DB)
-    .WithEnvironment("POSTGRES_JDBC", POSTGRES_JDBC)
+    .WithEnvironment("POSTGRES_USER", PostGresUser)
+    .WithEnvironment("POSTGRES_PASSWORD", PostGresPassword)
+    .WithEnvironment("POSTGRES_DB", PostGresDb)
+    .WithEnvironment("POSTGRES_JDBC", PostGresJdbc)
     .WithHttpEndpoint(port: 8082, targetPort: 8080, name: "swiyu-verifier-mgmt-endpoint");
 
 builder.AddProject<Projects.EmployeeOnboarding>("employeeonboarding");
