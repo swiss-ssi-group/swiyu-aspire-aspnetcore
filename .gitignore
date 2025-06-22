@@ -407,3 +407,5 @@ FodyWeavers.xsd
 /SwiyuTools/SwiyuDidToolbox/.didtoolbox/**
 /Employee.AppHost/id_ed25519
 /Employee.AppHost/id_ed25519.pub
+/Employee.AppHost/Properties/swiyu-oid4vp/id_ed25519
+/Employee.AppHost/Properties/swiyu-oid4vp/id_ed25519.pub

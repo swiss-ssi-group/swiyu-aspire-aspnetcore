@@ -26,6 +26,7 @@ var PostGresDb = builder.AddParameter("PostGresDb");
 var PostGresJdbc = builder.AddParameter("PostGresJdbc");
 
 var swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-oid4vp", "latest")
+    .WithBindMount(Path.GetFullPath("Properties/swiyu-oid4vp"), "/configfiles")
     .WithEnvironment("EXTERNAL_URL", ExternalVerifierUrl)
     .WithEnvironment("OPENID_CLIENT_METADATA_FILE", OpenIdClientMetaDataFile)
     .WithEnvironment("VERIFIER_DID", VerifierDid)
