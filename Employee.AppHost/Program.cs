@@ -36,7 +36,7 @@ var swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/e
     .WithEnvironment("POSTGRES_PASSWORD", PostGresPassword)
     .WithEnvironment("POSTGRES_DB", PostGresDb)
     .WithEnvironment("POSTGRES_JDBC", PostGresJdbc)
-    .WithHttpEndpoint(port: 80, targetPort:8080, name: "swiyu-oid4vp-endpoint");
+    .WithHttpEndpoint(port: 8083, targetPort:8080, name: "swiyu-oid4vp-endpoint");
 
 //OID4VP_URL: ${ OID4VP_URL}
 //# Persistence
