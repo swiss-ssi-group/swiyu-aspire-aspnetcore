@@ -66,7 +66,7 @@ var swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/e
 //    .WithHttpEndpoint(port: 8082, targetPort: 8080, name: "swiyu-verifier-mgmt-endpoint");
 
 builder.AddProject<Projects.EmployeeOnboarding>("employeeonboarding")
-        .WithExternalHttpEndpoints();
+    .WithExternalHttpEndpoints();
 
 builder.Build().Run();
 
