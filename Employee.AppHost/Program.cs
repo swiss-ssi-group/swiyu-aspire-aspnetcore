@@ -57,13 +57,16 @@ var swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/e
     .WithHttpEndpoint(port: 80, targetPort: 8080, name: "swiyu-oid4vp-endpoint")
     .WithExternalHttpEndpoints();
 
-//var swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-management", "latest")
-//    .WithEnvironment("EXTERNAL_URL", externalVerifierUrl)
-//    .WithEnvironment("POSTGRES_USER", postGresUser)
-//    .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
-//    .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
-//    .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
-//    .WithHttpEndpoint(port: 8082, targetPort: 8080, name: "swiyu-verifier-mgmt-endpoint");
+if(builder.Environment.IsDevelopment())
+{
+    var swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-management", "latest")
+        .WithEnvironment("EXTERNAL_URL", verifierExternalUrl)
+        .WithEnvironment("POSTGRES_USER", postGresUser)
+        .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
+        .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
+        .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
+        .WithHttpEndpoint(port: 8082, targetPort: 8080, name: "swiyu-verifier-mgmt-endpoint");
+}
 
 builder.AddProject<Projects.EmployeeOnboarding>("employeeonboarding")
     .WithExternalHttpEndpoints();
