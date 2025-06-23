@@ -25,6 +25,7 @@ Support: usertesting@swiyu.admin.ch
 ### Configuration data
 
 ```json
+// https://swiyu-admin-ch.github.io/cookbooks/onboarding-generic-issuer/
 // issuer
 "Parameters:issuerexternalurl": "TODO",
 "Parameters:issuerid": "TODO",
@@ -34,6 +35,7 @@ Support: usertesting@swiyu.admin.ch
 "Parameters:issuermetadataconfigfile": "TODO",
 "Parameters:issuertokenttl": "TODOs",
 
+// https://swiyu-admin-ch.github.io/cookbooks/onboarding-generic-verifier/
 // verifier
 "Parameters:verifiername": "TODO",
 "Parameters:verifierdid": "TODO",
