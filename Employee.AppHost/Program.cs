@@ -85,10 +85,9 @@ if(builder.Environment.IsDevelopment())
        .WithEnvironment("SWIYU_STATUS_REGISTRY_CUSTOMER_KEY", swiyuCustomerKey)
        .WithEnvironment("SWIYU_STATUS_REGISTRY_CUSTOMER_SECRET", swiyuCustomerSecret)
 
-       // TODO
        //.WithEnvironment("SWIYU_STATUS_REGISTRY_ACCESS_TOKEN", issuerId)
        //.WithEnvironment("SWIYU_STATUS_REGISTRY_BOOTSTRAP_REFRESH_TOKEN", issuerId)
-       //.WithEnvironment("SWIYU_STATUS_REGISTRY_TOKEN_URL", issuerId)
+       .WithEnvironment("SWIYU_STATUS_REGISTRY_TOKEN_URL", "https://keymanager-prd.api.admin.ch/keycloak/realms/APIGW/protocol/openid-connect/token")
 
        .WithEnvironment("SWIYU_STATUS_REGISTRY_API_URL", "https://status-reg-api.trust-infra.swiyu-int.admin.ch")
        .WithEnvironment("LOGGING_LEVEL_CH_ADMIN_BIT_EID", "DEBUG")
