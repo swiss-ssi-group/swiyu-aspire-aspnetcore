@@ -6,7 +6,7 @@ https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/
 
 Support: usertesting@swiyu.admin.ch
 
-´´´json
+```json
 {
   //"client_id": "${VERIFIER_DID}",
 
@@ -20,7 +20,36 @@ Support: usertesting@swiyu.admin.ch
   "logo_uri": "www.example.com/logo.png",
   "logo_uri#fr": "www.example.com/logo_fr.png"
 }
-´´´
+```
+
+### Configuration data
+
+```json
+// issuer
+"Parameters:issuerexternalurl": "TODO",
+"Parameters:issuerid": "TODO",
+"Parameters:issuerdidsdjwtverificationmethod": "TODO",
+"Parameters:issuersdjwtkey": "TODO",
+"Parameters:issueropenIdconfigfile": "TODO",
+"Parameters:issuermetadataconfigfile": "TODO",
+"Parameters:issuertokenttl": "TODOs",
+
+// verifier
+"Parameters:verifiername": "TODO",
+"Parameters:verifierdid": "TODO",
+"Parameters:verifieropenidclientmetadatafile": "TODO",
+"Parameters:verifierexternalurl": "TODO",
+"Parameters:didverifiermethod": "TODO",
+"Parameters:verifiersigningkey": "TODO",
+
+// DB
+"Parameters:postgresuser": "TODO",
+"Parameters:postgrespassword": "TODO",
+"Parameters:postgresjdbcverifier": "TODO",
+"Parameters:postgresdbverifier": "TODO",
+"Parameters:postgresjdbcissuer": "TODO",
+"Parameters:postgresdbissuer": "TODO",
+```
 
 ### Notes
 
