@@ -22,6 +22,14 @@ Support: usertesting@swiyu.admin.ch
 }
 ´´´
 
+### Notes
+
+For local development, use "\n" to end the lines in the PEM secrets, in production use original secret
+
+Load the config file from some public end point
+
+After deployment, some secrets get updated with incorrect encoding, they need to be update in the production.
+
 ## Links
 
 https://swiyu-admin-ch.github.io/
