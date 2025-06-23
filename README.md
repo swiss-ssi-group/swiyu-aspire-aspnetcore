@@ -33,7 +33,14 @@ Support: usertesting@swiyu.admin.ch
 "Parameters:issuersdjwtkey": "TODO",
 "Parameters:issueropenIdconfigfile": "TODO",
 "Parameters:issuermetadataconfigfile": "TODO",
-"Parameters:issuertokenttl": "TODOs",
+"Parameters:issuertokenttl": "TODO",
+
+"Parameters:issuername": "TODO",
+"Parameters:businesspartnerid": "TODO",
+"Parameters:swiyucustomerkey": "TODO",
+"Parameters:swiyucustomersecret": "TODO",
+"Parameters:swiyurefreshtoken": "TODO",
+"Parameters:swiyuaccesstoken": "TODO",
 
 // https://swiyu-admin-ch.github.io/cookbooks/onboarding-generic-verifier/
 // verifier
