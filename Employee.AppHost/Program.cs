@@ -23,7 +23,8 @@ var issuerName = builder.AddParameter("issuername");
 var businessPartnerId = builder.AddParameter("businesspartnerid", secret: true);
 var swiyuCustomerKey = builder.AddParameter("swiyucustomerkey", secret: true);
 var swiyuCustomerSecret = builder.AddParameter("swiyucustomerSecret", secret: true);
-
+var swiyuRefreshToken = builder.AddParameter("swiyurefreshtoken", secret: true);
+var swiyuAccessToken = builder.AddParameter("swiyuaccesstoken", secret: true);
 
 // Issuer
 var swiyuOid4vci = builder.AddContainer("swiyu-oid4vci", "ghcr.io/swiyu-admin-ch/eidch-issuer-agent-oid4vci", "latest")
@@ -85,8 +86,8 @@ if(builder.Environment.IsDevelopment())
        .WithEnvironment("SWIYU_STATUS_REGISTRY_CUSTOMER_KEY", swiyuCustomerKey)
        .WithEnvironment("SWIYU_STATUS_REGISTRY_CUSTOMER_SECRET", swiyuCustomerSecret)
 
-       //.WithEnvironment("SWIYU_STATUS_REGISTRY_ACCESS_TOKEN", issuerId)
-       //.WithEnvironment("SWIYU_STATUS_REGISTRY_BOOTSTRAP_REFRESH_TOKEN", issuerId)
+       .WithEnvironment("SWIYU_STATUS_REGISTRY_ACCESS_TOKEN", swiyuAccessToken)
+       .WithEnvironment("SWIYU_STATUS_REGISTRY_BOOTSTRAP_REFRESH_TOKEN", swiyuRefreshToken)
        .WithEnvironment("SWIYU_STATUS_REGISTRY_TOKEN_URL", "https://keymanager-prd.api.admin.ch/keycloak/realms/APIGW/protocol/openid-connect/token")
 
        .WithEnvironment("SWIYU_STATUS_REGISTRY_API_URL", "https://status-reg-api.trust-infra.swiyu-int.admin.ch")
