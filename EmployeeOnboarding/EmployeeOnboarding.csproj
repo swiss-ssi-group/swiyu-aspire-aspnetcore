@@ -15,8 +15,4 @@
     <ProjectReference Include="..\Employee.ServiceDefaults\Employee.ServiceDefaults.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ContainerPort Include="80" Type="tcp" />
-  </ItemGroup>
-
 </Project>
