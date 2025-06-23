@@ -35,12 +35,12 @@ var swiyuOid4vci = builder.AddContainer("swiyu-oid4vci", "ghcr.io/swiyu-admin-ch
     .WithExternalHttpEndpoints();
 
 // Verifier
-var verifierExternalUrl = builder.AddParameter("externalverifierurl");
-var verifierOpenIdClientMetaDataFile = builder.AddParameter("openidclientmetadatafile");
+var verifierExternalUrl = builder.AddParameter("verifierexternalurl");
+var verifierOpenIdClientMetaDataFile = builder.AddParameter("verifieropenidclientmetadatafile");
 var verifierDid = builder.AddParameter("verifierdid");
 var didVerifierMethod = builder.AddParameter("didverifiermethod");
 var verifierName = builder.AddParameter("verifiername");
-var verifierSigningKey = builder.AddParameter("signingkey");
+var verifierSigningKey = builder.AddParameter("verifiersigningkey");
 
 // Verifier
 var swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-oid4vp", "latest")
