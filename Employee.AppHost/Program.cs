@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 
 var builder = DistributedApplication.CreateBuilder(args);
+
+const string HTTPS = "https";
 
 // public
 IResourceBuilder<ContainerResource>? swiyuOid4vci = null;
@@ -52,11 +55,11 @@ swiyuOid4vci = builder.AddContainer("swiyu-oid4vci", "ghcr.io/swiyu-admin-ch/eid
 
 if (builder.Environment.IsDevelopment())
 {
-    swiyuOid4vci.WithHttpEndpoint(port: 8083, targetPort: 8080, name: "http");
+    swiyuOid4vci.WithHttpsEndpoint(port: 8083, targetPort: 8080, name: HTTPS);
 }
 else
 {
-    swiyuOid4vci.WithHttpEndpoint(port: 80, targetPort: 8080, name: "http");
+    swiyuOid4vci.WithHttpsEndpoint(port: 80, targetPort: 8080, name: HTTPS);
 }
 
 // Verifier
@@ -83,11 +86,11 @@ swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/eidch
 
 if (builder.Environment.IsDevelopment())
 {
-    swiyuOid4vp.WithHttpEndpoint(port: 8083, targetPort: 8080, name: "http");
+    swiyuOid4vp.WithHttpsEndpoint(port: 8083, targetPort: 8080, name: HTTPS);
 }
 else
 {
-    swiyuOid4vp.WithHttpEndpoint(port: 80, targetPort: 8080, name: "http");
+    swiyuOid4vp.WithHttpsEndpoint(port: 80, targetPort: 8080, name: HTTPS);
 }
 
 if (builder.Environment.IsDevelopment())
@@ -98,7 +101,7 @@ if (builder.Environment.IsDevelopment())
         .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
         .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
         .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
-        .WithHttpEndpoint(port: 8082, targetPort: 8080, name: "http");
+        .WithHttpsEndpoint(port: 8082, targetPort: 8080, name: HTTPS);
 
     swiyuIssuerMgmt = builder.AddContainer("swiyu-issuer-mgmt", "ghcr.io/swiyu-admin-ch/eidch-issuer-agent-management", "latest")
         .WithEnvironment("EXTERNAL_URL", issuerExternalUrl)
@@ -123,10 +126,10 @@ if (builder.Environment.IsDevelopment())
         .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
         .WithEnvironment("POSTGRES_DB", postGresDbIssuer)
         .WithEnvironment("POSTGRES_JDBC", postGresJdbcIssuer)
-        .WithHttpEndpoint(port: 8084, targetPort: 8080, name: "http");
+        .WithHttpsEndpoint(port: 8084, targetPort: 8080, name: HTTPS);
 
     employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
-        .WithEnvironment("SwiyuVerifierMgmtUrl", swiyuVerifierMgmt.GetEndpoint("http"))
+        .WithEnvironment("SwiyuVerifierMgmtUrl", swiyuVerifierMgmt.GetEndpoint(HTTPS))
         .WithExternalHttpEndpoints();
 }
 
