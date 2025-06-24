@@ -6,10 +6,15 @@ namespace Employee.Mgmt.Pages;
 public class CreateCredentialVerifierModel : PageModel
 {
     private readonly CreateVerificationPresentation _createVerificationPresentation;
+    private readonly string? _swiyuOid4vpUrl;
 
-    public CreateCredentialVerifierModel(CreateVerificationPresentation createVerificationPresentation)
+    public string? QrCodeUrl { get; set; } = "https://damienbod.com";
+
+    public CreateCredentialVerifierModel(CreateVerificationPresentation createVerificationPresentation,
+        IConfiguration configuration)
     {
         _createVerificationPresentation = createVerificationPresentation;
+        _swiyuOid4vpUrl = configuration["SwiyuOid4vpUrl"];
     }
 
     public void OnGet()
@@ -20,6 +25,7 @@ public class CreateCredentialVerifierModel : PageModel
     {
         var presentation = _createVerificationPresentation.CreateVerificationCredentialAsync();
 
+        // verification_url
         // TODO
     }
 }

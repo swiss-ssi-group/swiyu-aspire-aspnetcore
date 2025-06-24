@@ -131,6 +131,8 @@ if (builder.Environment.IsDevelopment())
     employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
         .WithEnvironment("SwiyuVerifierMgmtUrl", swiyuVerifierMgmt.GetEndpoint(HTTPS))
         .WithEnvironment("SwiyuIssuerMgmtUrl", swiyuIssuerMgmt.GetEndpoint(HTTPS))
+        .WithEnvironment("SwiyuOid4vciUrl", swiyuOid4vci.GetEndpoint(HTTPS))
+        .WithEnvironment("SwiyuOid4vpUrl", swiyuOid4vp.GetEndpoint(HTTPS))
         .WithExternalHttpEndpoints();
 }
 
