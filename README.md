@@ -82,6 +82,8 @@ https://andrewlock.net/converting-a-docker-compose-file-to-aspire/
 
 https://swiyu-admin-ch.github.io/cookbooks/onboarding-generic-verifier/
 
+https://github.com/orgs/swiyu-admin-ch/projects/2/views/2
+
 ## Standards
 
 https://identity.foundation/trustdidweb/
