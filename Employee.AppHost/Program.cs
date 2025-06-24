@@ -86,7 +86,7 @@ swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/eidch
 
 if (builder.Environment.IsDevelopment())
 {
-    swiyuOid4vp.WithHttpsEndpoint(port: 8083, targetPort: 8080, name: HTTPS);
+    swiyuOid4vp.WithHttpsEndpoint(port: 8081, targetPort: 8080, name: HTTPS);
 }
 else
 {
