@@ -1,3 +1,4 @@
+using Aspire.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 
@@ -130,6 +131,7 @@ if (builder.Environment.IsDevelopment())
 
     employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
         .WithEnvironment("SwiyuVerifierMgmtUrl", swiyuVerifierMgmt.GetEndpoint(HTTPS))
+        .WithEnvironment("SwiyuIssuerMgmtUrl", swiyuIssuerMgmt.GetEndpoint(HTTPS))
         .WithExternalHttpEndpoints();
 }
 
