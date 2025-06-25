@@ -37,11 +37,17 @@ public class CreateVerificationPresentation
         using HttpResponseMessage response = await _httpClient.PostAsync(
             $"{_swiyuVerifierMgmtUrl}/api/v1/verifications", jsonContent);
 
-        response.EnsureSuccessStatusCode();
+        if(response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
 
-        var jsonResponse = await response.Content.ReadAsStringAsync();
+            return jsonResponse;
+        }
 
-        return jsonResponse;
+        var error = await response.Content.ReadAsStringAsync();
+        _logger.LogError("Could not create verification presentation {vp}", error);
+
+        throw new Exception(error);
     }
 
     /// <summary>

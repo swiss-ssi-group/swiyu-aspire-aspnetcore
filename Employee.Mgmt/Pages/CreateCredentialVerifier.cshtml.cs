@@ -1,6 +1,7 @@
 using Employee.Mgmt.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Text.Json;
 
 namespace Employee.Mgmt.Pages;
 
@@ -24,13 +25,14 @@ public class CreateCredentialVerifierModel : PageModel
     {
     }
 
-    public void OnPost()
+    public async Task OnPostAsync()
     {
-        var presentation = _createVerificationPresentation.CreateVerificationCredentialAsync();
+        var presentation = await _createVerificationPresentation
+            .CreateVerificationCredentialAsync();
 
+        var data = JsonSerializer.Deserialize<CreateVerificationPresentationModel>(presentation);
         // verification_url
-        // TODO
-
+        QrCodeUrl = data!.verification_url;
     }
 
     private void result ()
