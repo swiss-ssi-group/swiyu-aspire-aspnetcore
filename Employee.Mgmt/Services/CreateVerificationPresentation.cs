@@ -59,9 +59,10 @@ public class CreateVerificationPresentation
 
     private string GetDataForLocalCredential(string inputDescriptorsId, string presentationDefinitionId, string issuer, string vcType)
     {
+        // TODO, not working {{issuer}}
         var json = $$"""
              {
-                 "accepted_issuer_dids": [{{issuer}}],
+                 "accepted_issuer_dids": [],
                  "jwt_secured_authorization_request": true,
                  "presentation_definition": {
                      "id": "{{presentationDefinitionId}}",
@@ -119,9 +120,10 @@ public class CreateVerificationPresentation
 
     private string GetBetaIdVerificationPresentationBody(string inputDescriptorsId, string presentationDefinitionId, string acceptedIssuerDid, string vcType)
     {
+        // TODO, not working {{acceptedIssuerDid}}
         var json = $$"""
              {
-                 "accepted_issuer_dids": [{{acceptedIssuerDid}}],
+                 "accepted_issuer_dids": [],
                  "jwt_secured_authorization_request": true,
                  "presentation_definition": {
                      "id": "{{presentationDefinitionId}}",
