@@ -8,7 +8,6 @@ const string HTTP = "http";
 // public
 IResourceBuilder<ContainerResource>? swiyuOid4vci = null;
 IResourceBuilder<ContainerResource>? swiyuOid4vp = null;
-IResourceBuilder<ProjectResource>? employeeonboarding = null;
 
 // management
 IResourceBuilder<ContainerResource>? swiyuVerifierMgmt = null;
@@ -135,9 +134,6 @@ if (builder.Environment.IsDevelopment())
         .WithEnvironment("SwiyuOid4vpUrl", verifierExternalUrl)
         .WithExternalHttpEndpoints();
 }
-
-employeeonboarding = builder.AddProject<Projects.EmployeeOnboarding>("employeeonboarding")
-    .WithExternalHttpEndpoints();
 
 builder.Build().Run();
 
