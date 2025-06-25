@@ -20,11 +20,12 @@ public class CreateVerificationPresentation
     {
         _logger.LogInformation("Creating verification presentation");
 
-        //var acceptedIssuerDid = "";
+        var acceptedIssuerDid = "did:tdw:QmPEZPhDFR4nEYSFK5bMnvECqdpf1tPTPJuWs9QrMjCumw:identifier-reg.trust-infra.swiyu-int.admin.ch:api:v1:did:9a5559f0-b81c-4368-a170-e7b4ae424527";
         var inputDescriptorsId = Guid.NewGuid().ToString();
         var presentationDefinitionId = Guid.NewGuid().ToString();
+        var vcType = "damienbod-vc"; //"betaid-sdjwt"; // "damienbod-vc"
 
-        var json = GetBody(inputDescriptorsId, presentationDefinitionId);
+        var json = GetBody(inputDescriptorsId, presentationDefinitionId, acceptedIssuerDid, vcType);
 
         //curl - X POST http://localhost:8082/api/v1/verifications \
         //       -H "accept: application/json" \
@@ -36,18 +37,25 @@ public class CreateVerificationPresentation
         using HttpResponseMessage response = await _httpClient.PostAsync(
             $"{_swiyuVerifierMgmtUrl}/api/v1/verifications", jsonContent);
 
-        response.EnsureSuccessStatusCode();
+        if(response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
 
-        var jsonResponse = await response.Content.ReadAsStringAsync();
+            return jsonResponse;
+        }
 
-        return jsonResponse;
+        var error = await response.Content.ReadAsStringAsync();
+        _logger.LogError("Could not create verification presentation {vp}", error);
+
+        throw new Exception(error);
     }
 
     /// <summary>
     /// TODO: Requires the accepted issuer
     /// </summary>
-    private static string GetBody(string inputDescriptorsId, string presentationDefinitionId)
+    private static string GetBody(string inputDescriptorsId, string presentationDefinitionId, string acceptedIssuerDid, string vcType)
     {
+        // not using {{acceptedIssuerDid}} for now, TODO add
         var json = $$"""
              {
                  "accepted_issuer_dids": [],
@@ -70,27 +78,32 @@ public class CreateVerificationPresentation
                                  }
                              },
                              "constraints": {
-                                 "fields": [
-                                     {
+             	                "fields": [
+             		                {
+             			                "path": [
+             				                "$.vct"
+             			                ],
+             			                "filter": {
+             				                "type": "string",
+             				                "const": "{{vcType}}"
+             			                }
+             		                },
+                                    {
                                          "path": [
-                                             "$.vct"
-                                         ],
-                                         "filter": {
-                                             "type": "string",
-                                             "const": "my-test-vc"
-                                         }
-                                     },
-                                     {
+                                             "$.firstName"
+                                         ]
+                                    },
+                                    {
                                          "path": [
                                              "$.lastName"
                                          ]
-                                     },
-                                     {
-                                         "path": [
-                                             "$.birthDate"
-                                         ]
-                                     }
-                                 ]
+                                    },
+             		                {
+             			                "path": [
+             				                "$.birthDate"
+             			                ]
+             		                }
+             	                ]
                              }
                          }
                      ]
