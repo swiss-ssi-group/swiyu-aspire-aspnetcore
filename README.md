@@ -68,6 +68,10 @@ Load the config file from some public end point
 
 After deployment, some secrets get updated with incorrect encoding, they need to be update in the production.
 
+Notes: you can only issuer credentials when you have valid tokens. Get from:
+
+https://portal.trust-infra.swiyu-int.admin.ch/ui/organizations
+
 ## Links
 
 https://swiyu-admin-ch.github.io/

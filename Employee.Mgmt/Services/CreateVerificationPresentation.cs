@@ -23,7 +23,7 @@ public class CreateVerificationPresentation
         var acceptedIssuerDid = "did:tdw:QmPEZPhDFR4nEYSFK5bMnvECqdpf1tPTPJuWs9QrMjCumw:identifier-reg.trust-infra.swiyu-int.admin.ch:api:v1:did:9a5559f0-b81c-4368-a170-e7b4ae424527";
         var inputDescriptorsId = Guid.NewGuid().ToString();
         var presentationDefinitionId = Guid.NewGuid().ToString();
-        var vcType = "betaid-sdjwt"; // "damienbod-vc"
+        var vcType = "damienbod-vc"; //"betaid-sdjwt"; // "damienbod-vc"
 
         var json = GetBody(inputDescriptorsId, presentationDefinitionId, acceptedIssuerDid, vcType);
 
@@ -88,6 +88,16 @@ public class CreateVerificationPresentation
              				                "const": "{{vcType}}"
              			                }
              		                },
+                                    {
+                                         "path": [
+                                             "$.lastName"
+                                         ]
+                                     },
+                                     {
+                                         "path": [
+                                             "$.firstName"
+                                         ]
+                                    },
              		                {
              			                "path": [
              				                "$.birth_date"

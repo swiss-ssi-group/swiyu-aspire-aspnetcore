@@ -159,8 +159,8 @@ if (builder.Environment.IsDevelopment())
     employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
         .WithEnvironment("SwiyuVerifierMgmtUrl", swiyuVerifierMgmt.GetEndpoint(HTTP))
         .WithEnvironment("SwiyuIssuerMgmtUrl", swiyuIssuerMgmt.GetEndpoint(HTTP))
-        //.WithEnvironment("SwiyuOid4vciUrl", issuerExternalUrl)
-        //.WithEnvironment("SwiyuOid4vpUrl", verifierExternalUrl)
+        .WithEnvironment("SwiyuOid4vciUrl", issuerExternalUrl)
+        .WithEnvironment("SwiyuOid4vpUrl", verifierExternalUrl)
         .WithExternalHttpEndpoints();
 }
 
