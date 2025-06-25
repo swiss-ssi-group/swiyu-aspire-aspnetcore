@@ -124,7 +124,7 @@ else
 if (builder.Environment.IsDevelopment())
 {
     swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-management", "latest")
-        .WithEnvironment("EXTERNAL_URL", verifierExternalUrl)
+        .WithEnvironment("OID4VP_URL", verifierExternalUrl)
         .WithEnvironment("POSTGRES_USER", postGresUser)
         .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
         .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
