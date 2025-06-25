@@ -10,7 +10,7 @@ public class CreateCredentialIssuerModel : PageModel
     private readonly CreateIssuer _createIssuer;
 
     [BindProperty]
-    public string? QrCodeUrl { get; set; } = "TODO";
+    public string? QrCodeUrl { get; set; } = null;
 
     public CreateCredentialIssuerModel(CreateIssuer createIssuer)
     {
@@ -25,8 +25,8 @@ public class CreateCredentialIssuerModel : PageModel
     {
         var vci = await _createIssuer.IssuerCredentialAsync();
 
-        //var data = JsonSerializer.Deserialize<CreateVerificationPresentationModel>(vci);
-        
-        //QrCodeUrl = data!.verification_url;
+        var data = JsonSerializer.Deserialize<CredentialIssuerModel>(vci);
+
+        QrCodeUrl = data!.offer_deeplink;
     }
 }
