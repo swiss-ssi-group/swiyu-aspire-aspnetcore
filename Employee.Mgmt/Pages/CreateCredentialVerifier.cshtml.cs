@@ -32,7 +32,7 @@ public class CreateCredentialVerifierModel : PageModel
 
         var data = JsonSerializer.Deserialize<CreateVerificationPresentationModel>(presentation);
         // verification_url
-        QrCodeUrl = data!.verification_url.Replace("{OID4VP_URL}", _swiyuOid4vpUrl);
+        QrCodeUrl = data!.verification_url.Replace("${OID4VP_URL}", _swiyuOid4vpUrl);
     }
 
     private void result ()
