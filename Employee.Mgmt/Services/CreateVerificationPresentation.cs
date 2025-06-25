@@ -27,9 +27,12 @@ public class CreateVerificationPresentation
 
         var inputDescriptorsId = Guid.NewGuid().ToString();
         var presentationDefinitionId = Guid.NewGuid().ToString();
-        var vcType = "damienbod-vc"; //"betaid-sdjwt"; // "damienbod-vc"
 
-        var json = GetBody(inputDescriptorsId, presentationDefinitionId, acceptedIssuerDid, vcType);
+        //var json = GetDataForLocalCredential(inputDescriptorsId,
+        //   presentationDefinitionId, _issuerId!, "damienbod-vc");
+
+        var json = GetBetaIdVerificationPresentationBody(inputDescriptorsId, 
+            presentationDefinitionId, acceptedIssuerDid, "betaid-sdjwt");
 
         //curl - X POST http://localhost:8082/api/v1/verifications \
         //       -H "accept: application/json" \
@@ -54,16 +57,71 @@ public class CreateVerificationPresentation
         throw new Exception(error);
     }
 
-    /// <summary>
-    /// TODO: Requires the accepted issuer
-    /// </summary>
-    private static string GetBody(string inputDescriptorsId, string presentationDefinitionId, string acceptedIssuerDid, string vcType)
+    private string GetDataForLocalCredential(string inputDescriptorsId, string presentationDefinitionId, string issuer, string vcType)
     {
-        // not using {{acceptedIssuerDid}} for now, TODO add
-        // _issuerId
         var json = $$"""
              {
-                 "accepted_issuer_dids": [],
+                 "accepted_issuer_dids": [{{issuer}}],
+                 "jwt_secured_authorization_request": true,
+                 "presentation_definition": {
+                     "id": "{{presentationDefinitionId}}",
+                     "name": "Test Verification",
+                     "purpose": "We want to test a new Verifier",
+                     "input_descriptors": [
+                         {
+                             "id": "{{inputDescriptorsId}}",
+                             "format": {
+                                 "vc+sd-jwt": {
+                                     "sd-jwt_alg_values": [
+                                         "ES256"
+                                     ],
+                                     "kb-jwt_alg_values": [
+                                         "ES256"
+                                     ]
+                                 }
+                             },
+                             "constraints": {
+             	                "fields": [
+             		                {
+             			                "path": [
+             				                "$.vct"
+             			                ],
+             			                "filter": {
+             				                "type": "string",
+             				                "const": "{{vcType}}"
+             			                }
+             		                },
+                                    {
+                                        "path": [
+                                            "$.firstName"
+                                        ]
+                                    },
+                                    {
+                                        "path": [
+                                            "$.lastName"
+                                        ]
+                                    },
+             		                {
+             			                "path": [
+             				                "$.birthDate"
+             			                ]
+             		                }
+             	                ]
+                             }
+                         }
+                     ]
+                 }
+             }
+             """;
+
+        return json;
+    }
+
+    private string GetBetaIdVerificationPresentationBody(string inputDescriptorsId, string presentationDefinitionId, string acceptedIssuerDid, string vcType)
+    {
+        var json = $$"""
+             {
+                 "accepted_issuer_dids": [{{acceptedIssuerDid}}],
                  "jwt_secured_authorization_request": true,
                  "presentation_definition": {
                      "id": "{{presentationDefinitionId}}",
@@ -95,7 +153,7 @@ public class CreateVerificationPresentation
              		                },
              		                {
              			                "path": [
-             				                "$.birthDate"
+             				                "$.birth_date"
              			                ]
              		                }
              	                ]
