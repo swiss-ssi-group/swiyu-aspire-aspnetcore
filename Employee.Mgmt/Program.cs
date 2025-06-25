@@ -9,6 +9,7 @@ namespace Employee.Mgmt
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddScoped<CreateVerificationPresentation>();
+            builder.Services.AddScoped<CreateIssuer>();
 
             builder.Services.AddHttpClient();
             builder.Services.AddOptions();

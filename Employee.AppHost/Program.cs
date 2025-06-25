@@ -37,27 +37,42 @@ var swiyuCustomerSecret = builder.AddParameter("swiyucustomerSecret", secret: tr
 var swiyuRefreshToken = builder.AddParameter("swiyurefreshtoken", secret: true);
 var swiyuAccessToken = builder.AddParameter("swiyuaccesstoken", secret: true);
 
-// Issuer
-swiyuOid4vci = builder.AddContainer("swiyu-oid4vci", "ghcr.io/swiyu-admin-ch/eidch-issuer-agent-oid4vci", "latest")
-    .WithEnvironment("EXTERNAL_URL", issuerExternalUrl)
-    .WithEnvironment("ISSUER_ID", issuerId)
-    .WithEnvironment("DID_SDJWT_VERIFICATION_METHOD", issuerDidSdJwtVerficiationMethod)
-    .WithEnvironment("SDJWT_KEY", issuerSdJwtKey)
-    //.WithEnvironment("OPENID_CONFIG_FILE", issuerOpenIdConfigFile)
-    //.WithEnvironment("METADATA_CONFIG_FILE", issuerMetaDataConfigFile)
-    //.WithEnvironment("TOKEN_TTL", issuerTokenTtl)
-    .WithEnvironment("POSTGRES_USER", postGresUser)
-    .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
-    .WithEnvironment("POSTGRES_DB", postGresDbIssuer)
-    .WithEnvironment("POSTGRES_JDBC", postGresJdbcIssuer)
-    .WithExternalHttpEndpoints();
-
 if (builder.Environment.IsDevelopment())
 {
-    swiyuOid4vci.WithHttpEndpoint(port: 8083, targetPort: 8080, name: HTTP);
+    // Issuer
+    //swiyuOid4vci = builder.AddContainer("swiyu-oid4vci", "ghcr.io/swiyu-admin-ch/eidch-issuer-agent-oid4vci", "latest")
+    //    .WithEnvironment("EXTERNAL_URL", issuerExternalUrl)
+    //    .WithEnvironment("ISSUER_ID", issuerId)
+    //    .WithEnvironment("DID_SDJWT_VERIFICATION_METHOD", issuerDidSdJwtVerficiationMethod)
+    //    .WithEnvironment("SDJWT_KEY", issuerSdJwtKey)
+    //    //.WithEnvironment("OPENID_CONFIG_FILE", issuerOpenIdConfigFile)
+    //    //.WithEnvironment("METADATA_CONFIG_FILE", issuerMetaDataConfigFile)
+    //    //.WithEnvironment("TOKEN_TTL", issuerTokenTtl)
+    //    .WithEnvironment("POSTGRES_USER", postGresUser)
+    //    .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
+    //    .WithEnvironment("POSTGRES_DB", postGresDbIssuer)
+    //    .WithEnvironment("POSTGRES_JDBC", postGresJdbcIssuer)
+    //    .WithExternalHttpEndpoints();
+
+    //swiyuOid4vci.WithHttpEndpoint(port: 8083, targetPort: 8080, name: HTTP);
 }
 else
 {
+    // Issuer
+    swiyuOid4vci = builder.AddContainer("swiyu-oid4vci", "ghcr.io/swiyu-admin-ch/eidch-issuer-agent-oid4vci", "latest")
+        .WithEnvironment("EXTERNAL_URL", issuerExternalUrl)
+        .WithEnvironment("ISSUER_ID", issuerId)
+        .WithEnvironment("DID_SDJWT_VERIFICATION_METHOD", issuerDidSdJwtVerficiationMethod)
+        .WithEnvironment("SDJWT_KEY", issuerSdJwtKey)
+        //.WithEnvironment("OPENID_CONFIG_FILE", issuerOpenIdConfigFile)
+        //.WithEnvironment("METADATA_CONFIG_FILE", issuerMetaDataConfigFile)
+        //.WithEnvironment("TOKEN_TTL", issuerTokenTtl)
+        .WithEnvironment("POSTGRES_USER", postGresUser)
+        .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
+        .WithEnvironment("POSTGRES_DB", postGresDbIssuer)
+        .WithEnvironment("POSTGRES_JDBC", postGresJdbcIssuer)
+        .WithExternalHttpEndpoints();
+
     swiyuOid4vci.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
 }
 
@@ -69,26 +84,40 @@ var didVerifierMethod = builder.AddParameter("didverifiermethod");
 var verifierName = builder.AddParameter("verifiername");
 var verifierSigningKey = builder.AddParameter("verifiersigningkey");
 
-// Verifier
-swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-oid4vp", "latest")
-    .WithEnvironment("EXTERNAL_URL", verifierExternalUrl)
-    .WithEnvironment("OPENID_CLIENT_METADATA_FILE", verifierOpenIdClientMetaDataFile)
-    .WithEnvironment("VERIFIER_DID", verifierDid)
-    .WithEnvironment("DID_VERIFICATION_METHOD", didVerifierMethod)
-    .WithEnvironment("VERIFIER_NAME", verifierName)
-    .WithEnvironment("SIGNING_KEY", verifierSigningKey)
-    .WithEnvironment("POSTGRES_USER", postGresUser)
-    .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
-    .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
-    .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
-    .WithExternalHttpEndpoints();
-
 if (builder.Environment.IsDevelopment())
 {
-    swiyuOid4vp.WithHttpEndpoint(port: 8081, targetPort: 8080, name: HTTP);
+    // Verifier
+    //swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-oid4vp", "latest")
+    //    .WithEnvironment("EXTERNAL_URL", verifierExternalUrl)
+    //    .WithEnvironment("OPENID_CLIENT_METADATA_FILE", verifierOpenIdClientMetaDataFile)
+    //    .WithEnvironment("VERIFIER_DID", verifierDid)
+    //    .WithEnvironment("DID_VERIFICATION_METHOD", didVerifierMethod)
+    //    .WithEnvironment("VERIFIER_NAME", verifierName)
+    //    .WithEnvironment("SIGNING_KEY", verifierSigningKey)
+    //    .WithEnvironment("POSTGRES_USER", postGresUser)
+    //    .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
+    //    .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
+    //    .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
+    //    .WithExternalHttpEndpoints();
+
+    //swiyuOid4vp.WithHttpEndpoint(port: 8081, targetPort: 8080, name: HTTP);
 }
 else
 {
+    // Verifier
+    swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-oid4vp", "latest")
+        .WithEnvironment("EXTERNAL_URL", verifierExternalUrl)
+        .WithEnvironment("OPENID_CLIENT_METADATA_FILE", verifierOpenIdClientMetaDataFile)
+        .WithEnvironment("VERIFIER_DID", verifierDid)
+        .WithEnvironment("DID_VERIFICATION_METHOD", didVerifierMethod)
+        .WithEnvironment("VERIFIER_NAME", verifierName)
+        .WithEnvironment("SIGNING_KEY", verifierSigningKey)
+        .WithEnvironment("POSTGRES_USER", postGresUser)
+        .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
+        .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
+        .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
+        .WithExternalHttpEndpoints();
+
     swiyuOid4vp.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
 }
 
@@ -130,8 +159,8 @@ if (builder.Environment.IsDevelopment())
     employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
         .WithEnvironment("SwiyuVerifierMgmtUrl", swiyuVerifierMgmt.GetEndpoint(HTTP))
         .WithEnvironment("SwiyuIssuerMgmtUrl", swiyuIssuerMgmt.GetEndpoint(HTTP))
-        .WithEnvironment("SwiyuOid4vciUrl", issuerExternalUrl)
-        .WithEnvironment("SwiyuOid4vpUrl", verifierExternalUrl)
+        //.WithEnvironment("SwiyuOid4vciUrl", issuerExternalUrl)
+        //.WithEnvironment("SwiyuOid4vpUrl", verifierExternalUrl)
         .WithExternalHttpEndpoints();
 }
 
