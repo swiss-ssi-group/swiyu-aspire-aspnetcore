@@ -6,12 +6,14 @@ public class CreateVerificationPresentation
 {
     private readonly ILogger<CreateVerificationPresentation> _logger;
     private readonly string? _swiyuVerifierMgmtUrl;
+    private readonly string? _issuerId;
     private readonly HttpClient _httpClient;
 
     public CreateVerificationPresentation(IHttpClientFactory httpClientFactory,
         ILoggerFactory loggerFactory, IConfiguration configuration)
     {
         _swiyuVerifierMgmtUrl = configuration["SwiyuVerifierMgmtUrl"];
+        _issuerId = configuration["ISSUER_ID"];
         _httpClient = httpClientFactory.CreateClient();
         _logger = loggerFactory.CreateLogger<CreateVerificationPresentation>();
     }
@@ -20,7 +22,9 @@ public class CreateVerificationPresentation
     {
         _logger.LogInformation("Creating verification presentation");
 
+        // from "betaid-sdjwt"
         var acceptedIssuerDid = "did:tdw:QmPEZPhDFR4nEYSFK5bMnvECqdpf1tPTPJuWs9QrMjCumw:identifier-reg.trust-infra.swiyu-int.admin.ch:api:v1:did:9a5559f0-b81c-4368-a170-e7b4ae424527";
+
         var inputDescriptorsId = Guid.NewGuid().ToString();
         var presentationDefinitionId = Guid.NewGuid().ToString();
         var vcType = "damienbod-vc"; //"betaid-sdjwt"; // "damienbod-vc"
@@ -56,6 +60,7 @@ public class CreateVerificationPresentation
     private static string GetBody(string inputDescriptorsId, string presentationDefinitionId, string acceptedIssuerDid, string vcType)
     {
         // not using {{acceptedIssuerDid}} for now, TODO add
+        // _issuerId
         var json = $$"""
              {
                  "accepted_issuer_dids": [],
@@ -88,16 +93,6 @@ public class CreateVerificationPresentation
              				                "const": "{{vcType}}"
              			                }
              		                },
-                                    {
-                                         "path": [
-                                             "$.firstName"
-                                         ]
-                                    },
-                                    {
-                                         "path": [
-                                             "$.lastName"
-                                         ]
-                                    },
              		                {
              			                "path": [
              				                "$.birthDate"

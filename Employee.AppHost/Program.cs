@@ -161,6 +161,7 @@ if (builder.Environment.IsDevelopment())
         .WithEnvironment("SwiyuIssuerMgmtUrl", swiyuIssuerMgmt.GetEndpoint(HTTP))
         .WithEnvironment("SwiyuOid4vciUrl", issuerExternalUrl)
         .WithEnvironment("SwiyuOid4vpUrl", verifierExternalUrl)
+        .WithEnvironment("ISSUER_ID", issuerId)
         .WithExternalHttpEndpoints();
 }
 
