@@ -90,17 +90,17 @@ public class CreateVerificationPresentation
              		                },
                                     {
                                          "path": [
-                                             "$.lastName"
-                                         ]
-                                     },
-                                     {
-                                         "path": [
                                              "$.firstName"
+                                         ]
+                                    },
+                                    {
+                                         "path": [
+                                             "$.lastName"
                                          ]
                                     },
              		                {
              			                "path": [
-             				                "$.birth_date"
+             				                "$.birthDate"
              			                ]
              		                }
              	                ]
