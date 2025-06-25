@@ -20,11 +20,12 @@ public class CreateVerificationPresentation
     {
         _logger.LogInformation("Creating verification presentation");
 
-        //var acceptedIssuerDid = "";
+        var acceptedIssuerDid = "did:tdw:QmPEZPhDFR4nEYSFK5bMnvECqdpf1tPTPJuWs9QrMjCumw:identifier-reg.trust-infra.swiyu-int.admin.ch:api:v1:did:9a5559f0-b81c-4368-a170-e7b4ae424527";
         var inputDescriptorsId = Guid.NewGuid().ToString();
         var presentationDefinitionId = Guid.NewGuid().ToString();
+        var vcType = "betaid-sdjwt"; // "my-test-vc"
 
-        var json = GetBody(inputDescriptorsId, presentationDefinitionId);
+        var json = GetBody(inputDescriptorsId, presentationDefinitionId, acceptedIssuerDid, vcType);
 
         //curl - X POST http://localhost:8082/api/v1/verifications \
         //       -H "accept: application/json" \
@@ -46,11 +47,11 @@ public class CreateVerificationPresentation
     /// <summary>
     /// TODO: Requires the accepted issuer
     /// </summary>
-    private static string GetBody(string inputDescriptorsId, string presentationDefinitionId)
+    private static string GetBody(string inputDescriptorsId, string presentationDefinitionId, string acceptedIssuerDid, string vcType)
     {
         var json = $$"""
              {
-                 "accepted_issuer_dids": [],
+                 "accepted_issuer_dids": [{{acceptedIssuerDid}}],
                  "jwt_secured_authorization_request": true,
                  "presentation_definition": {
                      "id": "{{presentationDefinitionId}}",
@@ -70,27 +71,22 @@ public class CreateVerificationPresentation
                                  }
                              },
                              "constraints": {
-                                 "fields": [
-                                     {
-                                         "path": [
-                                             "$.vct"
-                                         ],
-                                         "filter": {
-                                             "type": "string",
-                                             "const": "my-test-vc"
-                                         }
-                                     },
-                                     {
-                                         "path": [
-                                             "$.lastName"
-                                         ]
-                                     },
-                                     {
-                                         "path": [
-                                             "$.birthDate"
-                                         ]
-                                     }
-                                 ]
+             	                "fields": [
+             		                {
+             			                "path": [
+             				                "$.vct"
+             			                ],
+             			                "filter": {
+             				                "type": "string",
+             				                "const": "{{vcType}}"
+             			                }
+             		                },
+             		                {
+             			                "path": [
+             				                "$.birth_date"
+             			                ]
+             		                }
+             	                ]
                              }
                          }
                      ]
