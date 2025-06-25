@@ -23,7 +23,7 @@ public class CreateVerificationPresentation
         var acceptedIssuerDid = "did:tdw:QmPEZPhDFR4nEYSFK5bMnvECqdpf1tPTPJuWs9QrMjCumw:identifier-reg.trust-infra.swiyu-int.admin.ch:api:v1:did:9a5559f0-b81c-4368-a170-e7b4ae424527";
         var inputDescriptorsId = Guid.NewGuid().ToString();
         var presentationDefinitionId = Guid.NewGuid().ToString();
-        var vcType = "betaid-sdjwt"; // "my-test-vc"
+        var vcType = "betaid-sdjwt"; // "damienbod-vc"
 
         var json = GetBody(inputDescriptorsId, presentationDefinitionId, acceptedIssuerDid, vcType);
 
@@ -55,9 +55,10 @@ public class CreateVerificationPresentation
     /// </summary>
     private static string GetBody(string inputDescriptorsId, string presentationDefinitionId, string acceptedIssuerDid, string vcType)
     {
+        // not using {{acceptedIssuerDid}} for now, TODO add
         var json = $$"""
              {
-                 "accepted_issuer_dids": [{{acceptedIssuerDid}}],
+                 "accepted_issuer_dids": [],
                  "jwt_secured_authorization_request": true,
                  "presentation_definition": {
                      "id": "{{presentationDefinitionId}}",
