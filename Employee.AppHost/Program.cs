@@ -157,8 +157,8 @@ swiyuIssuerMgmt = builder.AddContainer("swiyu-issuer-mgmt", "ghcr.io/swiyu-admin
 if (builder.Environment.IsDevelopment())
 {
 
-    swiyuVerifierMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
-    swiyuIssuerMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
+    swiyuVerifierMgmt.WithHttpEndpoint(port: 8084, targetPort: 8080, name: HTTP);
+    swiyuIssuerMgmt.WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP);
 }
 else
 {
