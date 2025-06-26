@@ -70,6 +70,8 @@ After deployment, some secrets get updated with incorrect encoding, they need to
 
 Notes: you can only issuer credentials when you have valid tokens. Get from:
 
+PostgreSQL: Update max_connections to 100
+
 https://portal.trust-infra.swiyu-int.admin.ch/ui/organizations
 
 ## Links

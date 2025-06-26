@@ -32,7 +32,7 @@ public class CreateVerificationPresentation
         var acceptedIssuerDid = "did:tdw:QmPEZPhDFR4nEYSFK5bMnvECqdpf1tPTPJuWs9QrMjCumw:identifier-reg.trust-infra.swiyu-int.admin.ch:api:v1:did:9a5559f0-b81c-4368-a170-e7b4ae424527";
 
         var inputDescriptorsId = Guid.NewGuid().ToString();
-        var presentationDefinitionId = Guid.NewGuid().ToString();
+        var presentationDefinitionId = "00000000-0000-0000-0000-000000000000"; // Guid.NewGuid().ToString();
 
         var json = GetBetaIdVerificationPresentationBody(inputDescriptorsId,
             presentationDefinitionId, acceptedIssuerDid, "betaid-sdjwt");
@@ -51,7 +51,7 @@ public class CreateVerificationPresentation
         _logger.LogInformation("Creating verification presentation");
 
         var inputDescriptorsId = Guid.NewGuid().ToString();
-        var presentationDefinitionId = Guid.NewGuid().ToString();
+        var presentationDefinitionId = "00000000-0000-0000-0000-000000000000"; // Guid.NewGuid().ToString();
 
         var json = GetDataForLocalCredential(inputDescriptorsId,
            presentationDefinitionId, _issuerId!, "damienbod-vc");
@@ -79,14 +79,15 @@ public class CreateVerificationPresentation
 
     private string GetDataForLocalCredential(string inputDescriptorsId, string presentationDefinitionId, string issuer, string vcType)
     {
+        // jwt_secured_authorization_request disabled, need docs for this
         var json = $$"""
              {
                  "accepted_issuer_dids": [ "{{issuer}}" ],
                  "jwt_secured_authorization_request": true,
                  "presentation_definition": {
                      "id": "{{presentationDefinitionId}}",
-                     "name": "Test Verification",
-                     "purpose": "We want to test a new Verifier",
+                     "name": "Verification",
+                     "purpose": "Verify damienbod VC",
                      "input_descriptors": [
                          {
                              "id": "{{inputDescriptorsId}}",
@@ -103,28 +104,20 @@ public class CreateVerificationPresentation
                              "constraints": {
              	                "fields": [
              		                {
-             			                "path": [
-             				                "$.vct"
-             			                ],
+             			                "path": [ "$.vct" ],
              			                "filter": {
              				                "type": "string",
              				                "const": "{{vcType}}"
              			                }
              		                },
                                     {
-                                        "path": [
-                                            "$.firstName"
-                                        ]
+                                        "path": [ "$.firstName" ]
                                     },
                                     {
-                                        "path": [
-                                            "$.lastName"
-                                        ]
+                                        "path": [ "$.lastName" ]
                                     },
              		                {
-             			                "path": [
-             				                "$.birthDate"
-             			                ]
+             			                "path": [ "$.birthDate" ]
              		                }
              	                ]
                              }
@@ -139,15 +132,14 @@ public class CreateVerificationPresentation
 
     private string GetBetaIdVerificationPresentationBody(string inputDescriptorsId, string presentationDefinitionId, string acceptedIssuerDid, string vcType)
     {
-        // TODO, not working {{acceptedIssuerDid}}
         var json = $$"""
              {
-                 "accepted_issuer_dids": [],
+                 "accepted_issuer_dids": [ "{{acceptedIssuerDid}}" ],
                  "jwt_secured_authorization_request": true,
                  "presentation_definition": {
                      "id": "{{presentationDefinitionId}}",
-                     "name": "Test Verification",
-                     "purpose": "We want to test a new Verifier",
+                     "name": "Verification",
+                     "purpose": "Verify using Beta ID",
                      "input_descriptors": [
                          {
                              "id": "{{inputDescriptorsId}}",

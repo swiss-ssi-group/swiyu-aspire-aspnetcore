@@ -1,3 +1,4 @@
+using Aspire.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 
@@ -121,49 +122,61 @@ else
     swiyuOid4vp.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
 }
 
+swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-management", "latest")
+    .WithEnvironment("OID4VP_URL", verifierExternalUrl)
+    .WithEnvironment("POSTGRES_USER", postGresUser)
+    .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
+    .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
+    .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier);
+
+swiyuIssuerMgmt = builder.AddContainer("swiyu-issuer-mgmt", "ghcr.io/swiyu-admin-ch/eidch-issuer-agent-management", "latest")
+    .WithEnvironment("EXTERNAL_URL", issuerExternalUrl)
+    .WithEnvironment("SPRING_APPLICATION_NAME", issuerName)
+    .WithEnvironment("ISSUER_ID", issuerId)
+
+    .WithEnvironment("DID_STATUS_LIST_VERIFICATION_METHOD", issuerDidSdJwtVerficiationMethod)
+    .WithEnvironment("STATUS_LIST_KEY", issuerSdJwtKey)
+    .WithEnvironment("SWIYU_PARTNER_ID", businessPartnerId)
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_CUSTOMER_KEY", swiyuCustomerKey)
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_CUSTOMER_SECRET", swiyuCustomerSecret)
+
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_ACCESS_TOKEN", swiyuAccessToken)
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_BOOTSTRAP_REFRESH_TOKEN", swiyuRefreshToken)
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_TOKEN_URL", "https://keymanager-prd.api.admin.ch/keycloak/realms/APIGW/protocol/openid-connect/token")
+
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_API_URL", "https://status-reg-api.trust-infra.swiyu-int.admin.ch")
+    .WithEnvironment("LOGGING_LEVEL_CH_ADMIN_BIT_EID", "DEBUG")
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_AUTH_ENABLE_REFRESH_TOKEN_FLOW", "true")
+
+    .WithEnvironment("POSTGRES_USER", postGresUser)
+    .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
+    .WithEnvironment("POSTGRES_DB", postGresDbIssuer)
+    .WithEnvironment("POSTGRES_JDBC", postGresJdbcIssuer);
+        
+
 if (builder.Environment.IsDevelopment())
 {
-    swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-admin-ch/eidch-verifier-agent-management", "latest")
-        .WithEnvironment("OID4VP_URL", verifierExternalUrl)
-        .WithEnvironment("POSTGRES_USER", postGresUser)
-        .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
-        .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
-        .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
-        .WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP);
 
-    swiyuIssuerMgmt = builder.AddContainer("swiyu-issuer-mgmt", "ghcr.io/swiyu-admin-ch/eidch-issuer-agent-management", "latest")
-        .WithEnvironment("EXTERNAL_URL", issuerExternalUrl)
-        .WithEnvironment("SPRING_APPLICATION_NAME", issuerName)
-        .WithEnvironment("ISSUER_ID", issuerId)
-
-        .WithEnvironment("DID_STATUS_LIST_VERIFICATION_METHOD", issuerDidSdJwtVerficiationMethod)
-        .WithEnvironment("STATUS_LIST_KEY", issuerSdJwtKey)
-        .WithEnvironment("SWIYU_PARTNER_ID", businessPartnerId)
-        .WithEnvironment("SWIYU_STATUS_REGISTRY_CUSTOMER_KEY", swiyuCustomerKey)
-        .WithEnvironment("SWIYU_STATUS_REGISTRY_CUSTOMER_SECRET", swiyuCustomerSecret)
-
-        .WithEnvironment("SWIYU_STATUS_REGISTRY_ACCESS_TOKEN", swiyuAccessToken)
-        .WithEnvironment("SWIYU_STATUS_REGISTRY_BOOTSTRAP_REFRESH_TOKEN", swiyuRefreshToken)
-        .WithEnvironment("SWIYU_STATUS_REGISTRY_TOKEN_URL", "https://keymanager-prd.api.admin.ch/keycloak/realms/APIGW/protocol/openid-connect/token")
-
-        .WithEnvironment("SWIYU_STATUS_REGISTRY_API_URL", "https://status-reg-api.trust-infra.swiyu-int.admin.ch")
-        .WithEnvironment("LOGGING_LEVEL_CH_ADMIN_BIT_EID", "DEBUG")
-        .WithEnvironment("SWIYU_STATUS_REGISTRY_AUTH_ENABLE_REFRESH_TOKEN_FLOW", "true")
-
-        .WithEnvironment("POSTGRES_USER", postGresUser)
-        .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
-        .WithEnvironment("POSTGRES_DB", postGresDbIssuer)
-        .WithEnvironment("POSTGRES_JDBC", postGresJdbcIssuer)
-        .WithHttpEndpoint(port: 8084, targetPort: 8080, name: HTTP);
-
-    employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
-        .WithEnvironment("SwiyuVerifierMgmtUrl", swiyuVerifierMgmt.GetEndpoint(HTTP))
-        .WithEnvironment("SwiyuIssuerMgmtUrl", swiyuIssuerMgmt.GetEndpoint(HTTP))
-        .WithEnvironment("SwiyuOid4vciUrl", issuerExternalUrl)
-        .WithEnvironment("SwiyuOid4vpUrl", verifierExternalUrl)
-        .WithEnvironment("ISSUER_ID", issuerId)
-        .WithExternalHttpEndpoints();
+    swiyuVerifierMgmt.WithHttpEndpoint(port: 8084, targetPort: 8080, name: HTTP);
+    swiyuIssuerMgmt.WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP);
 }
+else
+{
+    // We don't want public endpoints in the production version
+    swiyuVerifierMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
+    swiyuIssuerMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
+}
+
+employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
+    .WithExternalHttpEndpoints()
+    .WithEnvironment("SwiyuVerifierMgmtUrl", swiyuVerifierMgmt.GetEndpoint(HTTP))
+    .WithEnvironment("SwiyuIssuerMgmtUrl", swiyuIssuerMgmt.GetEndpoint(HTTP))
+    .WithEnvironment("SwiyuOid4vciUrl", issuerExternalUrl)
+    .WithEnvironment("SwiyuOid4vpUrl", verifierExternalUrl)
+    .WithEnvironment("ISSUER_ID", issuerId)
+    .WaitFor(swiyuIssuerMgmt)
+    .WaitFor(swiyuVerifierMgmt);
+    
 
 builder.Build().Run();
 
