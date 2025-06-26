@@ -168,19 +168,15 @@ else
 }
 
 employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
+    .WithExternalHttpEndpoints()
     .WithEnvironment("SwiyuVerifierMgmtUrl", swiyuVerifierMgmt.GetEndpoint(HTTP))
     .WithEnvironment("SwiyuIssuerMgmtUrl", swiyuIssuerMgmt.GetEndpoint(HTTP))
     .WithEnvironment("SwiyuOid4vciUrl", issuerExternalUrl)
     .WithEnvironment("SwiyuOid4vpUrl", verifierExternalUrl)
     .WithEnvironment("ISSUER_ID", issuerId)
     .WaitFor(swiyuIssuerMgmt)
-    .WaitFor(swiyuVerifierMgmt)
-    .WithExternalHttpEndpoints();
-
-if (!builder.Environment.IsDevelopment())
-{
-    employeemgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
-}
+    .WaitFor(swiyuVerifierMgmt);
+    
 
 builder.Build().Run();
 
