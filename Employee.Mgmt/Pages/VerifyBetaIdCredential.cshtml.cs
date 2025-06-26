@@ -1,4 +1,5 @@
 using Employee.Mgmt.Services;
+using ImageMagick;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Net.Codecrete.QrCodeGenerator;
@@ -12,7 +13,7 @@ public class VerifyBetaIdCredentialModel : PageModel
     private readonly string? _swiyuOid4vpUrl;
 
     [BindProperty]
-    public string? QrCodeUrl { get; set; } = "";
+    public string? QrCodeUrl { get; set; } = string.Empty;
 
     [BindProperty]
     public byte[] QrCodePng { get; set; } = [];
@@ -39,6 +40,6 @@ public class VerifyBetaIdCredentialModel : PageModel
         QrCodeUrl = data!.verification_url;
 
         var qrCode = QrCode.EncodeText(data!.verification_url, QrCode.Ecc.Quartile);
-        QrCodePng = qrCode.ToPng(20, 4);
+        QrCodePng = qrCode.ToPng(20, 4, MagickColors.Black, MagickColors.White);
     }
 }
