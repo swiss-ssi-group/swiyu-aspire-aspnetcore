@@ -157,14 +157,14 @@ swiyuIssuerMgmt = builder.AddContainer("swiyu-issuer-mgmt", "ghcr.io/swiyu-admin
 if (builder.Environment.IsDevelopment())
 {
 
-    swiyuVerifierMgmt.WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP);
-    swiyuIssuerMgmt.WithHttpEndpoint(port: 8084, targetPort: 8080, name: HTTP);
+    swiyuVerifierMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
+    swiyuIssuerMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
 }
 else
 {
     // We don't want public endpoints in the production version
-    //swiyuVerifierMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
-    //swiyuIssuerMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
+    swiyuVerifierMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
+    swiyuIssuerMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
 }
 
 employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
@@ -176,6 +176,11 @@ employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
     .WaitFor(swiyuIssuerMgmt)
     .WaitFor(swiyuVerifierMgmt)
     .WithExternalHttpEndpoints();
+
+if (!builder.Environment.IsDevelopment())
+{
+    employeemgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
+}
 
 builder.Build().Run();
 
