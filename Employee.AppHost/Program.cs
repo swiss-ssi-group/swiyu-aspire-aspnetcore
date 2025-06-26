@@ -162,8 +162,9 @@ if (builder.Environment.IsDevelopment())
 }
 else
 {
-    swiyuVerifierMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
-    swiyuIssuerMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
+    // We don't want public endpoints in the production version
+    //swiyuVerifierMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
+    //swiyuIssuerMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
 }
 
 employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
