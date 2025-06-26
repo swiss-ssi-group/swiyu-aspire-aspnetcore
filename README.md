@@ -74,6 +74,10 @@ PostgreSQL: Update max_connections to 100
 
 https://portal.trust-infra.swiyu-int.admin.ch/ui/organizations
 
+Use ImageMagick, other image libs are not container friendly
+
+https://github.com/manuelbl/QrCodeGenerator/tree/master/Demo-ImageMagick
+
 ## Links
 
 https://swiyu-admin-ch.github.io/

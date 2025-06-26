@@ -1,4 +1,5 @@
 using Employee.Mgmt.Services;
+using ImageMagick;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Net.Codecrete.QrCodeGenerator;
@@ -36,7 +37,7 @@ public class CreateCredentialIssuerModel : PageModel
         var data = JsonSerializer.Deserialize<CredentialIssuerModel>(vci);
 
         var qrCode = QrCode.EncodeText(data!.offer_deeplink, QrCode.Ecc.Quartile);
-        QrCodePng = qrCode.ToPng(20, 4);
+        QrCodePng = qrCode.ToPng(20, 4, MagickColors.Black, MagickColors.White);
 
         QrCodeUrl = data!.offer_deeplink;
     }
