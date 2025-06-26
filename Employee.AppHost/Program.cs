@@ -127,7 +127,9 @@ swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-a
     .WithEnvironment("POSTGRES_USER", postGresUser)
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
-    .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier);
+    .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
+    .WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
+//.WithHttpEndpoint(port: 8084, targetPort: 8080, name: HTTP);
 
 swiyuIssuerMgmt = builder.AddContainer("swiyu-issuer-mgmt", "ghcr.io/swiyu-admin-ch/eidch-issuer-agent-management", "latest")
     .WithEnvironment("EXTERNAL_URL", issuerExternalUrl)
@@ -151,21 +153,9 @@ swiyuIssuerMgmt = builder.AddContainer("swiyu-issuer-mgmt", "ghcr.io/swiyu-admin
     .WithEnvironment("POSTGRES_USER", postGresUser)
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbIssuer)
-    .WithEnvironment("POSTGRES_JDBC", postGresJdbcIssuer);
-        
-
-if (builder.Environment.IsDevelopment())
-{
-
-    swiyuVerifierMgmt.WithHttpEndpoint(port: 8084, targetPort: 8080, name: HTTP);
-    swiyuIssuerMgmt.WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP);
-}
-else
-{
-    // We don't want public endpoints in the production version
-    swiyuVerifierMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
-    swiyuIssuerMgmt.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
-}
+    .WithEnvironment("POSTGRES_JDBC", postGresJdbcIssuer)
+    .WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP);
+    //.WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP);
 
 employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
     .WithExternalHttpEndpoints()
@@ -176,7 +166,6 @@ employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
     .WithEnvironment("ISSUER_ID", issuerId)
     .WaitFor(swiyuIssuerMgmt)
     .WaitFor(swiyuVerifierMgmt);
-    
 
 builder.Build().Run();
 
