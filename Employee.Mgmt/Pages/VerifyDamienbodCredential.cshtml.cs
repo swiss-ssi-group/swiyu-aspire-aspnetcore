@@ -1,19 +1,23 @@
 using Employee.Mgmt.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Net.Codecrete.QrCodeGenerator;
 using System.Text.Json;
 
 namespace Employee.Mgmt.Pages;
 
-public class CreateCredentialVerifierModel : PageModel
+public class VerifyDamienbodCredentialModel : PageModel
 {
     private readonly CreateVerificationPresentation _createVerificationPresentation;
     private readonly string? _swiyuOid4vpUrl;
 
     [BindProperty]
-    public string? QrCodeUrl { get; set; } = "{OID4VP_URL}/api/v1/request-object/${VerificationId}";
+    public string? QrCodeUrl { get; set; } = "";
 
-    public CreateCredentialVerifierModel(CreateVerificationPresentation createVerificationPresentation,
+    [BindProperty]
+    public byte[] QrCodePng { get; set; } = [];
+
+    public VerifyDamienbodCredentialModel(CreateVerificationPresentation createVerificationPresentation,
         IConfiguration configuration)
     {
         _createVerificationPresentation = createVerificationPresentation;
@@ -28,10 +32,13 @@ public class CreateCredentialVerifierModel : PageModel
     public async Task OnPostAsync()
     {
         var presentation = await _createVerificationPresentation
-            .CreateVerificationCredentialAsync();
+            .CreateDamienbodVerificationPresentationAsync();
 
         var data = JsonSerializer.Deserialize<CreateVerificationPresentationModel>(presentation);
         // verification_url
         QrCodeUrl = data!.verification_url;
+
+        var qrCode = QrCode.EncodeText(data!.verification_url, QrCode.Ecc.Quartile);
+        QrCodePng = qrCode.ToPng(20, 4);
     }
 }

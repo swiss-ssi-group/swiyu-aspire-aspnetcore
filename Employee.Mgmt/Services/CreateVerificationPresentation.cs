@@ -18,7 +18,13 @@ public class CreateVerificationPresentation
         _logger = loggerFactory.CreateLogger<CreateVerificationPresentation>();
     }
 
-    public async Task<string> CreateVerificationCredentialAsync()
+    /// <summary>
+    /// curl - X POST http://localhost:8082/api/v1/verifications \
+    ///       -H "accept: application/json" \
+    ///       -H "Content-Type: application/json" \
+    ///       -d '
+    /// </summary>
+    public async Task<string> CreateBetaIdVerificationPresentationAsync()
     {
         _logger.LogInformation("Creating verification presentation");
 
@@ -28,23 +34,37 @@ public class CreateVerificationPresentation
         var inputDescriptorsId = Guid.NewGuid().ToString();
         var presentationDefinitionId = Guid.NewGuid().ToString();
 
-        //var json = GetDataForLocalCredential(inputDescriptorsId,
-        //   presentationDefinitionId, _issuerId!, "damienbod-vc");
-
-        var json = GetBetaIdVerificationPresentationBody(inputDescriptorsId, 
+        var json = GetBetaIdVerificationPresentationBody(inputDescriptorsId,
             presentationDefinitionId, acceptedIssuerDid, "betaid-sdjwt");
 
-        //curl - X POST http://localhost:8082/api/v1/verifications \
-        //       -H "accept: application/json" \
-        //       -H "Content-Type: application/json" \
-        //       -d '
+        return await SendPostRequest(json);
+    }
 
+    /// <summary>
+    /// curl - X POST http://localhost:8082/api/v1/verifications \
+    ///       -H "accept: application/json" \
+    ///       -H "Content-Type: application/json" \
+    ///       -d '
+    /// </summary>
+    public async Task<string> CreateDamienbodVerificationPresentationAsync()
+    {
+        _logger.LogInformation("Creating verification presentation");
+
+        var inputDescriptorsId = Guid.NewGuid().ToString();
+        var presentationDefinitionId = Guid.NewGuid().ToString();
+
+        var json = GetDataForLocalCredential(inputDescriptorsId,
+           presentationDefinitionId, _issuerId!, "damienbod-vc");
+
+        return await SendPostRequest(json);
+    }
+
+    private async Task<string> SendPostRequest(string json)
+    {
         var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-        using HttpResponseMessage response = await _httpClient.PostAsync(
-            $"{_swiyuVerifierMgmtUrl}/api/v1/verifications", jsonContent);
-
-        if(response.IsSuccessStatusCode)
+        var response = await _httpClient.PostAsync(
+                    $"{_swiyuVerifierMgmtUrl}/api/v1/verifications", jsonContent);
+        if (response.IsSuccessStatusCode)
         {
             var jsonResponse = await response.Content.ReadAsStringAsync();
 
@@ -59,10 +79,9 @@ public class CreateVerificationPresentation
 
     private string GetDataForLocalCredential(string inputDescriptorsId, string presentationDefinitionId, string issuer, string vcType)
     {
-        // TODO, not working {{issuer}}
         var json = $$"""
              {
-                 "accepted_issuer_dids": [],
+                 "accepted_issuer_dids": [ "{{issuer}}" ],
                  "jwt_secured_authorization_request": true,
                  "presentation_definition": {
                      "id": "{{presentationDefinitionId}}",
