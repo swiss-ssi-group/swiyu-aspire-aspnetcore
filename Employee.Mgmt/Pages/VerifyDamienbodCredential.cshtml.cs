@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Employee.Mgmt.Pages;
 
-public class CreateCredentialVerifierModel : PageModel
+public class VerifyDamienbodCredentialModel : PageModel
 {
     private readonly CreateVerificationPresentation _createVerificationPresentation;
     private readonly string? _swiyuOid4vpUrl;
@@ -17,7 +17,7 @@ public class CreateCredentialVerifierModel : PageModel
     [BindProperty]
     public byte[] QrCodePng { get; set; } = [];
 
-    public CreateCredentialVerifierModel(CreateVerificationPresentation createVerificationPresentation,
+    public VerifyDamienbodCredentialModel(CreateVerificationPresentation createVerificationPresentation,
         IConfiguration configuration)
     {
         _createVerificationPresentation = createVerificationPresentation;
@@ -32,7 +32,7 @@ public class CreateCredentialVerifierModel : PageModel
     public async Task OnPostAsync()
     {
         var presentation = await _createVerificationPresentation
-            .CreateVerificationCredentialAsync();
+            .CreateDamienbodVerificationPresentationAsync();
 
         var data = JsonSerializer.Deserialize<CreateVerificationPresentationModel>(presentation);
         // verification_url
