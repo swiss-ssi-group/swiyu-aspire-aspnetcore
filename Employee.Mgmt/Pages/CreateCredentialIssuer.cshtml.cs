@@ -14,7 +14,7 @@ public class CreateCredentialIssuerModel : PageModel
     public string? QrCodeUrl { get; set; } = null;
 
     [BindProperty]
-    public byte[]? QrCodePng { get; set; } = null;
+    public byte[] QrCodePng { get; set; } = [];
 
     public CreateCredentialIssuerModel(CreateIssuer createIssuer)
     {
