@@ -6,7 +6,8 @@ if (respIssuanceReqid != null) {
    
     var checkStatus = setInterval(function () {
         if (respIssuanceReq) {
-            fetch('api/status/issuance-response?id=' + respIssuanceReqid)
+
+            fetch('api/status/issuance-response?id=' + respIssuanceReqid.value)
                 .then(response => response.text())
                 .catch(error => document.getElementById("message").innerHTML = error)
                 .then(response => {
