@@ -18,6 +18,14 @@ public class CreateIssuer
 
     public async Task<string> IssuerCredentialAsync()
     {
+        // 
+        _logger.LogInformation("Creating issuer");
+
+        var statusRegistryUrl = "https://status-reg.trust-infra.swiyu-int.admin.ch/api/v1/statuslist/8cddcd3c-d0c3-49db-a62f-83a5299214d4.jwt";
+        var vcType = "damienbod-vc";
+
+        var json = GetBody(statusRegistryUrl, vcType);
+
         //  curl - X POST http://localhost:8084/api/v1/credentials \
         // -H "accept: */*" \
         // -H "Content-Type: application/json" \
@@ -39,14 +47,6 @@ public class CreateIssuer
         _logger.LogError("Could not create verification presentation {vp}", error);
 
         throw new Exception(error);
-        // 
-        _logger.LogInformation("Creating issuer");
-
-        var statusRegistryUrl = "https://status-reg.trust-infra.swiyu-int.admin.ch/api/v1/statuslist/8cddcd3c-d0c3-49db-a62f-83a5299214d4.jwt";
-        var vcType = "damienbod-vc";
-
-        var json = GetBody(statusRegistryUrl,  vcType);
-
     }
 
     /// <summary>
