@@ -79,7 +79,7 @@ public class CreateIssuer
     public async Task<string> GetIssuanceStatus(string id)
     {
         using HttpResponseMessage response = await _httpClient.GetAsync(
-            $"{_swiyuIssuerMgmtUrl}/api/v1/credentials{id}/status");
+            $"{_swiyuIssuerMgmtUrl}/api/v1/credentials/{id}/status");
 
         if (response.IsSuccessStatusCode)
         {
