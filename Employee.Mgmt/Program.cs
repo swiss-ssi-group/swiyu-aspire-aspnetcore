@@ -15,6 +15,7 @@ namespace Employee.Mgmt
             builder.Services.AddOptions();
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddControllers();
 
             var app = builder.Build();
 
@@ -35,6 +36,7 @@ namespace Employee.Mgmt
             app.MapStaticAssets();
             app.MapRazorPages()
                .WithStaticAssets();
+            app.MapControllers();
 
             app.Run();
         }
