@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Employee.Mgmt.Controllers;
 
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 [ApiController]
 public class StatusController : ControllerBase
 {
@@ -16,7 +16,7 @@ public class StatusController : ControllerBase
         _createIssuer = createIssuer;
     }
 
-    [HttpGet("/api/issuer/issuance-response")]
+    [HttpGet("issuance-response")]
     public async Task<ActionResult> IssuanceResponseAsync()
     {
         try
