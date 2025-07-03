@@ -14,7 +14,6 @@ if (respIssuanceReqid != null) {
                     if (response.length > 0) {
                         respMsg = JSON.parse(response);
                         console.log("status: " + respMsg["status"])
-                        //console.log("status: " + respMsg.status)
                         // OFFERED, CANCELLED, IN_PROGRESS, ISSUED, SUSPENDED, REVOKED, EXPIRED
                         if (respMsg.status == 'OFFERED') {
                             document.getElementById('message-wrapper').style.display = "block";
@@ -28,8 +27,8 @@ if (respIssuanceReqid != null) {
                             clearInterval(checkStatus);
                         }
                         else {
-                            document.getElementById('message').innerHTML = "Check status: " + respMsg;
-                            //clearInterval(checkStatus)
+                            document.getElementById('message').innerHTML = "Unknown status: " + respMsg;
+                            clearInterval(checkStatus)
                         }
                     }
                 })

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json;
 
 namespace Employee.Mgmt.Services;
 
@@ -76,7 +77,7 @@ public class CreateIssuer
         return json;
     }
 
-    public async Task<string> GetIssuanceStatus(string id)
+    public async Task<StatusModel?> GetIssuanceStatus(string id)
     {
         using HttpResponseMessage response = await _httpClient.GetAsync(
             $"{_swiyuIssuerMgmtUrl}/api/v1/credentials/{id}/status");
@@ -85,7 +86,13 @@ public class CreateIssuer
         {
             var jsonResponse = await response.Content.ReadAsStringAsync();
 
-            return jsonResponse;
+            if(jsonResponse == null)
+            {
+                _logger.LogError("GetIssuanceStatus no data returned from Swiyu");
+                return new StatusModel { id="none", status="ERROR"};
+            }
+
+            return JsonSerializer.Deserialize<StatusModel>(jsonResponse);
         }
 
         var error = await response.Content.ReadAsStringAsync();

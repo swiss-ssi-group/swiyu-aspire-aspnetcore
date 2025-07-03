@@ -27,18 +27,9 @@ public class StatusController : ControllerBase
                 return BadRequest(new { error = "400", error_description = "Missing argument 'id'" });
             }
 
-            var data = await _createIssuer.GetIssuanceStatus(id);
-            if (data != null)
-            {
-                Debug.WriteLine("check if there was a response yet: " + data);
-                return new ContentResult
-                {
-                    ContentType = "application/json",
-                    Content = JsonSerializer.Serialize(data)
-                };
-            }
+            var statusModel = await _createIssuer.GetIssuanceStatus(id);
 
-            return Ok();
+            return Ok(statusModel);
         }
         catch (Exception ex)
         {
