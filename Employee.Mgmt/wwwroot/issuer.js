@@ -16,7 +16,6 @@ if (respIssuanceReqid != null) {
                         console.log("status: " + respMsg["status"])
                         // OFFERED, CANCELLED, IN_PROGRESS, ISSUED, SUSPENDED, REVOKED, EXPIRED
                         if (respMsg.status == 'OFFERED') {
-                            document.getElementById('message-wrapper').style.display = "block";
                             document.getElementById('message').innerHTML = respMsg["status"];
                         }
                         else if (respMsg.status == 'IN_PROGRESS') {
