@@ -2,20 +2,20 @@
 
 namespace Employee.Mgmt.Services;
 
-public class CreateVerificationPresentation
+public class VerificationService
 {
-    private readonly ILogger<CreateVerificationPresentation> _logger;
+    private readonly ILogger<VerificationService> _logger;
     private readonly string? _swiyuVerifierMgmtUrl;
     private readonly string? _issuerId;
     private readonly HttpClient _httpClient;
 
-    public CreateVerificationPresentation(IHttpClientFactory httpClientFactory,
+    public VerificationService(IHttpClientFactory httpClientFactory,
         ILoggerFactory loggerFactory, IConfiguration configuration)
     {
         _swiyuVerifierMgmtUrl = configuration["SwiyuVerifierMgmtUrl"];
         _issuerId = configuration["ISSUER_ID"];
         _httpClient = httpClientFactory.CreateClient();
-        _logger = loggerFactory.CreateLogger<CreateVerificationPresentation>();
+        _logger = loggerFactory.CreateLogger<VerificationService>();
     }
 
     /// <summary>
