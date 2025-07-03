@@ -9,7 +9,7 @@ namespace Employee.Mgmt.Pages;
 
 public class CreateCredentialIssuerModel : PageModel
 {
-    private readonly CreateIssuer _createIssuer;
+    private readonly IssuerService _createIssuer;
 
     [BindProperty]
     public string? QrCodeUrl { get; set; } = null;
@@ -20,7 +20,7 @@ public class CreateCredentialIssuerModel : PageModel
     [BindProperty]
     public string? ManagementId { get; set; } = null;
 
-    public CreateCredentialIssuerModel(CreateIssuer createIssuer)
+    public CreateCredentialIssuerModel(IssuerService createIssuer)
     {
         _createIssuer = createIssuer;
     }

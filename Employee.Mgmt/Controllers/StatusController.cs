@@ -9,9 +9,9 @@ namespace Employee.Mgmt.Controllers;
 [ApiController]
 public class StatusController : ControllerBase
 {
-    private readonly CreateIssuer _createIssuer;
+    private readonly IssuerService _createIssuer;
 
-    public StatusController(CreateIssuer createIssuer)
+    public StatusController(IssuerService createIssuer)
     {
         _createIssuer = createIssuer;
     }
