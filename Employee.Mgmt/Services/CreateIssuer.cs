@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json;
 
 namespace Employee.Mgmt.Services;
 
@@ -24,7 +25,7 @@ public class CreateIssuer
         var statusRegistryUrl = "https://status-reg.trust-infra.swiyu-int.admin.ch/api/v1/statuslist/8cddcd3c-d0c3-49db-a62f-83a5299214d4.jwt";
         var vcType = "damienbod-vc";
 
-        var json = GetBody(statusRegistryUrl,  vcType);
+        var json = GetBody(statusRegistryUrl, vcType);
 
         //  curl - X POST http://localhost:8084/api/v1/credentials \
         // -H "accept: */*" \
@@ -74,5 +75,29 @@ public class CreateIssuer
              """;
 
         return json;
+    }
+
+    public async Task<StatusModel?> GetIssuanceStatus(string id)
+    {
+        using HttpResponseMessage response = await _httpClient.GetAsync(
+            $"{_swiyuIssuerMgmtUrl}/api/v1/credentials/{id}/status");
+
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            if(jsonResponse == null)
+            {
+                _logger.LogError("GetIssuanceStatus no data returned from Swiyu");
+                return new StatusModel { id="none", status="ERROR"};
+            }
+
+            return JsonSerializer.Deserialize<StatusModel>(jsonResponse);
+        }
+
+        var error = await response.Content.ReadAsStringAsync();
+        _logger.LogError("Could not create verification presentation {vp}", error);
+
+        throw new Exception(error);
     }
 }

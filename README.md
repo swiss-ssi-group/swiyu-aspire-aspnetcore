@@ -4,7 +4,21 @@ Getting started:
 
 https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/
 
+## Setup
+
+TODO
+
+## Getting started Aspire and Swiyu
+
+TODO
+
+## Database
+
+TODO
+
 Support: usertesting@swiyu.admin.ch
+
+## Configuration data
 
 ```json
 {
@@ -22,7 +36,7 @@ Support: usertesting@swiyu.admin.ch
 }
 ```
 
-### Configuration data
+More configuration:
 
 ```json
 // https://swiyu-admin-ch.github.io/cookbooks/onboarding-generic-issuer/
@@ -60,7 +74,7 @@ Support: usertesting@swiyu.admin.ch
 "Parameters:postgresdbissuer": "TODO",
 ```
 
-### Notes
+## Notes
 
 For local development, use "\n" to end the lines in the PEM secrets, in production use original secret
 
