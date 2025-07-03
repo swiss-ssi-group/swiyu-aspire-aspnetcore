@@ -1,13 +1,18 @@
 ﻿
-var issuer = document.getElementById('issuer');
-var respIssuanceReqid = document.getElementById('respIssuanceReq');
+var issuanceManagementId = document.getElementById('issuanceManagementId');
 
-if (respIssuanceReqid != null) {
+var OFFERED = document.getElementById('OFFERED');
+var IN_PROGRESS = document.getElementById('IN_PROGRESS');
+var ISSUED = document.getElementById('ISSUED');
+var PROBLEM = document.getElementById('PROBLEM');
+var message = document.getElementById('message'); 
+
+if (issuanceManagementId != null) {
    
     var checkStatus = setInterval(function () {
-        if (respIssuanceReqid) {
+        if (issuanceManagementId) {
 
-            fetch('api/status/issuance-response?id=' + respIssuanceReqid.value)
+            fetch('api/status/issuance-response?id=' + issuanceManagementId.value)
                 .then(response => response.text())
                 .catch(error => document.getElementById("message").innerHTML = error)
                 .then(response => {
@@ -16,17 +21,17 @@ if (respIssuanceReqid != null) {
                         console.log("status: " + respMsg["status"])
                         // OFFERED, CANCELLED, IN_PROGRESS, ISSUED, SUSPENDED, REVOKED, EXPIRED
                         if (respMsg.status == 'OFFERED') {
-                            document.getElementById('message').innerHTML = respMsg["status"];
+                            message.innerHTML = respMsg["status"];
                         }
                         else if (respMsg.status == 'IN_PROGRESS') {
-                            document.getElementById('message').innerHTML = respMsg["status"];
+                            message.innerHTML = respMsg["status"];
                         }
                         else if (respMsg.status == 'ISSUED') {
-                            document.getElementById('message').innerHTML = respMsg["status"];
+                            message.innerHTML = respMsg["status"];
                             clearInterval(checkStatus);
                         }
                         else {
-                            document.getElementById('message').innerHTML = "Unknown status: " + respMsg;
+                            message.innerHTML = "Unknown status: " + respMsg;
                             clearInterval(checkStatus)
                         }
                     }
