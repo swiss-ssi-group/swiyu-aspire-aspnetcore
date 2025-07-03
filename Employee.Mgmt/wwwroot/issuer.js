@@ -25,14 +25,30 @@ if (issuanceManagementId != null) {
                         }
                         else if (respMsg.status == 'IN_PROGRESS') {
                             message.innerHTML = respMsg["status"];
+
+                            OFFERED.style.display = "none";
+                            IN_PROGRESS.style.display = "initial";
+                            ISSUED.style.display = "none";
+                            PROBLEM.style.display = "none";
                         }
                         else if (respMsg.status == 'ISSUED') {
                             message.innerHTML = respMsg["status"];
+
+                            OFFERED.style.display = "none";
+                            IN_PROGRESS.style.display = "none";
+                            ISSUED.style.display = "initial";
+                            PROBLEM.style.display = "none";
+
                             clearInterval(checkStatus);
                         }
                         else {
                             message.innerHTML = "Unknown status: " + respMsg;
                             clearInterval(checkStatus)
+
+                            OFFERED.style.display = "none";
+                            IN_PROGRESS.style.display = "none";
+                            ISSUED.style.display = "none";
+                            PROBLEM.style.display = "initial";
                         }
                     }
                 })
