@@ -13,6 +13,9 @@ public class VerifyDamienbodCredentialModel : PageModel
     private readonly string? _swiyuOid4vpUrl;
 
     [BindProperty]
+    public string? VerificationId { get; set; } = string.Empty;
+
+    [BindProperty]
     public string? QrCodeUrl { get; set; } = "";
 
     [BindProperty]
@@ -35,11 +38,13 @@ public class VerifyDamienbodCredentialModel : PageModel
         var presentation = await _verificationService
             .CreateDamienbodVerificationPresentationAsync();
 
-        var data = JsonSerializer.Deserialize<CreateVerificationPresentationModel>(presentation);
+        var verificationResponse = JsonSerializer.Deserialize<CreateVerificationPresentationModel>(presentation);
         // verification_url
-        QrCodeUrl = data!.verification_url;
+        QrCodeUrl = verificationResponse!.verification_url;
 
-        var qrCode = QrCode.EncodeText(data!.verification_url, QrCode.Ecc.Quartile);
+        var qrCode = QrCode.EncodeText(verificationResponse!.verification_url, QrCode.Ecc.Quartile);
         QrCodePng = qrCode.ToPng(20, 4, MagickColors.Black, MagickColors.White);
+
+        VerificationId = verificationResponse.id;
     }
 }
