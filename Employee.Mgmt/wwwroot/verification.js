@@ -37,8 +37,8 @@ if (verificationId != null) {
                             PROBLEM.style.display = "none";
 
                             qrCodeImage.style.display = "none";
-                            verifiedData.style.display = "initial";
                             verifiedDataButton.style.display = "none";
+                            verifiedData.style.display = "initial";
                             verifiedData.innerHTML = JSON.stringify(respMsg["wallet_response"]["credential_subject_data"]);
                         }
                         else if (respMsg.state == 'FAILED') {
