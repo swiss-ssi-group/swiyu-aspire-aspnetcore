@@ -20,29 +20,29 @@ if (verificationId != null) {
                         respMsg = JSON.parse(response);
                         console.log("status: " + respMsg["state"])
                         // PENDING, SUCCESS, FAILED
-                        if (respMsg.status == 'PENDING') {
+                        if (respMsg.state == 'PENDING') {
                             message.innerHTML = respMsg["state"];
                         }
-                        else if (respMsg.status == 'SUCCESS') {
+                        else if (respMsg.state == 'SUCCESS') {
                             message.innerHTML = respMsg["state"];
+                            clearInterval(checkStatus)
 
                             PENDING.style.display = "none";
                             SUCCESS.style.display = "initial";
                             FAILED.style.display = "none";
                             PROBLEM.style.display = "none";
                         }
-                        else if (respMsg.status == 'FAILED') {
+                        else if (respMsg.state == 'FAILED') {
                             message.innerHTML = respMsg["state"];
+                            clearInterval(checkStatus);
 
                             PENDING.style.display = "none";
                             SUCCESS.style.display = "none";
                             FAILED.style.display = "initial";
                             PROBLEM.style.display = "none";
-
-                            clearInterval(checkStatus);
                         }
                         else {
-                            message.innerHTML = "Unknown status: " + respMsg;
+                            message.innerHTML = "Unknown status: " + respMsg["state"];
                             clearInterval(checkStatus)
 
                             PENDING.style.display = "none";

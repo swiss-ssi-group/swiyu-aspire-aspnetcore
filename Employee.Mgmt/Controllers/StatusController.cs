@@ -51,6 +51,8 @@ public class StatusController : ControllerBase
             var verificationModel = await _verificationService.GetVerificationStatus(id);
 
             // In a business app we can use the data from the verificationModel
+            // Verification data:
+            // Use: wallet_response/credential_subject_data
 
             return Ok(verificationModel);
         }

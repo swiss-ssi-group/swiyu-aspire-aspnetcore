@@ -33,13 +33,12 @@ if (issuanceManagementId != null) {
                         }
                         else if (respMsg.status == 'ISSUED') {
                             message.innerHTML = respMsg["status"];
+                            clearInterval(checkStatus);
 
                             OFFERED.style.display = "none";
                             IN_PROGRESS.style.display = "none";
                             ISSUED.style.display = "initial";
                             PROBLEM.style.display = "none";
-
-                            clearInterval(checkStatus);
                         }
                         else {
                             message.innerHTML = "Unknown status: " + respMsg;
