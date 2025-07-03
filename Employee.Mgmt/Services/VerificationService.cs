@@ -75,6 +75,7 @@ public class VerificationService
                 return new StatusModel { id = "none", status = "ERROR" };
             }
 
+            //  state: PENDING, SUCCESS, FAILED
             return JsonSerializer.Deserialize<StatusModel>(jsonResponse);
         }
 
