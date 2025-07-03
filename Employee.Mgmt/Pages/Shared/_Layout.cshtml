@@ -20,8 +20,12 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">                 
-                            <button class="nav-link text-dark" asp-area="" asp-page="/VerifyBetaIdCredential""><img height="32" src="~/swiyu.png" /> Verify BetaId Credential</button>                
+                        <li class="nav-item">
+                            <a class="nav-link text-dark d-flex align-items-center" asp-area="" asp-page="/VerifyBetaIdCredential">
+                                <img height="32" src="~/swiyu.png" class="me-2" alt="Swiyu Logo" />
+                                Verify BetaId Credential
+                            </a>
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/CreateCredentialIssuer">
