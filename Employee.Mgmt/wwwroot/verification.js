@@ -9,6 +9,7 @@ var message = document.getElementById('message');
 var qrCodeImage = document.getElementById('qrCodeImage'); 
 var verifiedData = document.getElementById('verifiedData'); 
 var verifiedDataButton = document.getElementById('verifiedDataButton');
+var verifiedDataCard = document.getElementById('verifiedDataCard');
 
 if (verificationId != null) {
    
@@ -38,7 +39,7 @@ if (verificationId != null) {
 
                             qrCodeImage.style.display = "none";
                             verifiedDataButton.style.display = "none";
-                            verifiedData.style.display = "initial";
+                            verifiedDataCard.style.display = "initial";
                             verifiedData.innerHTML = JSON.stringify(respMsg["wallet_response"]["credential_subject_data"]);
                         }
                         else if (respMsg.state == 'FAILED') {
