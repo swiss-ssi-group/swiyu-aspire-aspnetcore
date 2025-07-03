@@ -6,6 +6,9 @@ var SUCCESS = document.getElementById('SUCCESS');
 var FAILED = document.getElementById('FAILED');
 var PROBLEM = document.getElementById('PROBLEM');
 var message = document.getElementById('message'); 
+var qrCodeImage = document.getElementById('qrCodeImage'); 
+var verifiedData = document.getElementById('verifiedData'); 
+var verifiedDataButton = document.getElementById('verifiedDataButton');
 
 if (verificationId != null) {
    
@@ -32,6 +35,11 @@ if (verificationId != null) {
                             SUCCESS.style.display = "initial";
                             FAILED.style.display = "none";
                             PROBLEM.style.display = "none";
+
+                            qrCodeImage.style.display = "none";
+                            verifiedData.style.display = "initial";
+                            verifiedDataButton.style.display = "none";
+                            verifiedData.innerHTML = JSON.stringify(respMsg["wallet_response"]["credential_subject_data"]);
                         }
                         else if (respMsg.state == 'FAILED') {
                             message.innerHTML = respMsg["state"];
