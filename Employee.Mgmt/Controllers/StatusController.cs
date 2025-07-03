@@ -1,7 +1,5 @@
 ﻿using Employee.Mgmt.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Text.Json;
 
 namespace Employee.Mgmt.Controllers;
 
@@ -9,11 +7,11 @@ namespace Employee.Mgmt.Controllers;
 [ApiController]
 public class StatusController : ControllerBase
 {
-    private readonly IssuerService _createIssuer;
+    private readonly IssuerService _issuerService;
 
-    public StatusController(IssuerService createIssuer)
+    public StatusController(IssuerService issuerService)
     {
-        _createIssuer = createIssuer;
+        _issuerService = issuerService;
     }
 
     [HttpGet("issuance-response")]
@@ -27,7 +25,7 @@ public class StatusController : ControllerBase
                 return BadRequest(new { error = "400", error_description = "Missing argument 'id'" });
             }
 
-            var statusModel = await _createIssuer.GetIssuanceStatus(id);
+            var statusModel = await _issuerService.GetIssuanceStatus(id);
 
             return Ok(statusModel);
         }
