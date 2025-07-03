@@ -60,7 +60,7 @@ public class VerificationService
         return await SendCreateVerificationPostRequest(json);
     }
 
-    public async Task<StatusModel?> GetVerificationStatus(string verificationId)
+    public async Task<VerificationManagementModel?> GetVerificationStatus(string verificationId)
     {
         using HttpResponseMessage response = await _httpClient.GetAsync(
             $"{_swiyuVerifierMgmtUrl}/api/v1/verifications/{verificationId}");
@@ -72,11 +72,11 @@ public class VerificationService
             if (jsonResponse == null)
             {
                 _logger.LogError("GetVerificationStatus no data returned from Swiyu");
-                return new StatusModel { id = "none", status = "ERROR" };
+                return null;
             }
 
             //  state: PENDING, SUCCESS, FAILED
-            return JsonSerializer.Deserialize<StatusModel>(jsonResponse);
+            return JsonSerializer.Deserialize<VerificationManagementModel>(jsonResponse);
         }
 
         var error = await response.Content.ReadAsStringAsync();

@@ -10,6 +10,9 @@ public class VerificationManagementModel
     [JsonPropertyName("request_nonce")]
     public string request_nonce { get; set; }
 
+    /// <summary>
+    /// PENDING, SUCCESS, FAILED
+    /// </summary>
     [JsonPropertyName("state")]
     public string state { get; set; }
 

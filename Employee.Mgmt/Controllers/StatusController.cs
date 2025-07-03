@@ -48,9 +48,11 @@ public class StatusController : ControllerBase
                 return BadRequest(new { error = "400", error_description = "Missing argument 'id'" });
             }
 
-            var statusModel = await _verificationService.GetVerificationStatus(id);
+            var verificationModel = await _verificationService.GetVerificationStatus(id);
 
-            return Ok(statusModel);
+            // In a business app we can use the data from the verificationModel
+
+            return Ok(verificationModel);
         }
         catch (Exception ex)
         {
