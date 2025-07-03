@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json;
 
 namespace Employee.Mgmt.Services;
 
@@ -37,7 +38,7 @@ public class VerificationService
         var json = GetBetaIdVerificationPresentationBody(inputDescriptorsId,
             presentationDefinitionId, acceptedIssuerDid, "betaid-sdjwt");
 
-        return await SendPostRequest(json);
+        return await SendCreateVerificationPostRequest(json);
     }
 
     /// <summary>
@@ -56,10 +57,34 @@ public class VerificationService
         var json = GetDataForLocalCredential(inputDescriptorsId,
            presentationDefinitionId, _issuerId!, "damienbod-vc");
 
-        return await SendPostRequest(json);
+        return await SendCreateVerificationPostRequest(json);
     }
 
-    private async Task<string> SendPostRequest(string json)
+    public async Task<StatusModel?> GetVerificationStatus(string verificationId)
+    {
+        using HttpResponseMessage response = await _httpClient.GetAsync(
+            $"{_swiyuVerifierMgmtUrl}/api/v1/verifications/{verificationId}");
+
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            if (jsonResponse == null)
+            {
+                _logger.LogError("GetVerificationStatus no data returned from Swiyu");
+                return new StatusModel { id = "none", status = "ERROR" };
+            }
+
+            return JsonSerializer.Deserialize<StatusModel>(jsonResponse);
+        }
+
+        var error = await response.Content.ReadAsStringAsync();
+        _logger.LogError("Could not create verification presentation {vp}", error);
+
+        throw new Exception(error);
+    }
+
+    private async Task<string> SendCreateVerificationPostRequest(string json)
     {
         var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync(

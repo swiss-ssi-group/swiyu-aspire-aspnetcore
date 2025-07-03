@@ -8,10 +8,12 @@ namespace Employee.Mgmt.Controllers;
 public class StatusController : ControllerBase
 {
     private readonly IssuerService _issuerService;
+    private readonly VerificationService _verificationService;
 
-    public StatusController(IssuerService issuerService)
+    public StatusController(IssuerService issuerService, VerificationService verificationService)
     {
         _issuerService = issuerService;
+        _verificationService = verificationService;
     }
 
     [HttpGet("issuance-response")]
@@ -26,6 +28,27 @@ public class StatusController : ControllerBase
             }
 
             var statusModel = await _issuerService.GetIssuanceStatus(id);
+
+            return Ok(statusModel);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { error = "400", error_description = ex.Message });
+        }
+    }
+
+    [HttpGet("verification-response")]
+    public async Task<ActionResult> VerificationResponseAsync()
+    {
+        try
+        {
+            string? id = Request.Query["id"];
+            if (id == null)
+            {
+                return BadRequest(new { error = "400", error_description = "Missing argument 'id'" });
+            }
+
+            var statusModel = await _verificationService.GetVerificationStatus(id);
 
             return Ok(statusModel);
         }
