@@ -16,7 +16,7 @@ public class VerifyDamienbodCredentialModel : PageModel
     public string? VerificationId { get; set; }
 
     [BindProperty]
-    public string? QrCodeUrl { get; set; } = "";
+    public string? QrCodeUrl { get; set; } = string.Empty;
 
     [BindProperty]
     public byte[] QrCodePng { get; set; } = [];

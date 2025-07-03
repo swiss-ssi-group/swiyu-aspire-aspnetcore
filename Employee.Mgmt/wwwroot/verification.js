@@ -26,6 +26,7 @@ if (verificationId != null) {
                         else if (respMsg.state == 'SUCCESS') {
                             message.innerHTML = respMsg["state"];
                             clearInterval(checkStatus)
+                            console.log("VC data: " + JSON.stringify(respMsg["wallet_response"]["credential_subject_data"]))
 
                             PENDING.style.display = "none";
                             SUCCESS.style.display = "initial";
