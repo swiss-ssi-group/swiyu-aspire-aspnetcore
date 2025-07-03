@@ -9,6 +9,7 @@
 //
 
 using ImageMagick;
+using ImageMagick.Drawing;
 
 namespace Net.Codecrete.QrCodeGenerator;
 
@@ -45,7 +46,7 @@ public static class QrCodeImageExtensions
         }
 
         var size = qrCode.Size;
-        var dim = (size + border * 2) * scale;
+        uint dim = (uint)((size + border * 2) * scale);
 
         if (dim > short.MaxValue)
         {
