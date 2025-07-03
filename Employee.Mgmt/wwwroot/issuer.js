@@ -5,28 +5,31 @@ var respIssuanceReqid = document.getElementById('respIssuanceReq');
 if (respIssuanceReqid != null) {
    
     var checkStatus = setInterval(function () {
-        if (respIssuanceReq) {
+        if (respIssuanceReqid) {
 
             fetch('api/status/issuance-response?id=' + respIssuanceReqid.value)
                 .then(response => response.text())
                 .catch(error => document.getElementById("message").innerHTML = error)
                 .then(response => {
                     if (response.length > 0) {
-                        console.log(response)
                         respMsg = JSON.parse(response);
-                        
-                        if (respMsg.status == 'request_retrieved') {
+                        console.log("status: " + respMsg["status"])
+                        //console.log("status: " + respMsg.status)
+                        // OFFERED, CANCELLED, IN_PROGRESS, ISSUED, SUSPENDED, REVOKED, EXPIRED
+                        if (respMsg.status == 'OFFERED') {
                             document.getElementById('message-wrapper').style.display = "block";
-                            document.getElementById('message').innerHTML = respMsg.status;
+                            document.getElementById('message').innerHTML = respMsg["status"];
                         }
-                        if (respMsg.status == 'issuance_successful') {
-                            document.getElementById('message').innerHTML = respMsg.status;
+                        else if (respMsg.status == 'IN_PROGRESS') {
+                            document.getElementById('message').innerHTML = respMsg["status"];
+                        }
+                        else if (respMsg.status == 'ISSUED') {
+                            document.getElementById('message').innerHTML = respMsg["status"];
                             clearInterval(checkStatus);
                         }
-                        if (respMsg.status == 'issuance_error') {
-                            document.getElementById('message').innerHTML = "Issuance error occured. Please refresh the page and try again.";
-                            document.getElementById('payload').innerHTML = "Payload: " + respMsg.status;
-                            clearInterval(checkStatus);
+                        else {
+                            document.getElementById('message').innerHTML = "Check status: " + respMsg;
+                            //clearInterval(checkStatus)
                         }
                     }
                 })
