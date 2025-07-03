@@ -13,7 +13,7 @@ public class VerifyBetaIdCredentialModel : PageModel
     private readonly string? _swiyuOid4vpUrl;
 
     [BindProperty]
-    public string? VerificationId { get; set; } = string.Empty;
+    public string? VerificationId { get; set; }
 
     [BindProperty]
     public string? QrCodeUrl { get; set; } = string.Empty;
