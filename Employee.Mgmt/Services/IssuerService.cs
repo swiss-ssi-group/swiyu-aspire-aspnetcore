@@ -3,18 +3,18 @@ using System.Text.Json;
 
 namespace Employee.Mgmt.Services;
 
-public class CreateIssuer
+public class IssuerService
 {
-    private readonly ILogger<CreateIssuer> _logger;
+    private readonly ILogger<IssuerService> _logger;
     private readonly string? _swiyuIssuerMgmtUrl;
     private readonly HttpClient _httpClient;
 
-    public CreateIssuer(IHttpClientFactory httpClientFactory,
+    public IssuerService(IHttpClientFactory httpClientFactory,
         ILoggerFactory loggerFactory, IConfiguration configuration)
     {
         _swiyuIssuerMgmtUrl = configuration["SwiyuIssuerMgmtUrl"];
         _httpClient = httpClientFactory.CreateClient();
-        _logger = loggerFactory.CreateLogger<CreateIssuer>();
+        _logger = loggerFactory.CreateLogger<IssuerService>();
     }
 
     public async Task<string> IssuerCredentialAsync()

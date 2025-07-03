@@ -1,7 +1,5 @@
 ﻿using Employee.Mgmt.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Text.Json;
 
 namespace Employee.Mgmt.Controllers;
 
@@ -9,11 +7,13 @@ namespace Employee.Mgmt.Controllers;
 [ApiController]
 public class StatusController : ControllerBase
 {
-    private readonly CreateIssuer _createIssuer;
+    private readonly IssuerService _issuerService;
+    private readonly VerificationService _verificationService;
 
-    public StatusController(CreateIssuer createIssuer)
+    public StatusController(IssuerService issuerService, VerificationService verificationService)
     {
-        _createIssuer = createIssuer;
+        _issuerService = issuerService;
+        _verificationService = verificationService;
     }
 
     [HttpGet("issuance-response")]
@@ -27,9 +27,34 @@ public class StatusController : ControllerBase
                 return BadRequest(new { error = "400", error_description = "Missing argument 'id'" });
             }
 
-            var statusModel = await _createIssuer.GetIssuanceStatus(id);
+            var statusModel = await _issuerService.GetIssuanceStatus(id);
 
             return Ok(statusModel);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { error = "400", error_description = ex.Message });
+        }
+    }
+
+    [HttpGet("verification-response")]
+    public async Task<ActionResult> VerificationResponseAsync()
+    {
+        try
+        {
+            string? id = Request.Query["id"];
+            if (id == null)
+            {
+                return BadRequest(new { error = "400", error_description = "Missing argument 'id'" });
+            }
+
+            var verificationModel = await _verificationService.GetVerificationStatus(id);
+
+            // In a business app we can use the data from the verificationModel
+            // Verification data:
+            // Use: wallet_response/credential_subject_data
+
+            return Ok(verificationModel);
         }
         catch (Exception ex)
         {

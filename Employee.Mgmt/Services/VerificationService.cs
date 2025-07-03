@@ -1,21 +1,22 @@
 ﻿using System.Text;
+using System.Text.Json;
 
 namespace Employee.Mgmt.Services;
 
-public class CreateVerificationPresentation
+public class VerificationService
 {
-    private readonly ILogger<CreateVerificationPresentation> _logger;
+    private readonly ILogger<VerificationService> _logger;
     private readonly string? _swiyuVerifierMgmtUrl;
     private readonly string? _issuerId;
     private readonly HttpClient _httpClient;
 
-    public CreateVerificationPresentation(IHttpClientFactory httpClientFactory,
+    public VerificationService(IHttpClientFactory httpClientFactory,
         ILoggerFactory loggerFactory, IConfiguration configuration)
     {
         _swiyuVerifierMgmtUrl = configuration["SwiyuVerifierMgmtUrl"];
         _issuerId = configuration["ISSUER_ID"];
         _httpClient = httpClientFactory.CreateClient();
-        _logger = loggerFactory.CreateLogger<CreateVerificationPresentation>();
+        _logger = loggerFactory.CreateLogger<VerificationService>();
     }
 
     /// <summary>
@@ -37,7 +38,7 @@ public class CreateVerificationPresentation
         var json = GetBetaIdVerificationPresentationBody(inputDescriptorsId,
             presentationDefinitionId, acceptedIssuerDid, "betaid-sdjwt");
 
-        return await SendPostRequest(json);
+        return await SendCreateVerificationPostRequest(json);
     }
 
     /// <summary>
@@ -56,10 +57,35 @@ public class CreateVerificationPresentation
         var json = GetDataForLocalCredential(inputDescriptorsId,
            presentationDefinitionId, _issuerId!, "damienbod-vc");
 
-        return await SendPostRequest(json);
+        return await SendCreateVerificationPostRequest(json);
     }
 
-    private async Task<string> SendPostRequest(string json)
+    public async Task<VerificationManagementModel?> GetVerificationStatus(string verificationId)
+    {
+        using HttpResponseMessage response = await _httpClient.GetAsync(
+            $"{_swiyuVerifierMgmtUrl}/api/v1/verifications/{verificationId}");
+
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            if (jsonResponse == null)
+            {
+                _logger.LogError("GetVerificationStatus no data returned from Swiyu");
+                return null;
+            }
+
+            //  state: PENDING, SUCCESS, FAILED
+            return JsonSerializer.Deserialize<VerificationManagementModel>(jsonResponse);
+        }
+
+        var error = await response.Content.ReadAsStringAsync();
+        _logger.LogError("Could not create verification presentation {vp}", error);
+
+        throw new Exception(error);
+    }
+
+    private async Task<string> SendCreateVerificationPostRequest(string json)
     {
         var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync(

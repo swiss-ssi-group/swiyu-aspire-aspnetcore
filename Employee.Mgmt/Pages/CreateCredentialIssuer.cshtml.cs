@@ -9,7 +9,7 @@ namespace Employee.Mgmt.Pages;
 
 public class CreateCredentialIssuerModel : PageModel
 {
-    private readonly CreateIssuer _createIssuer;
+    private readonly IssuerService _issuerService;
 
     [BindProperty]
     public string? QrCodeUrl { get; set; } = null;
@@ -20,9 +20,9 @@ public class CreateCredentialIssuerModel : PageModel
     [BindProperty]
     public string? ManagementId { get; set; } = null;
 
-    public CreateCredentialIssuerModel(CreateIssuer createIssuer)
+    public CreateCredentialIssuerModel(IssuerService issuerService)
     {
-        _createIssuer = createIssuer;
+        _issuerService = issuerService;
     }
 
     public void OnGet()
@@ -35,7 +35,7 @@ public class CreateCredentialIssuerModel : PageModel
     /// <returns></returns>
     public async Task OnPostAsync()
     {
-        var vci = await _createIssuer.IssuerCredentialAsync();
+        var vci = await _issuerService.IssuerCredentialAsync();
 
         var data = JsonSerializer.Deserialize<CredentialIssuerModel>(vci);
 
