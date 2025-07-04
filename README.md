@@ -8,13 +8,15 @@ https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/
 
 TODO
 
-## Getting started Aspire and Swiyu
+## Getting started Aspire and swiyu
 
-TODO
+Aspire is used to develop and impleement the applications. 4 container applications provided by swiyu are used to implement the swiyu logic. The end user application uses the provided APIs.
 
 ## Database
 
-TODO
+The postgres database for development is deployed to Azure and is a public database with a Firewall. The local dev machines need to be enabled in the firewall. A public DB is used so that the application can be tested without the need of ngrok or other such tools.
+
+## swiyu
 
 Support: usertesting@swiyu.admin.ch
 
