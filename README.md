@@ -10,7 +10,7 @@ https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/
 
 ## Getting started Aspire and swiyu
 
-Aspire is used to develop and implement the applications. 4 container applications provided by swiyu are used to implement the swiyu logic. The end user application uses the provided APIs.
+Aspire is used to develop and implement the applications. Four container applications provided by swiyu are used to implement the swiyu logic. The end user application uses the provided APIs.
 
 ### swiyu containers
 
