@@ -6,6 +6,7 @@ var SUCCESS = document.getElementById('SUCCESS');
 var FAILED = document.getElementById('FAILED');
 var PROBLEM = document.getElementById('PROBLEM');
 var message = document.getElementById('message'); 
+
 var qrCodeImage = document.getElementById('qrCodeImage'); 
 var verifiedData = document.getElementById('verifiedData'); 
 var verifiedDataButton = document.getElementById('verifiedDataButton');

@@ -7,6 +7,11 @@ var ISSUED = document.getElementById('ISSUED');
 var PROBLEM = document.getElementById('PROBLEM');
 var message = document.getElementById('message'); 
 
+var qrCodeImage = document.getElementById('qrCodeImage');
+var issuedData = document.getElementById('issuedData');
+var issuedDataButton = document.getElementById('issuedDataButton');
+var issuedDataCard = document.getElementById('issuedDataCard');
+
 if (issuanceManagementId != null) {
    
     var checkStatus = setInterval(function () {
@@ -39,6 +44,10 @@ if (issuanceManagementId != null) {
                             IN_PROGRESS.style.display = "none";
                             ISSUED.style.display = "initial";
                             PROBLEM.style.display = "none";
+
+                            issuedDataButton.style.display = "none";
+                            issuedDataCard.style.display = "flex";
+                            issuedData.innerHTML = JSON.stringify(respMsg);
                         }
                         else {
                             message.innerHTML = "Unknown status: " + respMsg;
