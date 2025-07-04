@@ -45,6 +45,7 @@ if (issuanceManagementId != null) {
                             ISSUED.style.display = "initial";
                             PROBLEM.style.display = "none";
 
+                            qrCodeImage.style.display = "none";
                             issuedDataButton.style.display = "none";
                             issuedDataCard.style.display = "flex";
                             issuedData.innerHTML = JSON.stringify(respMsg);
