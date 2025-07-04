@@ -19,6 +19,10 @@ Aspire is used to develop and implement the applications. 4 container applicatio
 - ghcr.io/swiyu-admin-ch/eidch-verifier-agent-management
 - ghcr.io/swiyu-admin-ch/eidch-issuer-agent-management
 
+### public configuration files for this demo
+
+https://github.com/swiss-ssi-group/swiyu-config-files
+
 ## Database
 
 The postgres database for development is deployed to Azure and is a public database with a Firewall. The local dev machines need to be enabled in the firewall. A public DB is used so that the application can be tested without the need of ngrok or other such tools.
