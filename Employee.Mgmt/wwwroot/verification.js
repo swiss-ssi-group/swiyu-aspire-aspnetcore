@@ -33,13 +33,13 @@ if (verificationId != null) {
                             console.log("VC data: " + JSON.stringify(respMsg["wallet_response"]["credential_subject_data"]))
 
                             PENDING.style.display = "none";
-                            SUCCESS.style.display = "initial";
+                            SUCCESS.style.display = "flex";
                             FAILED.style.display = "none";
                             PROBLEM.style.display = "none";
 
                             qrCodeImage.style.display = "none";
                             verifiedDataButton.style.display = "none";
-                            verifiedDataCard.style.display = "initial";
+                            verifiedDataCard.style.display = "flex";
                             verifiedData.innerHTML = JSON.stringify(respMsg["wallet_response"]["credential_subject_data"]);
                         }
                         else if (respMsg.state == 'FAILED') {
@@ -48,7 +48,7 @@ if (verificationId != null) {
 
                             PENDING.style.display = "none";
                             SUCCESS.style.display = "none";
-                            FAILED.style.display = "initial";
+                            FAILED.style.display = "flex";
                             PROBLEM.style.display = "none";
                         }
                         else {
@@ -58,7 +58,7 @@ if (verificationId != null) {
                             PENDING.style.display = "none";
                             SUCCESS.style.display = "none";
                             FAILED.style.display = "none";
-                            PROBLEM.style.display = "initial";
+                            PROBLEM.style.display = "flex";
                         }
                     }
                 })

@@ -27,7 +27,7 @@ if (issuanceManagementId != null) {
                             message.innerHTML = respMsg["status"];
 
                             OFFERED.style.display = "none";
-                            IN_PROGRESS.style.display = "initial";
+                            IN_PROGRESS.style.display = "flex";
                             ISSUED.style.display = "none";
                             PROBLEM.style.display = "none";
                         }
@@ -37,7 +37,7 @@ if (issuanceManagementId != null) {
 
                             OFFERED.style.display = "none";
                             IN_PROGRESS.style.display = "none";
-                            ISSUED.style.display = "initial";
+                            ISSUED.style.display = "flex";
                             PROBLEM.style.display = "none";
                         }
                         else {
@@ -47,7 +47,7 @@ if (issuanceManagementId != null) {
                             OFFERED.style.display = "none";
                             IN_PROGRESS.style.display = "none";
                             ISSUED.style.display = "none";
-                            PROBLEM.style.display = "initial";
+                            PROBLEM.style.display = "flex";
                         }
                     }
                 })
