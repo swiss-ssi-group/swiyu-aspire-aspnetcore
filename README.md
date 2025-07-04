@@ -1,4 +1,4 @@
-# swiyu-employee
+# swiyu using ASP.NECT Core app Microsoft Aspire
 
 Getting started:
 
@@ -10,7 +10,14 @@ https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/
 
 ## Getting started Aspire and swiyu
 
-Aspire is used to develop and impleement the applications. 4 container applications provided by swiyu are used to implement the swiyu logic. The end user application uses the provided APIs.
+Aspire is used to develop and implement the applications. 4 container applications provided by swiyu are used to implement the swiyu logic. The end user application uses the provided APIs.
+
+### swiyu containers
+
+- ghcr.io/swiyu-admin-ch/eidch-issuer-agent-oid4vci
+- ghcr.io/swiyu-admin-ch/eidch-verifier-agent-oid4vp
+- ghcr.io/swiyu-admin-ch/eidch-verifier-agent-management
+- ghcr.io/swiyu-admin-ch/eidch-issuer-agent-management
 
 ## Database
 
