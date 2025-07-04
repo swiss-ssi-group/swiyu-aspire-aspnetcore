@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Employee.Mgmt.Pages
+namespace Swiyu.Aspire.Mgmt.Pages
 {
     public class IndexModel : PageModel
     {

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Employee.ServiceDefaults\Employee.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\Swiyu.Aspire.ServiceDefaults\Swiyu.Aspire.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

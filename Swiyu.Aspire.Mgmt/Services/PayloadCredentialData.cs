@@ -1,4 +1,4 @@
-﻿namespace Employee.Mgmt.Services;
+﻿namespace Swiyu.Aspire.Mgmt.Services;
 
 public class PayloadCredentialData
 {

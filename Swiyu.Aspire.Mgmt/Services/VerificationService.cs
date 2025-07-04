@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 
-namespace Employee.Mgmt.Services;
+namespace Swiyu.Aspire.Mgmt.Services;
 
 public class VerificationService
 {

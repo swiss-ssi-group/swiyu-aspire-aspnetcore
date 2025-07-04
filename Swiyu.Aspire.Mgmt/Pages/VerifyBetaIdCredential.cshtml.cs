@@ -1,11 +1,11 @@
-using Employee.Mgmt.Services;
+using Swiyu.Aspire.Mgmt.Services;
 using ImageMagick;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Net.Codecrete.QrCodeGenerator;
 using System.Text.Json;
 
-namespace Employee.Mgmt.Pages;
+namespace Swiyu.Aspire.Mgmt.Pages;
 
 public class VerifyBetaIdCredentialModel : PageModel
 {

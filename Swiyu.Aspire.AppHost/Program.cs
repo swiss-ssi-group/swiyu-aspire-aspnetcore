@@ -13,7 +13,7 @@ IResourceBuilder<ContainerResource>? swiyuOid4vp = null;
 // management
 IResourceBuilder<ContainerResource>? swiyuVerifierMgmt = null;
 IResourceBuilder<ContainerResource>? swiyuIssuerMgmt = null;
-IResourceBuilder<ProjectResource>? employeemgmt = null;
+IResourceBuilder<ProjectResource>? swiyuAspireMgmt = null;
 
 var postGresUser = builder.AddParameter("postgresuser");
 var postGresPassword = builder.AddParameter("postgrespassword", secret: true);
@@ -157,7 +157,7 @@ swiyuIssuerMgmt = builder.AddContainer("swiyu-issuer-mgmt", "ghcr.io/swiyu-admin
     //.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment
     .WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP); // local development
 
-employeemgmt = builder.AddProject<Projects.Employee_Mgmt>("employeemgmt")
+swiyuAspireMgmt = builder.AddProject<Projects.Swiyu_Aspire_Mgmt>("swiyuAspireMgmt")
     .WithExternalHttpEndpoints()
     .WithEnvironment("SwiyuVerifierMgmtUrl", swiyuVerifierMgmt.GetEndpoint(HTTP))
     .WithEnvironment("SwiyuIssuerMgmtUrl", swiyuIssuerMgmt.GetEndpoint(HTTP))

@@ -1,6 +1,6 @@
-using Employee.Mgmt.Services;
+using Swiyu.Aspire.Mgmt.Services;
 
-namespace Employee.Mgmt
+namespace Swiyu.Aspire.Mgmt
 {
     public class Program
     {

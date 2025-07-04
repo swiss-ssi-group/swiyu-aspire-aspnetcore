@@ -1,7 +1,7 @@
-﻿using Employee.Mgmt.Services;
+﻿using Swiyu.Aspire.Mgmt.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Employee.Mgmt.Controllers;
+namespace Swiyu.Aspire.Mgmt.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Employee.Mgmt\Employee.Mgmt.csproj" />
+    <ProjectReference Include="..\Swiyu.Aspire.Mgmt\Swiyu.Aspire.Mgmt.csproj" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties properties_4swiyu-oid4vp_4verifier_3metadata_1json__JsonSchema="lient_name#en&quot;: &quot;swiyu Employee Verfifier&quot;," /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties properties_4swiyu-oid4vp_4verifier_3metadata_1json__JsonSchema="lient_name#en&quot;: &quot;swiyu Swiyu.Aspire Verfifier&quot;," /></VisualStudio></ProjectExtensions>
 
 </Project>
