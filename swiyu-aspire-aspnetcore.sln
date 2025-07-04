@@ -8,11 +8,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee.AppHost", "Employee.AppHost\Employee.AppHost.csproj", "{EFFC2451-F02A-44CE-92BF-9B846E003237}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swiyu.Aspire.AppHost", "Swiyu.Aspire.AppHost\Swiyu.Aspire.AppHost.csproj", "{EFFC2451-F02A-44CE-92BF-9B846E003237}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee.ServiceDefaults", "Employee.ServiceDefaults\Employee.ServiceDefaults.csproj", "{64054DE8-97CE-4BC3-AA74-CE85C4896DD6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swiyu.Aspire.ServiceDefaults", "Swiyu.Aspire.ServiceDefaults\Swiyu.Aspire.ServiceDefaults.csproj", "{64054DE8-97CE-4BC3-AA74-CE85C4896DD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee.Mgmt", "Employee.Mgmt\Employee.Mgmt.csproj", "{81106419-3133-4D76-A9BE-0EEABBC47749}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swiyu.Aspire.Mgmt", "Swiyu.Aspire.Mgmt\Swiyu.Aspire.Mgmt.csproj", "{81106419-3133-4D76-A9BE-0EEABBC47749}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
