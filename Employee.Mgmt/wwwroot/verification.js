@@ -33,7 +33,7 @@ if (verificationId != null) {
                             console.log("VC data: " + JSON.stringify(respMsg["wallet_response"]["credential_subject_data"]))
 
                             PENDING.style.display = "none";
-                            SUCCESS.style.display = "flex";
+                            SUCCESS.style.display = "initial";
                             FAILED.style.display = "none";
                             PROBLEM.style.display = "none";
 
@@ -48,7 +48,7 @@ if (verificationId != null) {
 
                             PENDING.style.display = "none";
                             SUCCESS.style.display = "none";
-                            FAILED.style.display = "flex";
+                            FAILED.style.display = "initial";
                             PROBLEM.style.display = "none";
                         }
                         else {
@@ -58,7 +58,7 @@ if (verificationId != null) {
                             PENDING.style.display = "none";
                             SUCCESS.style.display = "none";
                             FAILED.style.display = "none";
-                            PROBLEM.style.display = "flex";
+                            PROBLEM.style.display = "initial";
                         }
                     }
                 })
