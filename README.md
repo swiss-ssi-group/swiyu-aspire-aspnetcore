@@ -1,4 +1,4 @@
-# swiyu using ASP.NECT Core app Microsoft Aspire
+# swiyu using ASP.NET Core and Microsoft Aspire
 
 Getting started:
 
