@@ -83,7 +83,7 @@ var verifierOpenIdClientMetaDataFile = builder.AddParameter("verifieropenidclien
 var verifierDid = builder.AddParameter("verifierdid");
 var didVerifierMethod = builder.AddParameter("didverifiermethod");
 var verifierName = builder.AddParameter("verifiername");
-var verifierSigningKey = builder.AddParameter("verifiersigningkey");
+var verifierSigningKey = builder.AddParameter("verifiersigningkey", true);
 
 if (builder.Environment.IsDevelopment())
 {
