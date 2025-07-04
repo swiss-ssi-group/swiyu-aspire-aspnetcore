@@ -17,15 +17,14 @@ public class IssuerService
         _logger = loggerFactory.CreateLogger<IssuerService>();
     }
 
-    public async Task<string> IssuerCredentialAsync()
+    public async Task<string> IssuerCredentialAsync(PayloadCredentialData payloadCredentialData)
     {
-        // 
-        _logger.LogInformation("Creating issuer");
+        _logger.LogInformation("Issuer credential for data");
 
         var statusRegistryUrl = "https://status-reg.trust-infra.swiyu-int.admin.ch/api/v1/statuslist/8cddcd3c-d0c3-49db-a62f-83a5299214d4.jwt";
         var vcType = "damienbod-vc";
 
-        var json = GetBody(statusRegistryUrl, vcType);
+        var json = GetBody(statusRegistryUrl, vcType, payloadCredentialData);
 
         //  curl - X POST http://localhost:8084/api/v1/credentials \
         // -H "accept: */*" \
@@ -53,7 +52,7 @@ public class IssuerService
     /// <summary>
     /// TODO: Requires the accepted issuer
     /// </summary>
-    private static string GetBody(string statusRegistryUrl, string vcType)
+    private static string GetBody(string statusRegistryUrl, string vcType, PayloadCredentialData payloadCredentialData)
     {
         var json = $$"""
              {
@@ -61,9 +60,9 @@ public class IssuerService
                  "{{vcType}}"
                ],
                "credential_subject_data": {
-                 "firstName": "Test FirstName",
-                 "lastName": "Test LastName",
-                 "birthDate": "01.01.2025"
+                 "firstName": "{{payloadCredentialData.FirstName}}",
+                 "lastName": "{{payloadCredentialData.LastName}}",
+                 "birthDate": "{{payloadCredentialData.BirthDate}}"
                },
                "offer_validity_seconds": 86400,
                "credential_valid_until": "2030-01-01T19:23:24Z",

@@ -35,7 +35,13 @@ public class CreateCredentialIssuerModel : PageModel
     /// <returns></returns>
     public async Task OnPostAsync()
     {
-        var vci = await _issuerService.IssuerCredentialAsync();
+        var vci = await _issuerService.IssuerCredentialAsync(
+            new PayloadCredentialData
+            {
+                FirstName = "damienbod",
+                LastName = "cool apps",
+                BirthDate = DateTime.UtcNow.ToShortDateString()
+            });
 
         var data = JsonSerializer.Deserialize<CredentialIssuerModel>(vci);
 
