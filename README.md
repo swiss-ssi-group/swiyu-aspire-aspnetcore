@@ -8,7 +8,7 @@ Getting started:
 
 https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/
 
-See [dev docs.](DEV.md)
+[Dev docs](DEV.md) [Changelog](CHANGELOG.md)
 
 ## Used OSS packages
 
