@@ -6,10 +6,9 @@ Basic setup to issuer and verify swiyu credentials using the swiyu public beta, 
 
 ![Architecture](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/blob/main/images/overview.drawio.png)
 
-Getting started:
+## Getting started:
 
-https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/
-
+- [swiyu](https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/)
 - [Dev docs](DEV.md)
 - [Changelog](CHANGELOG.md)
 
