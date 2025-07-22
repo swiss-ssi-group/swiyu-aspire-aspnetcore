@@ -8,13 +8,19 @@ Getting started:
 
 https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/
 
-[Dev docs](DEV.md) [Changelog](CHANGELOG.md)
+- [Dev docs](DEV.md)
+- [Changelog](CHANGELOG.md)
 
-## Used OSS packages
+## Used OSS packages, containers, repositories 
 
 - ImageMagick: https://github.com/manuelbl/QrCodeGenerator/tree/master/Demo-ImageMagick
 - Microsoft Aspire
-- Net.Codecrete.QrCodeGenerator
+- Net.Codecrete.QrCodeGenerator: https://github.com/manuelbl/QrCodeGenerator/
+- swiyu
+  - https://github.com/swiyu-admin-ch/eidch-issuer-agent-oid4vci
+  - https://github.com/swiyu-admin-ch/eidch-verifier-agent-oid4vp
+  - https://github.com/swiyu-admin-ch/eidch-verifier-agent-management
+  - https://github.com/swiyu-admin-ch/eidch-issuer-agent-management
 
 ## Links
 
