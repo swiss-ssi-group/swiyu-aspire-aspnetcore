@@ -106,7 +106,7 @@ Use ImageMagick, other image libs are not container friendly
 https://github.com/manuelbl/QrCodeGenerator/tree/master/Demo-ImageMagick
 
 ## History
-
+- 2025-07-22 Updated packages
 
 ## Links
 
