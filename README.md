@@ -1,5 +1,7 @@
 # swiyu using ASP.NET Core and Microsoft Aspire
 
+Basic setup to issuer and verify swiyu credentials using the swiyu public beta, ASP.NET Core and Aspire. 
+
 ## Architecture overview
 
 ![Architecture](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/blob/main/images/overview.drawio.png)
