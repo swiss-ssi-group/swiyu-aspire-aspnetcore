@@ -17,7 +17,7 @@ Basic setup to issuer and verify swiyu credentials using the swiyu public beta, 
 ## Used OSS packages, containers, repositories 
 
 - ImageMagick: https://github.com/manuelbl/QrCodeGenerator/tree/master/Demo-ImageMagick
-- Microsoft Aspire
+- Microsoft Aspire: https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview
 - Net.Codecrete.QrCodeGenerator: https://github.com/manuelbl/QrCodeGenerator/
 - swiyu
   - https://github.com/swiyu-admin-ch/eidch-issuer-agent-oid4vci
@@ -30,6 +30,8 @@ Basic setup to issuer and verify swiyu credentials using the swiyu public beta, 
 https://swiyu-admin-ch.github.io/
 
 https://www.eid.admin.ch/en/public-beta-e
+
+https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview
 
 https://www.npmjs.com/package/ngrok
 
