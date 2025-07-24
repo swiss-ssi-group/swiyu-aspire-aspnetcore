@@ -44,7 +44,7 @@ public class IssuerService
         }
 
         var error = await response.Content.ReadAsStringAsync();
-        _logger.LogError("Could not create verification presentation {vp}", error);
+        _logger.LogError("Could not create issue credential {issuer}", error);
 
         throw new Exception(error);
     }
@@ -95,7 +95,7 @@ public class IssuerService
         }
 
         var error = await response.Content.ReadAsStringAsync();
-        _logger.LogError("Could not create verification presentation {vp}", error);
+        _logger.LogError("Could not create issue credential {issuer}", error);
 
         throw new Exception(error);
     }
