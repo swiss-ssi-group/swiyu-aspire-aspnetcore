@@ -13,7 +13,7 @@ namespace Swiyu.Aspire.Mgmt.Pages
 
         public void OnGet()
         {
-
+            // default HTTP GET is required
         }
     }
 }

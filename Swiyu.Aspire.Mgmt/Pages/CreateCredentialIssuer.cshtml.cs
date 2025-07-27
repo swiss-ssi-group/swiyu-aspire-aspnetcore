@@ -27,6 +27,7 @@ public class CreateCredentialIssuerModel : PageModel
 
     public void OnGet()
     {
+        // default HTTP GET is required
     }
 
     /// <summary>

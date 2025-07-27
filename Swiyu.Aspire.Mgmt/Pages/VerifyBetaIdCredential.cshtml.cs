@@ -31,6 +31,7 @@ public class VerifyBetaIdCredentialModel : PageModel
 
     public void OnGet()
     {
+        // default HTTP GET is required
     }
 
     public async Task OnPostAsync()
