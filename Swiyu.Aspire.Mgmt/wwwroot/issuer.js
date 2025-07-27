@@ -22,7 +22,7 @@ if (issuanceManagementId != null) {
                 .catch(error => document.getElementById("message").innerHTML = error)
                 .then(response => {
                     if (response.length > 0) {
-                        respMsg = JSON.parse(response);
+                        let respMsg = JSON.parse(response);
                         console.log("status: " + respMsg["status"])
                         // OFFERED, CANCELLED, IN_PROGRESS, ISSUED, SUSPENDED, REVOKED, EXPIRED
                         if (respMsg.status == 'OFFERED') {

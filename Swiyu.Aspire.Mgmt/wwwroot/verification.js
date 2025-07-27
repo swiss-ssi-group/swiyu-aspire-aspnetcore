@@ -22,7 +22,7 @@ if (verificationId != null) {
                 .catch(error => document.getElementById("message").innerHTML = error)
                 .then(response => {
                     if (response.length > 0) {
-                        respMsg = JSON.parse(response);
+                        let respMsg = JSON.parse(response);
                         console.log("status: " + respMsg["state"])
                         // PENDING, SUCCESS, FAILED
                         if (respMsg.state == 'PENDING') {
