@@ -17,11 +17,10 @@ public class StatusController : ControllerBase
     }
 
     [HttpGet("issuance-response")]
-    public async Task<ActionResult> IssuanceResponseAsync()
+    public async Task<ActionResult> IssuanceResponseAsync([FromQuery] string? id)
     {
         try
         {
-            string? id = Request.Query["id"];
             if (id == null)
             {
                 return BadRequest(new { error = "400", error_description = "Missing argument 'id'" });
@@ -38,11 +37,10 @@ public class StatusController : ControllerBase
     }
 
     [HttpGet("verification-response")]
-    public async Task<ActionResult> VerificationResponseAsync()
+    public async Task<ActionResult> VerificationResponseAsync([FromQuery] string? id)
     {
         try
         {
-            string? id = Request.Query["id"];
             if (id == null)
             {
                 return BadRequest(new { error = "400", error_description = "Missing argument 'id'" });
