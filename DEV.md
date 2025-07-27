@@ -89,7 +89,7 @@ For local development, use "\n" to end the lines in the PEM secrets, in producti
 
 Load the config file from some public end point
 
-After deployment, some secrets get updated with incorrect encoding, they need to be update in the production.
+After deployment, some secrets get updated with incorrect encoding, the secrets need to be updated in the production.
 
 Notes: you can only issuer credentials when you have valid tokens. Get from:
 
