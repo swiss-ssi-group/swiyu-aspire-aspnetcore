@@ -47,7 +47,7 @@ public class IssuerService
         var error = await response.Content.ReadAsStringAsync();
         _logger.LogError("Could not create issue credential {issuer}", error);
 
-        throw new Exception(error);
+        throw new ArgumentException(error);
     }
 
     /// <summary>
@@ -99,6 +99,6 @@ public class IssuerService
         var error = await response.Content.ReadAsStringAsync();
         _logger.LogError("Could not create issue credential {issuer}", error);
 
-        throw new Exception(error);
+        throw new ArgumentException(error);
     }
 }

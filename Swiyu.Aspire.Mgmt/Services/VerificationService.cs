@@ -84,7 +84,7 @@ public class VerificationService
         var error = await response.Content.ReadAsStringAsync();
         _logger.LogError("Could not create verification presentation {vp}", error);
 
-        throw new Exception(error);
+        throw new ArgumentException(error);
     }
 
     private async Task<string> SendCreateVerificationPostRequest(string json)
@@ -102,7 +102,7 @@ public class VerificationService
         var error = await response.Content.ReadAsStringAsync();
         _logger.LogError("Could not create verification presentation {vp}", error);
 
-        throw new Exception(error);
+        throw new ArgumentException(error);
     }
 
     private static string GetDataForLocalCredential(string inputDescriptorsId, string presentationDefinitionId, string issuer, string vcType)
