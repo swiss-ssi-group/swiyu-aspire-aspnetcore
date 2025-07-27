@@ -1,6 +1,6 @@
 # swiyu using ASP.NET Core and Microsoft Aspire
 
-Basic setup to issuer and verify swiyu credentials using the swiyu public beta, ASP.NET Core and Aspire. 
+Basic setup to issue and verify swiyu credentials using the swiyu public beta, ASP.NET Core and Aspire. 
 
 [![.NET](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/actions/workflows/dotnet.yml) [![SonarCloud](https://github.com/damienbod/EndToEndSecurity/actions/workflows/sonarbuild.yml/badge.svg)](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/actions/workflows/sonarbuild.yml)
 
