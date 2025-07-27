@@ -4,12 +4,9 @@ Basic setup to issuer and verify swiyu credentials using the swiyu public beta, 
 
 [![.NET](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/actions/workflows/dotnet.yml) [![SonarCloud](https://github.com/damienbod/EndToEndSecurity/actions/workflows/sonarbuild.yml/badge.svg)](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/actions/workflows/sonarbuild.yml)
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=alert_status)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=bugs)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=code_smells)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=coverage)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=duplicated_lines_density)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=ncloc)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=reliability_rating)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=security_rating)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=sqale_index)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
