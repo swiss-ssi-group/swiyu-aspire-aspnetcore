@@ -105,7 +105,7 @@ public class VerificationService
         throw new Exception(error);
     }
 
-    private string GetDataForLocalCredential(string inputDescriptorsId, string presentationDefinitionId, string issuer, string vcType)
+    private static string GetDataForLocalCredential(string inputDescriptorsId, string presentationDefinitionId, string issuer, string vcType)
     {
         // jwt_secured_authorization_request disabled, need docs for this
         var json = $$"""
@@ -158,7 +158,7 @@ public class VerificationService
         return json;
     }
 
-    private string GetBetaIdVerificationPresentationBody(string inputDescriptorsId, string presentationDefinitionId, string acceptedIssuerDid, string vcType)
+    private static string GetBetaIdVerificationPresentationBody(string inputDescriptorsId, string presentationDefinitionId, string acceptedIssuerDid, string vcType)
     {
         var json = $$"""
              {
