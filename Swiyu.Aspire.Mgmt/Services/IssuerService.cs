@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using System.Web;
 
 namespace Swiyu.Aspire.Mgmt.Services;
 
@@ -78,8 +79,9 @@ public class IssuerService
 
     public async Task<StatusModel?> GetIssuanceStatus(string id)
     {
+        var idEncoded = HttpUtility.UrlEncode(id);
         using HttpResponseMessage response = await _httpClient.GetAsync(
-            $"{_swiyuIssuerMgmtUrl}/api/v1/credentials/{id}/status");
+            $"{_swiyuIssuerMgmtUrl}/api/v1/credentials/{idEncoded}/status");
 
         if (response.IsSuccessStatusCode)
         {

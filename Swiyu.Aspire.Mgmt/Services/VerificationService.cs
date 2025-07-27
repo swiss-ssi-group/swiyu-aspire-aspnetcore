@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using System.Web;
 
 namespace Swiyu.Aspire.Mgmt.Services;
 
@@ -62,8 +63,9 @@ public class VerificationService
 
     public async Task<VerificationManagementModel?> GetVerificationStatus(string verificationId)
     {
+        var idEncoded = HttpUtility.UrlEncode(verificationId);
         using HttpResponseMessage response = await _httpClient.GetAsync(
-            $"{_swiyuVerifierMgmtUrl}/api/v1/verifications/{verificationId}");
+            $"{_swiyuVerifierMgmtUrl}/api/v1/verifications/{idEncoded}");
 
         if (response.IsSuccessStatusCode)
         {
