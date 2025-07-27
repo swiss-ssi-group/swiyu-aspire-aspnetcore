@@ -1,20 +1,20 @@
 ﻿
-var verificationId = document.getElementById('verificationId');
+const verificationId = document.getElementById('verificationId');
 
-var PENDING = document.getElementById('PENDING');
-var SUCCESS = document.getElementById('SUCCESS');
-var FAILED = document.getElementById('FAILED');
-var PROBLEM = document.getElementById('PROBLEM');
-var message = document.getElementById('message'); 
+const PENDING = document.getElementById('PENDING');
+const SUCCESS = document.getElementById('SUCCESS');
+const FAILED = document.getElementById('FAILED');
+const PROBLEM = document.getElementById('PROBLEM');
+const message = document.getElementById('message'); 
 
-var qrCodeImage = document.getElementById('qrCodeImage'); 
-var verifiedData = document.getElementById('verifiedData'); 
-var verifiedDataButton = document.getElementById('verifiedDataButton');
-var verifiedDataCard = document.getElementById('verifiedDataCard');
+const qrCodeImage = document.getElementById('qrCodeImage'); 
+const verifiedData = document.getElementById('verifiedData'); 
+const verifiedDataButton = document.getElementById('verifiedDataButton');
+const verifiedDataCard = document.getElementById('verifiedDataCard');
 
 if (verificationId != null) {
    
-    var checkStatus = setInterval(function () {
+    let checkStatus = setInterval(function () {
         if (verificationId) {
 
             fetch('api/status/verification-response?id=' + verificationId.value)

@@ -2,9 +2,7 @@
 
 Basic setup to issuer and verify swiyu credentials using the swiyu public beta, ASP.NET Core and Aspire. 
 
-[![.NET](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/actions/workflows/dotnet.yml)
-
-[![SonarCloud](https://github.com/damienbod/EndToEndSecurity/actions/workflows/sonarbuild.yml/badge.svg)](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/actions/workflows/sonarbuild.yml)
+[![.NET](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/actions/workflows/dotnet.yml) [![SonarCloud](https://github.com/damienbod/EndToEndSecurity/actions/workflows/sonarbuild.yml/badge.svg)](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/actions/workflows/sonarbuild.yml)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=alert_status)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=bugs)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)

@@ -1,20 +1,20 @@
 ﻿
-var issuanceManagementId = document.getElementById('issuanceManagementId');
+const issuanceManagementId = document.getElementById('issuanceManagementId');
 
-var OFFERED = document.getElementById('OFFERED');
-var IN_PROGRESS = document.getElementById('IN_PROGRESS');
-var ISSUED = document.getElementById('ISSUED');
-var PROBLEM = document.getElementById('PROBLEM');
-var message = document.getElementById('message'); 
+const OFFERED = document.getElementById('OFFERED');
+const IN_PROGRESS = document.getElementById('IN_PROGRESS');
+const ISSUED = document.getElementById('ISSUED');
+const PROBLEM = document.getElementById('PROBLEM');
+const message = document.getElementById('message'); 
 
-var qrCodeImage = document.getElementById('qrCodeImage');
-var issuedData = document.getElementById('issuedData');
-var issuedDataButton = document.getElementById('issuedDataButton');
-var issuedDataCard = document.getElementById('issuedDataCard');
+const qrCodeImage = document.getElementById('qrCodeImage');
+const issuedData = document.getElementById('issuedData');
+const issuedDataButton = document.getElementById('issuedDataButton');
+const issuedDataCard = document.getElementById('issuedDataCard');
 
 if (issuanceManagementId != null) {
    
-    var checkStatus = setInterval(function () {
+    let checkStatus = setInterval(function () {
         if (issuanceManagementId) {
 
             fetch('api/status/issuance-response?id=' + issuanceManagementId.value)
