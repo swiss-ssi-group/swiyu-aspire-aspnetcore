@@ -7,7 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		CHANGELOG.md = CHANGELOG.md
 		DEV.md = DEV.md
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		README.md = README.md
+		.github\workflows\sonarbuild.yml = .github\workflows\sonarbuild.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swiyu.Aspire.AppHost", "Swiyu.Aspire.AppHost\Swiyu.Aspire.AppHost.csproj", "{EFFC2451-F02A-44CE-92BF-9B846E003237}"
