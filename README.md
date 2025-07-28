@@ -13,6 +13,8 @@ Basic setup to issue and verify swiyu credentials using the swiyu public beta, A
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=sqale_rating)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=vulnerabilities)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
 
+[Demo](https://swiyuaspiremgmt.delightfulsky-453308fc.switzerlandnorth.azurecontainerapps.io/)
+
 ## Architecture overview
 
 ![Architecture](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/blob/main/images/overview.drawio.png)
