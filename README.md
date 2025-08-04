@@ -15,6 +15,8 @@ Basic setup to issue and verify swiyu credentials using the swiyu public beta, A
 
 [Demo](https://swiyuaspiremgmt.delightfulsky-453308fc.switzerlandnorth.azurecontainerapps.io/)
 
+[Issue and verify credentials using the Swiss Digital identity public beta, ASP.NET Core and .NET Aspire](https://damienbod.com/2025/08/04/issuer-and-verify-credentials-using-the-swiss-digital-identity-public-beta-asp-net-core-and-net-aspire/)
+
 ## Architecture overview
 
 ![Architecture](https://github.com/swiss-ssi-group/swiyu-aspire-aspnetcore/blob/main/images/overview.drawio.png)
