@@ -5,9 +5,9 @@ var builder = DistributedApplication.CreateBuilder(args);
 const string HTTP = "http";
 
 // management & public endpoints
-IResourceBuilder<ContainerResource>? swiyuVerifierMgmt = null;
-IResourceBuilder<ContainerResource>? swiyuIssuerMgmt = null;
-IResourceBuilder<ProjectResource>? swiyuAspireMgmt = null;
+IResourceBuilder<ContainerResource>? swiyuVerifier = null;
+IResourceBuilder<ContainerResource>? swiyuIssuer = null;
+IResourceBuilder<ProjectResource>? swiyuMgmt = null;
 
 var postGresUser = builder.AddParameter("postgresuser");
 var postGresPassword = builder.AddParameter("postgrespassword", secret: true);
@@ -47,7 +47,7 @@ var verifierSigningKey = builder.AddParameter("verifiersigningkey", true);
 // Add security to management API, disabled
 // https://github.com/swiyu-admin-ch/swiyu-verifier?tab=readme-ov-file#security
 /////////////////////////////////////////////////////////////////
-swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-admin-ch/swiyu-verifier", "latest")
+swiyuVerifier = builder.AddContainer("swiyu-verifier", "ghcr.io/swiyu-admin-ch/swiyu-verifier", "latest")
     .WithEnvironment("EXTERNAL_URL", verifierExternalUrl)
     .WithEnvironment("OPENID_CLIENT_METADATA_FILE", verifierOpenIdClientMetaDataFile)
     .WithEnvironment("VERIFIER_DID", verifierDid)
@@ -57,11 +57,8 @@ swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-a
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
     .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
-#if DEBUG
-      .WithHttpEndpoint(port: 8084, targetPort: 8080, name: HTTP);  // local development
-#else
-      .WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment 
-#endif
+    //.WithHttpEndpoint(port: 8084, targetPort: 8080, name: HTTP);  // local development
+    .WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment 
 
 /////////////////////////////////////////////////////////////////
 // Issuer OpenID Endpoint: Must be deployed to a public URL
@@ -70,7 +67,7 @@ swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-a
 // Add security to management API, disabled
 // https://github.com/swiyu-admin-ch/swiyu-issuer?tab=readme-ov-file#security
 /////////////////////////////////////////////////////////////////
-swiyuIssuerMgmt = builder.AddContainer("swiyu-issuer-mgmt", "ghcr.io/swiyu-admin-ch/swiyu-issuer", "latest")
+swiyuIssuer = builder.AddContainer("swiyu-issuer", "ghcr.io/swiyu-admin-ch/swiyu-issuer", "latest")
     .WithEnvironment("EXTERNAL_URL", issuerExternalUrl)
     .WithEnvironment("SPRING_APPLICATION_NAME", issuerName)
     .WithEnvironment("ISSUER_ID", issuerId)
@@ -99,21 +96,18 @@ swiyuIssuerMgmt = builder.AddContainer("swiyu-issuer-mgmt", "ghcr.io/swiyu-admin
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbIssuer)
     .WithEnvironment("POSTGRES_JDBC", postGresJdbcIssuer)
-#if DEBUG
-      .WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP);  // local development
-#else
-      .WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment 
-#endif
+    //.WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP); // local development
+    .WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment
 
-swiyuAspireMgmt = builder.AddProject<Projects.Swiyu_Aspire_Mgmt>("swiyuaspiremgmt")
+swiyuMgmt = builder.AddProject<Projects.Swiyu_Aspire_Mgmt>("swiyu-mgmt")
     .WithExternalHttpEndpoints()
-    .WithEnvironment("SwiyuVerifierMgmtUrl", swiyuVerifierMgmt.GetEndpoint(HTTP))
-    .WithEnvironment("SwiyuIssuerMgmtUrl", swiyuIssuerMgmt.GetEndpoint(HTTP))
+    .WithEnvironment("SwiyuVerifierMgmtUrl", swiyuVerifier.GetEndpoint(HTTP))
+    .WithEnvironment("SwiyuIssuerMgmtUrl", swiyuIssuer.GetEndpoint(HTTP))
     .WithEnvironment("SwiyuOid4vciUrl", issuerExternalUrl)
     .WithEnvironment("SwiyuOid4vpUrl", verifierExternalUrl)
     .WithEnvironment("ISSUER_ID", issuerId)
-    .WaitFor(swiyuIssuerMgmt)
-    .WaitFor(swiyuVerifierMgmt);
+    .WaitFor(swiyuIssuer)
+    .WaitFor(swiyuVerifier);
 
 builder.Build().Run();
 
