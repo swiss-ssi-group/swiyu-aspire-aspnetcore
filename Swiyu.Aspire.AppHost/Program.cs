@@ -41,12 +41,29 @@ var swiyuAccessToken = builder.AddParameter("swiyuaccesstoken", secret: true);
 /////////////////////////////////////////////////////////////////
 swiyuOid4vci = builder.AddContainer("swiyu-oid4vci", "ghcr.io/swiyu-admin-ch/swiyu-issuer", "latest")
     .WithEnvironment("EXTERNAL_URL", issuerExternalUrl)
+    .WithEnvironment("SPRING_APPLICATION_NAME", issuerName)
     .WithEnvironment("ISSUER_ID", issuerId)
+
+    .WithEnvironment("DID_STATUS_LIST_VERIFICATION_METHOD", issuerDidSdJwtVerficiationMethod)
+    .WithEnvironment("STATUS_LIST_KEY", issuerSdJwtKey)
+    .WithEnvironment("SWIYU_PARTNER_ID", businessPartnerId)
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_CUSTOMER_KEY", swiyuCustomerKey)
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_CUSTOMER_SECRET", swiyuCustomerSecret)
+
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_ACCESS_TOKEN", swiyuAccessToken)
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_BOOTSTRAP_REFRESH_TOKEN", swiyuRefreshToken)
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_TOKEN_URL", "https://keymanager-prd.api.admin.ch/keycloak/realms/APIGW/protocol/openid-connect/token")
+
     .WithEnvironment("DID_SDJWT_VERIFICATION_METHOD", issuerDidSdJwtVerficiationMethod)
     .WithEnvironment("SDJWT_KEY", issuerSdJwtKey)
     .WithEnvironment("OPENID_CONFIG_FILE", issuerOpenIdConfigFile)
     .WithEnvironment("METADATA_CONFIG_FILE", issuerMetaDataConfigFile)
     .WithEnvironment("TOKEN_TTL", issuerTokenTtl)
+
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_API_URL", "https://status-reg-api.trust-infra.swiyu-int.admin.ch")
+    .WithEnvironment("LOGGING_LEVEL_CH_ADMIN_BJ_SWIYU", "DEBUG")
+    .WithEnvironment("SWIYU_STATUS_REGISTRY_AUTH_ENABLE_REFRESH_TOKEN_FLOW", "true")
+
     .WithEnvironment("POSTGRES_USER", postGresUser)
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbIssuer)
@@ -70,7 +87,6 @@ swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/swiyu
     .WithEnvironment("OPENID_CLIENT_METADATA_FILE", verifierOpenIdClientMetaDataFile)
     .WithEnvironment("VERIFIER_DID", verifierDid)
     .WithEnvironment("DID_VERIFICATION_METHOD", didVerifierMethod)
-    .WithEnvironment("VERIFIER_NAME", verifierName)
     .WithEnvironment("SIGNING_KEY", verifierSigningKey)
     .WithEnvironment("POSTGRES_USER", postGresUser)
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
@@ -85,7 +101,11 @@ swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/swiyu
 // https://github.com/swiyu-admin-ch/swiyu-verifier?tab=readme-ov-file#security
 /////////////////////////////////////////////////////////////////
 swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-admin-ch/swiyu-verifier", "latest")
-    .WithEnvironment("OID4VP_URL", verifierExternalUrl)
+    .WithEnvironment("EXTERNAL_URL", verifierExternalUrl)
+    .WithEnvironment("OPENID_CLIENT_METADATA_FILE", verifierOpenIdClientMetaDataFile)
+    .WithEnvironment("VERIFIER_DID", verifierDid)
+    .WithEnvironment("DID_VERIFICATION_METHOD", didVerifierMethod)
+    .WithEnvironment("SIGNING_KEY", verifierSigningKey)
     .WithEnvironment("POSTGRES_USER", postGresUser)
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
