@@ -38,10 +38,14 @@ Basic setup to issue and verify swiyu credentials using the swiyu public beta, A
 - Microsoft Aspire: https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview
 - Net.Codecrete.QrCodeGenerator: https://github.com/manuelbl/QrCodeGenerator/
 - swiyu
-  - https://github.com/swiyu-admin-ch/eidch-issuer-agent-oid4vci
-  - https://github.com/swiyu-admin-ch/eidch-verifier-agent-oid4vp
-  - https://github.com/swiyu-admin-ch/eidch-verifier-agent-management
-  - https://github.com/swiyu-admin-ch/eidch-issuer-agent-management
+  - ghcr.io/swiyu-admin-ch/swiyu-issuer
+  - ghcr.io/swiyu-admin-ch/swiyu-verifier
+
+## Swagger
+
+https://swiyu-issuer.redpebble-62dbc6b1.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
+https://swiyu-verifier.redpebble-62dbc6b1.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
+
 
 ## Links
 
