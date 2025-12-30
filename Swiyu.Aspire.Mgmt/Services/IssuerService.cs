@@ -81,7 +81,7 @@ public class IssuerService
     {
         var idEncoded = HttpUtility.UrlEncode(id);
         using HttpResponseMessage response = await _httpClient.GetAsync(
-            $"{_swiyuIssuerMgmtUrl}/api/v1/credentials/{idEncoded}/status");
+            $"{_swiyuIssuerMgmtUrl}/management/api/credentials/{idEncoded}/status");
 
         if (response.IsSuccessStatusCode)
         {

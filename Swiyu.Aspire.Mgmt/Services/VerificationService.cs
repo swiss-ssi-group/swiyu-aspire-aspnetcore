@@ -21,7 +21,7 @@ public class VerificationService
     }
 
     /// <summary>
-    /// curl - X POST http://localhost:8082/api/v1/verifications \
+    /// curl - X POST http://localhost:8082/management/api/verifications \
     ///       -H "accept: application/json" \
     ///       -H "Content-Type: application/json" \
     ///       -d '
@@ -43,7 +43,7 @@ public class VerificationService
     }
 
     /// <summary>
-    /// curl - X POST http://localhost:8082/api/v1/verifications \
+    /// curl - X POST http://localhost:8082/management/api/verifications \
     ///       -H "accept: application/json" \
     ///       -H "Content-Type: application/json" \
     ///       -d '
@@ -65,7 +65,7 @@ public class VerificationService
     {
         var idEncoded = HttpUtility.UrlEncode(verificationId);
         using HttpResponseMessage response = await _httpClient.GetAsync(
-            $"{_swiyuVerifierMgmtUrl}/api/v1/verifications/{idEncoded}");
+            $"{_swiyuVerifierMgmtUrl}/management/api/verifications/{idEncoded}");
 
         if (response.IsSuccessStatusCode)
         {
@@ -91,7 +91,7 @@ public class VerificationService
     {
         var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync(
-                    $"{_swiyuVerifierMgmtUrl}/api/v1/verifications", jsonContent);
+                    $"{_swiyuVerifierMgmtUrl}/management/api/verifications", jsonContent);
         if (response.IsSuccessStatusCode)
         {
             var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -111,7 +111,7 @@ public class VerificationService
         var json = $$"""
              {
                  "accepted_issuer_dids": [ "{{issuer}}" ],
-                 "jwt_secured_authorization_request": true,
+                 "response_mode": "direct_post",
                  "presentation_definition": {
                      "id": "{{presentationDefinitionId}}",
                      "name": "Verification",
@@ -163,11 +163,9 @@ public class VerificationService
         var json = $$"""
              {
                  "accepted_issuer_dids": [ "{{acceptedIssuerDid}}" ],
-                 "jwt_secured_authorization_request": true,
+                 "response_mode": "direct_post",
                  "presentation_definition": {
                      "id": "{{presentationDefinitionId}}",
-                     "name": "Verification",
-                     "purpose": "Verify using Beta ID",
                      "input_descriptors": [
                          {
                              "id": "{{inputDescriptorsId}}",
