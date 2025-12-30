@@ -10,10 +10,13 @@ Aspire is used to develop and implement the applications. Four container applica
 
 ### swiyu containers
 
-- ghcr.io/swiyu-admin-ch/eidch-issuer-agent-oid4vci
-- ghcr.io/swiyu-admin-ch/eidch-verifier-agent-oid4vp
-- ghcr.io/swiyu-admin-ch/eidch-verifier-agent-management
-- ghcr.io/swiyu-admin-ch/eidch-issuer-agent-management
+- ghcr.io/swiyu-admin-ch/swiyu-issuer
+- ghcr.io/swiyu-admin-ch/swiyu-verifier
+
+## Swagger
+
+https://swiyu-issuer.redpebble-62dbc6b1.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
+https://swiyu-verifier.redpebble-62dbc6b1.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
 
 ### public configuration files for this demo
 
