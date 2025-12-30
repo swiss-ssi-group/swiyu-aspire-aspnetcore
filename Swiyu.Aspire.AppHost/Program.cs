@@ -4,11 +4,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 const string HTTP = "http";
 
-// public
-IResourceBuilder<ContainerResource>? swiyuOid4vci = null;
-IResourceBuilder<ContainerResource>? swiyuOid4vp = null;
-
-// management
+// management & public endpoints
 IResourceBuilder<ContainerResource>? swiyuVerifierMgmt = null;
 IResourceBuilder<ContainerResource>? swiyuIssuerMgmt = null;
 IResourceBuilder<ProjectResource>? swiyuAspireMgmt = null;
@@ -36,41 +32,6 @@ var swiyuCustomerSecret = builder.AddParameter("swiyucustomerSecret", secret: tr
 var swiyuRefreshToken = builder.AddParameter("swiyurefreshtoken", secret: true);
 var swiyuAccessToken = builder.AddParameter("swiyuaccesstoken", secret: true);
 
-/////////////////////////////////////////////////////////////////
-// Issuer OpenID Endpoint: Must be deployed to a public URL
-/////////////////////////////////////////////////////////////////
-swiyuOid4vci = builder.AddContainer("swiyu-oid4vci", "ghcr.io/swiyu-admin-ch/swiyu-issuer", "latest")
-    .WithEnvironment("EXTERNAL_URL", issuerExternalUrl)
-    .WithEnvironment("SPRING_APPLICATION_NAME", issuerName)
-    .WithEnvironment("ISSUER_ID", issuerId)
-
-    .WithEnvironment("DID_STATUS_LIST_VERIFICATION_METHOD", issuerDidSdJwtVerficiationMethod)
-    .WithEnvironment("STATUS_LIST_KEY", issuerSdJwtKey)
-    .WithEnvironment("SWIYU_PARTNER_ID", businessPartnerId)
-    .WithEnvironment("SWIYU_STATUS_REGISTRY_CUSTOMER_KEY", swiyuCustomerKey)
-    .WithEnvironment("SWIYU_STATUS_REGISTRY_CUSTOMER_SECRET", swiyuCustomerSecret)
-
-    .WithEnvironment("SWIYU_STATUS_REGISTRY_ACCESS_TOKEN", swiyuAccessToken)
-    .WithEnvironment("SWIYU_STATUS_REGISTRY_BOOTSTRAP_REFRESH_TOKEN", swiyuRefreshToken)
-    .WithEnvironment("SWIYU_STATUS_REGISTRY_TOKEN_URL", "https://keymanager-prd.api.admin.ch/keycloak/realms/APIGW/protocol/openid-connect/token")
-
-    .WithEnvironment("DID_SDJWT_VERIFICATION_METHOD", issuerDidSdJwtVerficiationMethod)
-    .WithEnvironment("SDJWT_KEY", issuerSdJwtKey)
-    .WithEnvironment("OPENID_CONFIG_FILE", issuerOpenIdConfigFile)
-    .WithEnvironment("METADATA_CONFIG_FILE", issuerMetaDataConfigFile)
-    .WithEnvironment("TOKEN_TTL", issuerTokenTtl)
-
-    .WithEnvironment("SWIYU_STATUS_REGISTRY_API_URL", "https://status-reg-api.trust-infra.swiyu-int.admin.ch")
-    .WithEnvironment("LOGGING_LEVEL_CH_ADMIN_BJ_SWIYU", "DEBUG")
-    .WithEnvironment("SWIYU_STATUS_REGISTRY_AUTH_ENABLE_REFRESH_TOKEN_FLOW", "true")
-
-    .WithEnvironment("POSTGRES_USER", postGresUser)
-    .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
-    .WithEnvironment("POSTGRES_DB", postGresDbIssuer)
-    .WithEnvironment("POSTGRES_JDBC", postGresJdbcIssuer)
-    .WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP)
-    .WithExternalHttpEndpoints();
-
 // Verifier
 var verifierExternalUrl = builder.AddParameter("verifierexternalurl");
 var verifierOpenIdClientMetaDataFile = builder.AddParameter("verifieropenidclientmetadatafile");
@@ -81,20 +42,6 @@ var verifierSigningKey = builder.AddParameter("verifiersigningkey", true);
 
 /////////////////////////////////////////////////////////////////
 // Verifier OpenID Endpoint: Must be deployed to a public URL
-/////////////////////////////////////////////////////////////////
-swiyuOid4vp = builder.AddContainer("swiyu-oid4vp", "ghcr.io/swiyu-admin-ch/swiyu-verifier", "latest")
-    .WithEnvironment("EXTERNAL_URL", verifierExternalUrl)
-    .WithEnvironment("OPENID_CLIENT_METADATA_FILE", verifierOpenIdClientMetaDataFile)
-    .WithEnvironment("VERIFIER_DID", verifierDid)
-    .WithEnvironment("DID_VERIFICATION_METHOD", didVerifierMethod)
-    .WithEnvironment("SIGNING_KEY", verifierSigningKey)
-    .WithEnvironment("POSTGRES_USER", postGresUser)
-    .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
-    .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
-    .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
-    .WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP)
-    .WithExternalHttpEndpoints();
-
 /////////////////////////////////////////////////////////////////
 // Verifier Management Endpoint: TODO Add JWT security verifier
 // Add security to management API, disabled
@@ -116,6 +63,8 @@ swiyuVerifierMgmt = builder.AddContainer("swiyu-verifier-mgmt", "ghcr.io/swiyu-a
       .WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment 
 #endif
 
+/////////////////////////////////////////////////////////////////
+// Issuer OpenID Endpoint: Must be deployed to a public URL
 /////////////////////////////////////////////////////////////////
 // Issuer Management Endpoint: TODO Add JWT security issuer
 // Add security to management API, disabled
