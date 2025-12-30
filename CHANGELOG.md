@@ -1,6 +1,10 @@
 
 # Change log
 
+## 2025-12-30
+- Update to latest swiyu containers
+- Switched to 2 generic containers
+
 ## 2025-10-24
 - Update packages
 
