@@ -57,6 +57,7 @@ swiyuVerifier = builder.AddContainer("swiyu-verifier", "ghcr.io/swiyu-admin-ch/s
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
     .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
+    .WithExternalHttpEndpoints()
     //.WithHttpEndpoint(port: 8084, targetPort: 8080, name: HTTP);  // local development
     .WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment 
 
@@ -96,6 +97,7 @@ swiyuIssuer = builder.AddContainer("swiyu-issuer", "ghcr.io/swiyu-admin-ch/swiyu
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbIssuer)
     .WithEnvironment("POSTGRES_JDBC", postGresJdbcIssuer)
+    .WithExternalHttpEndpoints()
     //.WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP); // local development
     .WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment
 
