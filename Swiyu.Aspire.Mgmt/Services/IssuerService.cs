@@ -27,7 +27,7 @@ public class IssuerService
 
         var json = GetBody(statusRegistryUrl, vcType, payloadCredentialData);
 
-        //  curl - X POST http://localhost:8084/api/v1/credentials \
+        //  curl - X POST http://localhost:8084/management/api/credentials \
         // -H "accept: */*" \
         // -H "Content-Type: application/json" \
         // -d '
@@ -35,7 +35,7 @@ public class IssuerService
         var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
         using HttpResponseMessage response = await _httpClient.PostAsync(
-            $"{_swiyuIssuerMgmtUrl}/api/v1/credentials", jsonContent);
+            $"{_swiyuIssuerMgmtUrl}/management/api/credentials", jsonContent);
 
         if(response.IsSuccessStatusCode)
         {
@@ -67,7 +67,7 @@ public class IssuerService
                },
                "offer_validity_seconds": 86400,
                "credential_valid_until": "2030-01-01T19:23:24Z",
-               "credential_valid_from": "2025-01-01T18:23:24Z",
+               "credential_valid_from": "2025-11-01T18:23:24Z",
                "status_lists": [
                  "{{statusRegistryUrl}}"
                ]
