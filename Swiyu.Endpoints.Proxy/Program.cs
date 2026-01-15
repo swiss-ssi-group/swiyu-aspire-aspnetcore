@@ -26,6 +26,6 @@ app.Run();
 
 // Proxy Endpoints:
 // https://localhost:7009/.well-known/openid-configuration
-// https://aspire-dashboard.ext.redpebble-62dbc6b1.switzerlandnorth.azurecontainerapps.io/.well-known/openid-configuration
+// https://swiyu-endpoints-proxy.redpebble-62dbc6b1.switzerlandnorth.azurecontainerapps.io/.well-known/openid-configuration
 
 // https://swiyu-endpoints-proxy.redpebble-62dbc6b1.switzerlandnorth.azurecontainerapps.io/issuer_openidconfigfile.json
