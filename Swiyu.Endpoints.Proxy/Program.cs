@@ -11,10 +11,13 @@ var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
+//app.UseAuthentication();
 
 app.MapReverseProxy();
 
 app.Run();
+
+// https://localhost:7009/.well-known/openid-configuration
