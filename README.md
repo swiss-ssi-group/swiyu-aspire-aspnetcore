@@ -32,6 +32,20 @@ Basic setup to issue and verify swiyu credentials using the swiyu public beta, A
 - [Dev docs](DEV.md)
 - [Changelog](CHANGELOG.md)
 
+## Podman
+
+https://podman-desktop.io/docs/troubleshooting/troubleshooting-podman
+
+```bash
+podman machine start
+```
+
+## ef DB Migrations
+```bash
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+```
+
 ## Used OSS packages, containers, repositories 
 
 - ImageMagick: https://github.com/manuelbl/QrCodeGenerator/tree/master/Demo-ImageMagick

@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Swiyu.Aspire.Mgmt\Swiyu.Aspire.Mgmt.csproj" />
+    <ProjectReference Include="..\Swiyu.Endpoints.Proxy\Swiyu.Endpoints.Proxy.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
