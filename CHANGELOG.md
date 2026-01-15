@@ -1,6 +1,10 @@
 
 # Change log
 
+## 2026-01-16
+- Added swiyu proxy (Yarp) to isolated to management APIs
+- Improved API security
+
 ## 2025-12-30
 - Update to latest swiyu containers
 - Switched to 2 generic containers
