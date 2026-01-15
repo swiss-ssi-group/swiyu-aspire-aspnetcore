@@ -8,15 +8,9 @@ builder.Services.AddReverseProxy()
         YarpConfigurations.GetClusters(builder.Configuration["SwiyuIssuerMgmtUrl"]!, 
             builder.Configuration["SwiyuVerifierMgmtUrl"]!));
 
-//builder.Services.AddReverseProxy()
-//    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
-
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
-
-//app.UseAuthorization();
-//app.UseAuthentication();
 
 app.MapReverseProxy();
 
