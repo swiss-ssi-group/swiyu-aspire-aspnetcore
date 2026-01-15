@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Http;
 
-var builder = DistributedApplication.CreateBuilder(args);
-
 const string HTTP = "http";
+
+var builder = DistributedApplication.CreateBuilder(args);
 
 // management & public endpoints
 IResourceBuilder<ContainerResource>? swiyuVerifier = null;
@@ -12,6 +12,7 @@ IResourceBuilder<ProjectResource>? swiyuMgmt = null;
 var postGresUser = builder.AddParameter("postgresuser");
 var postGresPassword = builder.AddParameter("postgrespassword", secret: true);
 var postGresDbIssuer = builder.AddParameter("postgresdbissuer");
+
 var postGresJdbcIssuer = builder.AddParameter("postgresjdbcissuer");
 var postGresDbVerifier = builder.AddParameter("postgresdbverifier");
 var postGresJdbcVerifier = builder.AddParameter("postgresjdbcverifier");
@@ -111,6 +112,8 @@ swiyuMgmt = builder.AddProject<Projects.Swiyu_Aspire_Mgmt>("swiyu-mgmt")
     .WithEnvironment("ISSUER_ID", issuerId)
     .WaitFor(swiyuIssuer)
     .WaitFor(swiyuVerifier);
+
+builder.AddProject<Projects.Swiyu_Endpoints_Proxy>("swiyu-endpoints-proxy");
 
 builder.Build().Run();
 
