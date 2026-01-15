@@ -53,7 +53,7 @@ public static class YarpConfigurations
                 ClusterId = "clusterissuer",
                 Destinations = new Dictionary<string, DestinationConfig>
                 {
-                    { "destination1", new DestinationConfig() { Address = issuer } }
+                    { "destination1", new DestinationConfig() { Address = $"{issuer}/" } }
                 },
                 HttpClient = new HttpClientConfig { MaxConnectionsPerServer = 10, SslProtocols =  SslProtocols.Tls12 }
             },
@@ -62,7 +62,7 @@ public static class YarpConfigurations
                 ClusterId = "clusterverifier",
                 Destinations = new Dictionary<string, DestinationConfig>
                 {
-                    { "destination1", new DestinationConfig() { Address = verifier } }
+                    { "destination1", new DestinationConfig() { Address = $"{verifier}/" } }
                 },
                 HttpClient = new HttpClientConfig { MaxConnectionsPerServer = 10, SslProtocols =  SslProtocols.Tls12 }
             }
