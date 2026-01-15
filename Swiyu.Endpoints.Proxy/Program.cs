@@ -1,19 +1,19 @@
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
-
+using Swiyu.Endpoints.Proxy;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-// Add services to the container.
-
 builder.Services.AddReverseProxy()
-    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+    .LoadFromMemory(YarpConfigurations.GetRoutes(), 
+        YarpConfigurations.GetClusters(builder.Configuration["SwiyuIssuerMgmtUrl"]!, 
+            builder.Configuration["SwiyuVerifierMgmtUrl"]!));
+
+//builder.Services.AddReverseProxy()
+//    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
-
-//app.UseHttpsRedirection();
 
 //app.UseAuthorization();
 //app.UseAuthentication();
