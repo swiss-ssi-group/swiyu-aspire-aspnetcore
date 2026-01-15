@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -17,6 +19,8 @@ app.MapDefaultEndpoints();
 //app.UseAuthentication();
 
 app.MapReverseProxy();
+
+app.UseStaticFiles();
 
 app.Run();
 
