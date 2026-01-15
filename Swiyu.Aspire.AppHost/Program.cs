@@ -8,6 +8,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 IResourceBuilder<ContainerResource>? swiyuVerifier = null;
 IResourceBuilder<ContainerResource>? swiyuIssuer = null;
 IResourceBuilder<ProjectResource>? swiyuMgmt = null;
+IResourceBuilder<ProjectResource>?  swiyuProxy = null;
 
 var postGresUser = builder.AddParameter("postgresuser");
 var postGresPassword = builder.AddParameter("postgrespassword", secret: true);
@@ -58,9 +59,8 @@ swiyuVerifier = builder.AddContainer("swiyu-verifier", "ghcr.io/swiyu-admin-ch/s
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
     .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
-    .WithHttpEndpoint(port: 8084, targetPort: 8080, name: HTTP)  // local development
-    //.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP) // for deployment 
-    .WithExternalHttpEndpoints();
+    .WithHttpEndpoint(port: 8084, targetPort: 8080, name: HTTP);  // local development
+    //.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment 
 
 /////////////////////////////////////////////////////////////////
 // Issuer OpenID Endpoint: Must be deployed to a public URL
@@ -98,9 +98,12 @@ swiyuIssuer = builder.AddContainer("swiyu-issuer", "ghcr.io/swiyu-admin-ch/swiyu
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbIssuer)
     .WithEnvironment("POSTGRES_JDBC", postGresJdbcIssuer)
-    .WithExternalHttpEndpoints()
-    .WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP) // local development
-    //.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP) // for deployment
+    .WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP); // local development
+    //.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment
+
+swiyuProxy = builder.AddProject<Projects.Swiyu_Endpoints_Proxy>("swiyu-endpoints-proxy")
+    .WaitFor(swiyuIssuer)
+    .WaitFor(swiyuVerifier)
     .WithExternalHttpEndpoints();
 
 swiyuMgmt = builder.AddProject<Projects.Swiyu_Aspire_Mgmt>("swiyu-mgmt")
@@ -111,9 +114,9 @@ swiyuMgmt = builder.AddProject<Projects.Swiyu_Aspire_Mgmt>("swiyu-mgmt")
     .WithEnvironment("SwiyuOid4vpUrl", verifierExternalUrl)
     .WithEnvironment("ISSUER_ID", issuerId)
     .WaitFor(swiyuIssuer)
-    .WaitFor(swiyuVerifier);
+    .WaitFor(swiyuVerifier)
+    .WaitFor(swiyuProxy);
 
-builder.AddProject<Projects.Swiyu_Endpoints_Proxy>("swiyu-endpoints-proxy");
 
 builder.Build().Run();
 
