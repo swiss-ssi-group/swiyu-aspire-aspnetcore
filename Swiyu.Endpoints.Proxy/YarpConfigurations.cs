@@ -36,7 +36,7 @@ public static class YarpConfigurations
                 AuthorizationPolicy = "Anonymous",
                 Match = new RouteMatch
                 {
-                    Path = "/oidvp/{**catch-all}"
+                    Path = "/oid4vp/{**catch-all}"
                 }
             }
          };
