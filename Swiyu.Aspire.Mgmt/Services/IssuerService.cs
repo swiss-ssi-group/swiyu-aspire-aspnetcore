@@ -67,7 +67,7 @@ public class IssuerService
                },
                "offer_validity_seconds": 86400,
                "credential_valid_until": "2030-01-01T19:23:24Z",
-               "credential_valid_from": "2025-11-01T18:23:24Z",
+               "credential_valid_from": "2026-02-26T18:23:24Z",
                "status_lists": [
                  "{{statusRegistryUrl}}"
                ]

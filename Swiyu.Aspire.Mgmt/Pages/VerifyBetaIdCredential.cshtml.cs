@@ -21,6 +21,9 @@ public class VerifyBetaIdCredentialModel : PageModel
     [BindProperty]
     public byte[] QrCodePng { get; set; } = [];
 
+    [BindProperty]
+    public string? VerificationDeeplink { get; set; } = string.Empty;
+
     public VerifyBetaIdCredentialModel(VerificationService verificationService,
         IConfiguration configuration)
     {
@@ -42,6 +45,7 @@ public class VerifyBetaIdCredentialModel : PageModel
         var verificationResponse = JsonSerializer.Deserialize<CreateVerificationPresentationModel>(presentation);
         // verification_url
         QrCodeUrl = verificationResponse!.verification_url;
+        VerificationDeeplink = verificationResponse!.verification_deeplink;
 
         var qrCode = QrCode.EncodeText(verificationResponse!.verification_deeplink, QrCode.Ecc.Quartile);
         QrCodePng = qrCode.ToPng(20, 4, MagickColors.Black, MagickColors.White);
