@@ -18,9 +18,6 @@ public class CreateCredentialIssuerModel : PageModel
     public byte[] QrCodePng { get; set; } = [];
 
     [BindProperty]
-    public string? IssuerDeeplink { get; set; } = string.Empty;
-
-    [BindProperty]
     public string? ManagementId { get; set; } = null;
 
     public CreateCredentialIssuerModel(IssuerService issuerService)
@@ -53,7 +50,6 @@ public class CreateCredentialIssuerModel : PageModel
         QrCodePng = qrCode.ToPng(20, 4, MagickColors.Black, MagickColors.White);
 
         QrCodeUrl = data!.offer_deeplink;
-        IssuerDeeplink = data!.offer_deeplink;
         ManagementId = data!.management_id;
     }
 }
