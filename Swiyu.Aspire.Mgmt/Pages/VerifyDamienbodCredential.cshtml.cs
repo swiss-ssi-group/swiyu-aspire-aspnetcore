@@ -47,7 +47,7 @@ public class VerifyDamienbodCredentialModel : PageModel
         QrCodeUrl = verificationResponse!.verification_url;
         VerificationDeeplink = verificationResponse!.verification_deeplink;
 
-        var qrCode = QrCode.EncodeText(verificationResponse!.verification_deeplink, QrCode.Ecc.Quartile);
+        var qrCode = QrCode.EncodeText(verificationResponse!.verification_url, QrCode.Ecc.Quartile);
         QrCodePng = qrCode.ToPng(20, 4, MagickColors.Black, MagickColors.White);
 
         VerificationId = verificationResponse.id;
