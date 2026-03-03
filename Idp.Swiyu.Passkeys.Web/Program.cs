@@ -19,6 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
 builder.Services.AddDistributedMemoryCache();
+builder.Services.AddOutputCache();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

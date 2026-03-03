@@ -412,3 +412,4 @@ FodyWeavers.xsd
 /Employee.AppHost/Properties/swiyu-oid4vp/ConfigFiles/assert-key-01
 /Employee.AppHost/Properties/swiyu-oid4vp/ConfigFiles/auth-key-01
 /Employee.AppHost/Properties/swiyu-oid4vp/ConfigFiles/id_ed25519
+/Idp.Swiyu.Passkeys.Sts/keys/is-signing-key-43E9C7C230628219AE81E31408B1CED4.json
