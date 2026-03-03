@@ -1,0 +1,40 @@
+@page
+@model Idp.Swiyu.Passkeys.Sts.Pages.Home.Index
+
+<div class="welcome-page">
+    <h1>IdentityServer with support for swiyu and passkeys</h1>
+
+    <ul>
+        <li>
+            IdentityServer publishes a
+            <a href="~/.well-known/openid-configuration">discovery document</a>
+            where you can find metadata and links to all the endpoints, key material, etc.
+        </li>
+        <li>
+            Click <a href="~/diagnostics">here</a> to see the claims for your current session.
+        </li>
+        <li>
+            Click <a href="~/grants">here</a> to manage your stored grants.
+        </li>
+        <li>
+            Click <a href="~/serversidesessions">here</a> to view the server side sessions.
+        </li>
+        <li>
+            Click <a href="~/ciba/all">here</a> to view your pending CIBA login requests.
+        </li>
+        <li>
+          Click <a href="~/account/passkeys">here</a> to manage your passkeys.
+        </li>
+    </ul>
+
+    @if (Model.License != null)
+    {
+        <h2>License</h2>
+        <dl>
+            <dt>Serial Number</dt>
+            <dd>@Model.License.SerialNumber</dd>
+            <dt>Expiration</dt>
+            <dd>@Model.License.Expiration!.Value.ToLongDateString()</dd>
+        </dl>
+    }
+</div>

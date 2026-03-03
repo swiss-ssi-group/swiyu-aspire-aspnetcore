@@ -1,0 +1,53 @@
+@using Duende.IdentityServer.Extensions
+@{
+#nullable enable
+    string? name = null;
+    if (!true.Equals(ViewData["signed-out"]))
+    {
+        name = Context.User?.GetDisplayName();
+    }
+}
+
+<div class="sidebar-top-row">
+    <a class="navbar-brand" href="~/">
+        <img src="~/damienbod-icon.png" class="brand-icon" alt="damienbod" />
+        IDP IAM
+    </a>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler"/>
+
+<div class="nav-scrollable">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <a class="nav-link" href="~/">Home</a>
+        </div>
+
+        @if (name != null)
+        {
+            <div class="nav-item px-3">
+                <a class="nav-link" href="~/grants">Grants</a>
+            </div>
+
+            <div class="nav-item px-3">
+                <a class="nav-link" href="~/diagnostics">Diagnostics</a>
+            </div>
+
+            <div class="nav-item px-3">
+                <a class="nav-link" href="~/serversidesessions">Sessions</a>
+            </div>
+
+            <div class="nav-item px-3">
+                <a class="nav-link" href="~/account/passkeys">Passkeys</a>
+            </div>
+
+            <div class="nav-item px-3">
+                <a class="nav-link" href="~/Swiyu/Register">Swiyu</a>
+            </div>
+
+            <div class="nav-item px-3">
+                <a class="nav-link" asp-page="/Account/Logout/Index">Logout</a>
+            </div>
+        }
+    </nav>
+</div>

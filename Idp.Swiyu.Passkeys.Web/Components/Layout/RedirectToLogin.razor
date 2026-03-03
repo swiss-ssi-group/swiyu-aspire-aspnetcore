@@ -1,0 +1,9 @@
+﻿@inject NavigationManager Navigation
+@code {
+    protected override void OnInitialized()
+    {
+        Navigation.NavigateTo($"/login?returnUrl={Uri.EscapeDataString(Navigation.Uri)}", true);
+        Navigation.NavigateTo($"/stepuploa?returnUrl={Uri.EscapeDataString(Navigation.Uri)}", true);
+        Navigation.NavigateTo($"/stepuploi?returnUrl={Uri.EscapeDataString(Navigation.Uri)}", true);
+    }
+}

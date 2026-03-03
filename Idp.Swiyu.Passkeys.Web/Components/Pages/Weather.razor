@@ -1,0 +1,111 @@
+﻿@page "/weather"
+@using Idp.Swiyu.Passkeys.Web.WeatherServices
+@using Microsoft.AspNetCore.Components
+@using System.Text.RegularExpressions
+@attribute [StreamRendering(true)]
+@attribute [OutputCache(Duration = 5)]
+
+@inject IConfiguration Configuration
+@inject WeatherApiClient WeatherApi
+@inject NavigationManager NavigationManager
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather</h1>
+
+<p>This component demonstrates showing data loaded from a backend API service, using OAuth DPoP</p>
+
+@if (errorMessage != null)
+{
+    var returnUrl = NavigationManager.Uri;
+    <div class="alert alert-danger" role="alert">
+        <strong>Error:</strong> @errorMessage
+        @if (errorMessage.Contains("loi", StringComparison.OrdinalIgnoreCase))
+        {
+            <div class="mt-2">
+                <a class="btn btn-primary" href="@GetRegisterSwiyuUrl()" target="_blank">
+                    <span class="bi bi-key-fill-nav-menu" aria-hidden="true"></span> Step up identification
+                </a>
+            </div>
+        }
+        @if (errorMessage.Contains("loa", StringComparison.OrdinalIgnoreCase))
+        {
+            var loaValue = ExtractParameterValue(errorMessage, "loa");
+            if (!string.IsNullOrEmpty(loaValue))
+            {
+                var stepUpUrl = $"/stepuploa?loa={Uri.EscapeDataString(loaValue)}&returnUrl={Uri.EscapeDataString(returnUrl)}";
+                <div class="mt-2">
+                    <a href="@stepUpUrl" class="btn btn-primary">Step up authentication</a>
+                </div>
+            }
+        }
+    </div>
+}
+else if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th aria-label="Temperature in Celsius">Temp. (C)</th>
+                <th aria-label="Temperature in Farenheit">Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WeatherForecast[]? forecasts;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            forecasts = await WeatherApi.GetWeatherAsync();
+        }
+        catch (ApiErrorHandlingException ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
+
+    private string? ExtractParameterValue(string message, string parameterName)
+    {
+        if (string.IsNullOrEmpty(message))
+            return null;
+
+        // Try to extract parameter value using regex pattern like: loi="value" or loa="value"
+        var pattern = $@"{parameterName}=""?([^""\s,]+)""?";
+        var match = Regex.Match(message, pattern, RegexOptions.IgnoreCase);
+        
+        if (match.Success && match.Groups.Count > 1)
+        {
+            return match.Groups[1].Value;
+        }
+
+        return null;
+    }
+
+    private string GetRegisterSwiyuUrl()
+    {
+        var authority = Configuration["OpenIDConnectSettings:Authority"] ?? "https://localhost:5001";
+        return $"{authority}/Swiyu/Register";
+    }
+}

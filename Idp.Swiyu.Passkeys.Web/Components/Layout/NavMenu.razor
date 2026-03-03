@@ -1,0 +1,98 @@
+﻿@inject NavigationManager NavigationManager
+@inject IConfiguration Configuration
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">
+            <img src="damienbod-icon.png" alt="Logo" class="brand-icon" />
+            WEB.Swiyu.Passkeys
+        </a>
+    </div>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable">
+    <nav class="nav flex-column">
+        <AuthorizeView>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="weather">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <a class="nav-link" href="@GetPasskeysUrl()" target="_blank">
+                        <span class="bi bi-key-fill-nav-menu" aria-hidden="true"></span> Edit Passkeys
+                    </a>
+                </div>
+
+                <div class="nav-item px-3">
+                    <a class="nav-link" href="@GetRegisterSwiyuUrl()" target="_blank">
+                        <span class="bi bi-key-fill-nav-menu" aria-hidden="true"></span> Link Identity to account
+                    </a>
+                </div>
+
+                <div class="nav-item px-3">
+                    <form action="logout" method="post">
+                        <AntiforgeryToken />
+                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                        <button type="submit" class="nav-link">
+                            <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
+                        </button>
+                    </form>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="login">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Login
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+        
+
+    </nav>
+</div>
+
+@code {
+    private string? currentUrl;
+
+    protected override void OnInitialized()
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
+        StateHasChanged();
+    }
+
+    private string GetPasskeysUrl()
+    {
+        var authority = Configuration["OpenIDConnectSettings:Authority"] ?? "https://localhost:5001";
+        return $"{authority}/Account/passkeys";
+    }
+
+    private string GetRegisterSwiyuUrl()
+    {
+        var authority = Configuration["OpenIDConnectSettings:Authority"] ?? "https://localhost:5001";
+        return $"{authority}/Swiyu/Register";
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+}
+

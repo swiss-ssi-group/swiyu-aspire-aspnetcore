@@ -1,0 +1,17 @@
+@page
+@model Idp.Swiyu.Passkeys.Sts.Pages.Logout.Index
+
+<div class="logout-page">
+    <div class="lead">
+        <h3>Logout</h3>
+        <p>Would you like to logout of IdentityServer?</p>
+    </div>
+
+    <form asp-page="/Account/Logout/Index">
+        <input type="hidden" name="logoutId" value="@Model.LogoutId"/>
+
+        <div class="form-group">
+            <button class="btn btn-primary">Yes</button>
+        </div>
+    </form>
+</div>
