@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Http;
 using Projects;
 
 const string HTTP = "http";
-const string IDENTITY_PROVIDER = "identityProvider";
-const string WEB_CLIENT = "webClient";
-const string API_SERVICE = "apiService";
+const string IDENTITY_PROVIDER = "identity-provider";
+const string WEB_CLIENT = "web-client";
+const string API_SERVICE = "api-service";
 
 var builder = DistributedApplication.CreateBuilder(args);
 
