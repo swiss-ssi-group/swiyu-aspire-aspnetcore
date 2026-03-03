@@ -31,8 +31,9 @@ public static class Config
         ];
     }
 
-    public static IEnumerable<Client> Clients(IWebHostEnvironment environment)
+    public static IEnumerable<Client> Clients(IWebHostEnvironment environment, IConfiguration configuration)
     {
+        var webClientUrl = configuration.GetValue<string>("WebClientUrl");
         var publicPem = File.ReadAllText(Path.Combine(environment.ContentRootPath, "rsa256-public.pem"));
         var rsaCertificate = X509Certificate2.CreateFromPem(publicPem);
 
@@ -57,9 +58,9 @@ public static class Config
                 AllowedGrantTypes = GrantTypes.Code,
                 AlwaysIncludeUserClaimsInIdToken = true,
 
-                RedirectUris = { "https://localhost:7019/signin-oidc" },
-                FrontChannelLogoutUri = "https://localhost:7019/signout-oidc",
-                PostLogoutRedirectUris = { "https://localhost:7019/signout-callback-oidc" },
+                RedirectUris = { $"{webClientUrl}/signin-oidc" },
+                FrontChannelLogoutUri = $"{webClientUrl}/signout-oidc",
+                PostLogoutRedirectUris = { $"{webClientUrl}/signout-callback-oidc" },
 
                 AllowOfflineAccess = true,
                 AllowedScopes = { "openid", "profile", "scope2" }

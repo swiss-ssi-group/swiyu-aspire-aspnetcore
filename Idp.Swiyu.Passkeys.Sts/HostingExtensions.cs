@@ -111,7 +111,7 @@ internal static class HostingExtensions
             })
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)
-            .AddInMemoryClients(Config.Clients(builder.Environment))
+            .AddInMemoryClients(Config.Clients(builder.Environment, builder.Configuration))
             .AddInMemoryApiResources(Config.GetApiResources())
             .AddAspNetIdentity<ApplicationUser>()
             .AddLicenseSummary()
