@@ -1,8 +1,6 @@
 // Copyright (c) Duende Software. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using Duende.IdentityModel;
-using Duende.IdentityServer;
 using Duende.IdentityServer.ResponseHandling;
 using Idp.Swiyu.Passkeys.Sts.Domain;
 using Idp.Swiyu.Passkeys.Sts.Domain.Models;
@@ -13,7 +11,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Filters;
 using System.Globalization;
@@ -81,15 +78,11 @@ internal static class HostingExtensions
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
-        if (builder.Environment.IsDevelopment())
+        builder.Services.Configure<IdentityPasskeyOptions>(options =>
         {
-            builder.Services.Configure<IdentityPasskeyOptions>(options =>
-            {
-                // Allow https://localhost:5001 origin.
-                options.ValidateOrigin = context => ValueTask.FromResult(
-                    context.Origin == "https://localhost:5001");
-            });
-        }
+            options.ValidateOrigin = context => ValueTask.FromResult(
+                context.Origin == builder.Configuration["WebOidcAuthority"]);
+        });
 
         builder.Services.AddTransient<IAuthorizeInteractionResponseGenerator, StepUpInteractionResponseGenerator>();
 
