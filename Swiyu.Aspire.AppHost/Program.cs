@@ -133,6 +133,10 @@ var swiyuManagementAuthority = builder.AddParameter("swiyumanagementauthority");
 var swiyuManagementScope = builder.AddParameter("swiyumanagementscope");
 var webClientUrl = builder.AddParameter("WebClientUrl");
 
+// OIDC web endpoints
+var webOidcClientId = builder.AddParameter("WebOidcClientId");
+var webOidcAuthority = builder.AddParameter("WebOidcAuthority");
+
 identityProvider = builder.AddProject<Projects.Idp_Swiyu_Passkeys_Sts>(IDENTITY_PROVIDER)
     .WithExternalHttpEndpoints()
     .WithReference(database)
@@ -145,13 +149,10 @@ identityProvider = builder.AddProject<Projects.Idp_Swiyu_Passkeys_Sts>(IDENTITY_
     .WithEnvironment("SwiyuManagementAuthority", swiyuManagementAuthority)
     .WithEnvironment("SwiyuManagementScope", swiyuManagementScope)
     .WithEnvironment("WebClientUrl", webClientUrl)
+    .WithEnvironment("WebOidcAuthority", webOidcAuthority)
     .WaitFor(swiyuVerifier)
     .WaitFor(swiyuProxy)
     .WithHttpHealthCheck("/health");
-
-// OIDC web endpoints
-var webOidcClientId = builder.AddParameter("WebOidcClientId");
-var webOidcAuthority = builder.AddParameter("WebOidcAuthority");
 
 var apiService = builder.AddProject<Projects.Idp_Swiyu_Passkeys_ApiService>(API_SERVICE)
     .WithReference(identityProvider)

@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
 using Serilog;
 using Serilog.Filters;
+using System;
 using System.Globalization;
 
 namespace Idp.Swiyu.Passkeys.Sts;
@@ -78,10 +79,19 @@ internal static class HostingExtensions
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+        var url = new Uri(builder.Configuration["WebOidcAuthority"]!);
+
         builder.Services.Configure<IdentityPasskeyOptions>(options =>
         {
-            options.ValidateOrigin = context => ValueTask.FromResult(
-                context.Origin == builder.Configuration["WebOidcAuthority"]);
+            options.ValidateOrigin = async (context) =>
+            {
+                if (context.Origin == url.OriginalString)
+                {
+                    return true;
+                }
+
+                return false;
+            };
         });
 
         builder.Services.AddTransient<IAuthorizeInteractionResponseGenerator, StepUpInteractionResponseGenerator>();
