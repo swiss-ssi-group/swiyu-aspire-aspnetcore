@@ -15,6 +15,7 @@ IResourceBuilder<ProjectResource>? swiyuMgmt = null;
 IResourceBuilder<ProjectResource>?  swiyuProxy = null;
 IResourceBuilder<ProjectResource>? identityProvider = null;
 
+// E-ID database
 var postGresUser = builder.AddParameter("postgresuser");
 var postGresPassword = builder.AddParameter("postgrespassword", secret: true);
 var postGresDbIssuer = builder.AddParameter("postgresdbissuer");
@@ -143,15 +144,27 @@ identityProvider = builder.AddProject<Projects.Idp_Swiyu_Passkeys_Sts>(IDENTITY_
     .WithEnvironment("SwiyuManagementAuthority", swiyuManagementAuthority)
     .WithEnvironment("SwiyuManagementScope", swiyuManagementScope)
     .WaitFor(swiyuVerifier)
-    .WaitFor(swiyuProxy);
+    .WaitFor(swiyuProxy)
+    .WithHttpHealthCheck("/health");
+
+// OIDC web endpoints
+var webOidcClientId = builder.AddParameter("WebOidcClientId");
+var webOidcAuthority = builder.AddParameter("WebOidcAuthority");
 
 var apiService = builder.AddProject<Projects.Idp_Swiyu_Passkeys_ApiService>(API_SERVICE)
-    .WithHttpHealthCheck("/health");
+    .WithReference(identityProvider)
+    .WaitFor(identityProvider)
+    .WithHttpHealthCheck("/health")
+    .WithEnvironment("IdentityProviderUrl", webOidcAuthority);
 
 builder.AddProject<Projects.Idp_Swiyu_Passkeys_Web>(WEB_CLIENT)
     .WithExternalHttpEndpoints()
-    .WithReference(apiService)
-    .WaitFor(apiService);
+    .WaitFor(identityProvider)
+    .WithReference(identityProvider)
+    .WithEnvironment("IdentityProviderUrl", webOidcAuthority)
+    .WithEnvironment("WebOidcAuthority", webOidcAuthority)
+    .WithEnvironment("WebOidcClientId", webOidcClientId)
+    .WithHttpHealthCheck("/health");
 
 if (builder.ExecutionContext.IsRunMode)
 {

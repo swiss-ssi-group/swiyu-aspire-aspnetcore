@@ -119,6 +119,8 @@ internal static class HostingExtensions
 
         idsvrBuilder.AddJwtBearerClientAuthentication();
 
+        builder.Services.AddHealthChecks();
+
         return builder.Build();
     }
 
@@ -143,6 +145,9 @@ internal static class HostingExtensions
 
         app.MapRazorPages()
             .RequireAuthorization();
+
+        app.MapHealthChecks("/health")
+            .AllowAnonymous();
 
         return app;
     }

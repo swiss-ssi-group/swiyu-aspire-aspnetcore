@@ -15,8 +15,8 @@ public static class AssertionService
     public static string CreateClientToken(IConfiguration configuration)
     {
         var now = DateTime.UtcNow;
-        var clientId = configuration.GetValue<string>("OpenIDConnectSettings:ClientId");
-        var authority = configuration.GetValue<string>("OpenIDConnectSettings:Authority");
+        var clientId = configuration.GetValue<string>("WebOidcClientId");
+        var authority = configuration.GetValue<string>("WebOidcAuthority");
 
         var privatePem = File.ReadAllText(Path.Combine("", "rsa256-private.pem"));
         var publicPem = File.ReadAllText(Path.Combine("", "rsa256-public.pem"));
@@ -49,8 +49,8 @@ public static class AssertionService
     public static string SignAuthorizationRequest(OpenIdConnectMessage message, IConfiguration configuration)
     {
         var now = DateTime.UtcNow;
-        var clientId = configuration.GetValue<string>("OpenIDConnectSettings:ClientId");
-        var authority = configuration.GetValue<string>("OpenIDConnectSettings:Authority");
+        var clientId = configuration.GetValue<string>("WebOidcClientId");
+        var authority = configuration.GetValue<string>("WebOidcAuthority");
 
         var privatePem = File.ReadAllText(Path.Combine("", "rsa256-private.pem"));
         var publicPem = File.ReadAllText(Path.Combine("", "rsa256-public.pem"));
