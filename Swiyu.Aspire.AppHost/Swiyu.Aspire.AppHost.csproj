@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Idp.Swiyu.Passkeys.ApiService\Idp.Swiyu.Passkeys.ApiService.csproj" />
+    <ProjectReference Include="..\Idp.Swiyu.Passkeys.Sts.Domain.Migrations\Idp.Swiyu.Passkeys.Sts.Domain.Migrations.csproj" />
+    <ProjectReference Include="..\Idp.Swiyu.Passkeys.Sts\Idp.Swiyu.Passkeys.Sts.csproj" />
+    <ProjectReference Include="..\Idp.Swiyu.Passkeys.Web\Idp.Swiyu.Passkeys.Web.csproj" />
     <ProjectReference Include="..\Swiyu.Aspire.Mgmt\Swiyu.Aspire.Mgmt.csproj" />
     <ProjectReference Include="..\Swiyu.Endpoints.Proxy\Swiyu.Endpoints.Proxy.csproj" />
   </ItemGroup>
