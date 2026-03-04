@@ -34,8 +34,8 @@ public static class Config
     public static IEnumerable<Client> Clients(IWebHostEnvironment environment, IConfiguration configuration)
     {
         var webClientUrl = configuration.GetValue<string>("WebClientUrl");
-        var publicPem = File.ReadAllText(Path.Combine(environment.ContentRootPath, "rsa256-public.pem"));
-        var rsaCertificate = X509Certificate2.CreateFromPem(publicPem);
+        var stsOidcWebClientPublicPem = configuration.GetValue<string>("StsOidcWebClientPublicPem");
+        var rsaCertificate = X509Certificate2.CreateFromPem(stsOidcWebClientPublicPem);
 
         // interactive client using code flow + pkce + par + DPoP
         return [

@@ -24,6 +24,12 @@ var postGresJdbcIssuer = builder.AddParameter("postgresjdbcissuer");
 var postGresDbVerifier = builder.AddParameter("postgresdbverifier");
 var postGresJdbcVerifier = builder.AddParameter("postgresjdbcverifier");
 
+var stsOidcWebClientPublicPem = builder.AddParameter("StsOidcWebClientPublicPem");
+var webOidcClientPrivatePem = builder.AddParameter("WebOidcClientPrivatePem", secret: true);
+var webOidcClientPublicPem = builder.AddParameter("WebOidcClientPublicPem");
+var webDpopClientPrivatePem = builder.AddParameter("WebDpopClientPrivatePem", secret: true);
+var webDpopClientPublicPem = builder.AddParameter("WebDpopClientPublicPem");
+
 // Issuer
 var issuerExternalUrl = builder.AddParameter("issuerexternalurl");
 var issuerId = builder.AddParameter("issuerid");
@@ -150,6 +156,7 @@ identityProvider = builder.AddProject<Projects.Idp_Swiyu_Passkeys_Sts>(IDENTITY_
     .WithEnvironment("SwiyuManagementScope", swiyuManagementScope)
     .WithEnvironment("WebClientUrl", webClientUrl)
     .WithEnvironment("WebOidcAuthority", webOidcAuthority)
+    .WithEnvironment("StsOidcWebClientPublicPem", stsOidcWebClientPublicPem)
     .WaitFor(swiyuVerifier)
     .WaitFor(swiyuProxy)
     .WithHttpHealthCheck("/health");
