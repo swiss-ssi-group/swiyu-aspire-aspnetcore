@@ -31,7 +31,7 @@ var webOidcClientPublicPem = builder.AddParameter("WebOidcClientPublicPem");
 var webDpopClientPrivatePem = builder.AddParameter("WebDpopClientPrivatePem", secret: true);
 var webDpopClientPublicPem = builder.AddParameter("WebDpopClientPublicPem");
 
-var stsSigningPrivatePem = builder.AddParameter("StsSigningPrivatePem");
+var stsSigningPrivatePem = builder.AddParameter("StsSigningPrivatePem", secret: true);
 var stsSigningPublicPem = builder.AddParameter("StsSigningPublicPem");
 
 // Issuer

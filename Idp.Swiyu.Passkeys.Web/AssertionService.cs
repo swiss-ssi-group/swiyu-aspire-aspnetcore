@@ -18,8 +18,8 @@ public static class AssertionService
         var clientId = configuration.GetValue<string>("WebOidcClientId");
         var authority = configuration.GetValue<string>("WebOidcAuthority");
 
-        var privatePem = File.ReadAllText(Path.Combine("", "rsa256-private.pem"));
-        var publicPem = File.ReadAllText(Path.Combine("", "rsa256-public.pem"));
+        var privatePem = File.ReadAllText(Path.Combine("", "rsa256-oidc-private.pem"));
+        var publicPem = File.ReadAllText(Path.Combine("", "rsa256-oidc-public.pem"));
         var rsaCertificate = X509Certificate2.CreateFromPem(publicPem, privatePem);
         var rsaCertificateKey = new RsaSecurityKey(rsaCertificate.GetRSAPrivateKey());
         var signingCredentials = new SigningCredentials(new X509SecurityKey(rsaCertificate), "RS256");
