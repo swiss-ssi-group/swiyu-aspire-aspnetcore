@@ -12,7 +12,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 IResourceBuilder<ContainerResource>? swiyuVerifier = null;
 IResourceBuilder<ContainerResource>? swiyuIssuer = null;
 IResourceBuilder<ProjectResource>? swiyuMgmt = null;
-IResourceBuilder<ProjectResource>?  swiyuProxy = null;
+IResourceBuilder<ProjectResource>? swiyuProxy = null;
 IResourceBuilder<ProjectResource>? identityProvider = null;
 
 // E-ID database
@@ -184,7 +184,7 @@ builder.AddProject<Projects.Idp_Swiyu_Passkeys_Web>(WEB_CLIENT)
     .WithHttpHealthCheck("/health")
     .WaitFor(identityProvider)
     .WithReference(identityProvider);
-   
+
 
 if (builder.ExecutionContext.IsRunMode)
 {
