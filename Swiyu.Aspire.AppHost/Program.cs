@@ -175,7 +175,8 @@ var apiService = builder.AddProject<Projects.Idp_Swiyu_Passkeys_ApiService>(API_
 
 builder.AddProject<Projects.Idp_Swiyu_Passkeys_Web>(WEB_CLIENT)
     .WithExternalHttpEndpoints()
-    .WithEnvironment("IdentityProviderUrl", webOidcAuthority)
+    .WithReference(apiService)
+    .WaitFor(apiService)
     .WithEnvironment("WebOidcAuthority", webOidcAuthority)
     .WithEnvironment("WebOidcClientId", webOidcClientId)
     .WithEnvironment("WebOidcClientPrivatePem", webOidcClientPrivatePem)
@@ -184,9 +185,8 @@ builder.AddProject<Projects.Idp_Swiyu_Passkeys_Web>(WEB_CLIENT)
     .WithEnvironment("WebDpopClientPublicPem", webDpopClientPublicPem)
     .WithHttpHealthCheck("/health")
     .WaitFor(identityProvider)
-    .WithReference(identityProvider)
-    .WithReference(apiService)
-    .WaitFor(apiService);
+    .WithReference(identityProvider);
+   
 
 if (builder.ExecutionContext.IsRunMode)
 {
