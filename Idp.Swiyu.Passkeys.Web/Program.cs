@@ -7,6 +7,7 @@ using Idp.Swiyu.Passkeys.Web.WeatherServices;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
@@ -30,9 +31,13 @@ builder.Services.AddRazorComponents()
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<WeatherApiClient>();
 
-var privatePem = File.ReadAllText(Path.Combine(builder.Environment.ContentRootPath, "ecdsa384-private.pem"));
-var publicPem = File.ReadAllText(Path.Combine(builder.Environment.ContentRootPath, "ecdsa384-public.pem"));
-var ecdsaCertificate = X509Certificate2.CreateFromPem(publicPem, privatePem);
+//var privatePem = File.ReadAllText(Path.Combine(builder.Environment.ContentRootPath, "ecdsa384-private.pem"));
+//var publicPem = File.ReadAllText(Path.Combine(builder.Environment.ContentRootPath, "ecdsa384-public.pem"));
+
+var webDpopClientPrivatePem = builder.Configuration.GetValue<string>("WebDpopClientPrivatePem");
+var webDpopClientPublicPem = builder.Configuration.GetValue<string>("WebDpopClientPublicPem");
+
+var ecdsaCertificate = X509Certificate2.CreateFromPem(webDpopClientPublicPem, webDpopClientPrivatePem);
 var ecdsaCertificateKey = new ECDsaSecurityKey(ecdsaCertificate.GetECDsaPrivateKey());
 
 builder.Services.AddAuthentication(options =>
