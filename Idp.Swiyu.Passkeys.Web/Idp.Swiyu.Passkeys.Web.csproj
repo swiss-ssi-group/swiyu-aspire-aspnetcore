@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ecdsa384-private.pem" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Swiyu.Aspire.ServiceDefaults\Swiyu.Aspire.ServiceDefaults.csproj" />
   </ItemGroup>
 
