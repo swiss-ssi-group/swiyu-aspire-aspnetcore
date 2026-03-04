@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Projects;
 
 const string HTTP = "http";
@@ -29,6 +30,9 @@ var webOidcClientPrivatePem = builder.AddParameter("WebOidcClientPrivatePem", se
 var webOidcClientPublicPem = builder.AddParameter("WebOidcClientPublicPem");
 var webDpopClientPrivatePem = builder.AddParameter("WebDpopClientPrivatePem", secret: true);
 var webDpopClientPublicPem = builder.AddParameter("WebDpopClientPublicPem");
+
+var stsSigningPrivatePem = builder.AddParameter("StsSigningPrivatePem");
+var stsSigningPublicPem = builder.AddParameter("StsSigningPublicPem");
 
 // Issuer
 var issuerExternalUrl = builder.AddParameter("issuerexternalurl");
@@ -157,6 +161,8 @@ identityProvider = builder.AddProject<Projects.Idp_Swiyu_Passkeys_Sts>(IDENTITY_
     .WithEnvironment("WebClientUrl", webClientUrl)
     .WithEnvironment("WebOidcAuthority", webOidcAuthority)
     .WithEnvironment("StsOidcWebClientPublicPem", stsOidcWebClientPublicPem)
+    .WithEnvironment("StsSigningPrivatePem", stsSigningPrivatePem)
+    .WithEnvironment("StsSigningPublicPem", stsSigningPublicPem)
     .WaitFor(swiyuVerifier)
     .WaitFor(swiyuProxy)
     .WithHttpHealthCheck("/health");
