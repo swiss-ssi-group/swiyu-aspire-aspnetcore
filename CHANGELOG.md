@@ -1,6 +1,9 @@
 
 # Change log
 
+## 2026-03-13 1.0.1
+- Updated packages 
+
 ## 2026-02-27 1.0.0
 - Add nonce API for wallet calls
 - Update deeplinks
