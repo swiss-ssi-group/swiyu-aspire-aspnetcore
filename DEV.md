@@ -8,6 +8,14 @@ https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/
 
 Aspire is used to develop and implement the applications. Four container applications provided by swiyu are used to implement the swiyu logic. The end user application uses the provided APIs.
 
+## Podman
+
+https://podman-desktop.io/docs/troubleshooting/troubleshooting-podman
+
+```bash
+podman machine start
+```
+
 ### swiyu containers
 
 - ghcr.io/swiyu-admin-ch/swiyu-issuer
