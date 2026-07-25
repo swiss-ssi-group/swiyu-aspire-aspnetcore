@@ -2,6 +2,10 @@
 # Change log
 
 ## 2026-02-27 1.0.0
+- Updated packages
+- Move to actual swiyu containerss
+
+## 2026-02-27 1.0.0
 - Add nonce API for wallet calls
 - Update deeplinks
 - swiyu integration for identity verification updated
