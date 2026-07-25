@@ -22,7 +22,8 @@ public class IssuerService
     {
         _logger.LogInformation("Issuer credential for data");
 
-        var statusRegistryUrl = "https://status-reg.trust-infra.swiyu-int.admin.ch/api/v1/statuslist/8cddcd3c-d0c3-49db-a62f-83a5299214d4.jwt";
+        var statusRegistryUrl = "https://status-reg.trust-infra.swiyu-int.admin.ch/api/v1/statuslist/2ba92b09-f05a-4831-ab2b-1370a470ebcb.jwt";
+        
         var vcType = "damienbod-vc";
 
         var json = GetBody(statusRegistryUrl, vcType, payloadCredentialData);
@@ -98,6 +99,37 @@ public class IssuerService
 
         var error = await response.Content.ReadAsStringAsync();
         _logger.LogError("Could not create issue credential {issuer}", error);
+
+        throw new ArgumentException(error);
+    }
+
+    public async Task<string> CreateStatusList()
+    {
+        _logger.LogInformation("Creating status list");
+        var json = 
+        $$"""
+        {
+            "type": "TOKEN_STATUS_LIST",
+            "maxLength": 100000,
+            "config": {
+              "bits": 2
+            }
+        }
+        """;
+
+        var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+        using HttpResponseMessage response = await _httpClient.PostAsync($"{_swiyuIssuerMgmtUrl}/management/api/status-list", jsonContent);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            return jsonResponse;
+        }
+
+        var error = await response.Content.ReadAsStringAsync();
+        _logger.LogError("Could not create status list {issuer}", error);
 
         throw new ArgumentException(error);
     }

@@ -1,0 +1,28 @@
+﻿@page
+@model Swiyu.Aspire.Mgmt.Pages.CreateStatusListModel
+@{
+    ViewData["Title"] = "Create status list";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center" id="issuedDataButton">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary-card text-white">
+                    <h4 class="mb-0">@ViewData["Title"]</h4>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <form method="post">
+                            <button type="submit" class="btn btn-outline-dark">Create Status List</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <p>@Model.StatusList</p>
+
+</div>
