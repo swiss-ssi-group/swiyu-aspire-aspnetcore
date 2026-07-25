@@ -15,8 +15,4 @@
     <ProjectReference Include="..\Swiyu.Aspire.ServiceDefaults\Swiyu.Aspire.ServiceDefaults.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
 </Project>

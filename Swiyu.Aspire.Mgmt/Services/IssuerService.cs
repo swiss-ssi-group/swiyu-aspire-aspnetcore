@@ -78,6 +78,7 @@ public class IssuerService
         return json;
     }
 
+
     public async Task<StatusModel?> GetIssuanceStatus(string id)
     {
         var idEncoded = HttpUtility.UrlEncode(id);
