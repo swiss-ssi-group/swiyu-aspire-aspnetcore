@@ -55,8 +55,7 @@ public class VerificationService
         var inputDescriptorsId = Guid.NewGuid().ToString();
         var presentationDefinitionId = "00000000-0000-0000-0000-000000000000"; // Guid.NewGuid().ToString();
 
-        var json = GetDataForLocalCredential(inputDescriptorsId,
-           presentationDefinitionId, _issuerId!, "damienbod-vc");
+        var json = GetDataForLocalCredential(inputDescriptorsId, presentationDefinitionId, _issuerId!, "damienbod-vc");
 
         return await SendCreateVerificationPostRequest(json);
     }
@@ -90,8 +89,9 @@ public class VerificationService
     private async Task<string> SendCreateVerificationPostRequest(string json)
     {
         var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
-        var response = await _httpClient.PostAsync(
-                    $"{_swiyuVerifierMgmtUrl}/management/api/verifications", jsonContent);
+
+        var response = await _httpClient.PostAsync($"{_swiyuVerifierMgmtUrl}/management/api/verifications", jsonContent);
+        
         if (response.IsSuccessStatusCode)
         {
             var jsonResponse = await response.Content.ReadAsStringAsync();

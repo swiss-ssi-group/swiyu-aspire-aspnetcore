@@ -13,8 +13,6 @@ Basic setup to issue and verify swiyu credentials using the swiyu public beta, A
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=sqale_rating)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=swiss-ssi-group_swiyu-aspire-aspnetcore&metric=vulnerabilities)](https://sonarcloud.io/summary/overall?id=swiss-ssi-group_swiyu-aspire-aspnetcore)
 
-[Demo](https://swiyu-mgmt.redpebble-62dbc6b1.switzerlandnorth.azurecontainerapps.io/)
-
 ## Blogs
 
 - [Issue and verify credentials using the Swiss Digital identity public beta, ASP.NET Core and .NET Aspire](https://damienbod.com/2025/08/04/issuer-and-verify-credentials-using-the-swiss-digital-identity-public-beta-asp-net-core-and-net-aspire/)
@@ -67,8 +65,8 @@ dotnet ef database update
 
 ## Swagger
 
-https://swiyu-issuer.redpebble-62dbc6b1.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
-https://swiyu-verifier.redpebble-62dbc6b1.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
+https://swiyu-endpoints-proxy.livelysand-4f5c661d.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
+https://swiyu-endpoints-proxy.livelysand-4f5c661d.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
 
 
 ## Links

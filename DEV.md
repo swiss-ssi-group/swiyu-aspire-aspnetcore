@@ -15,12 +15,8 @@ Aspire is used to develop and implement the applications. Four container applica
 
 ## Swagger
 
-https://swiyu-issuer.redpebble-62dbc6b1.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
-https://swiyu-verifier.redpebble-62dbc6b1.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
-
-### public configuration files for this demo
-
-https://github.com/swiss-ssi-group/swiyu-config-files
+https://swiyu-endpoints-proxy.livelysand-4f5c661d.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
+https://swiyu-endpoints-proxy.livelysand-4f5c661d.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
 
 ## Database
 
