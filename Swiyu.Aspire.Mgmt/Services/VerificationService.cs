@@ -112,45 +112,32 @@ public class VerificationService
              {
                  "accepted_issuer_dids": [ "{{issuer}}" ],
                  "response_mode": "direct_post",
-                 "presentation_definition": {
-                     "id": "{{presentationDefinitionId}}",
-                     "name": "Verification",
-                     "purpose": "Verify damienbod VC",
-                     "input_descriptors": [
-                         {
-                             "id": "{{inputDescriptorsId}}",
-                             "format": {
-                                 "vc+sd-jwt": {
-                                     "sd-jwt_alg_values": [
-                                         "ES256"
-                                     ],
-                                     "kb-jwt_alg_values": [
-                                         "ES256"
-                                     ]
-                                 }
-                             },
-                             "constraints": {
-             	                "fields": [
-             		                {
-             			                "path": [ "$.vct" ],
-             			                "filter": {
-             				                "type": "string",
-             				                "const": "{{vcType}}"
-             			                }
-             		                },
-                                    {
-                                        "path": [ "$.firstName" ]
-                                    },
-                                    {
-                                        "path": [ "$.lastName" ]
-                                    },
-             		                {
-             			                "path": [ "$.birthDate" ]
-             		                }
-             	                ]
-                             }
-                         }
-                     ]
+
+                 "verification_purpose": {
+                   "scope": "ch.identity",
+                   "purpose_name": {
+                     "default": "Identity verification"
+                   },
+                   "purpose_description": {
+                     "default": "Used to verify the identity of an individual"
+                   }
+                 },
+                 "dcql_query": {
+                   "credentials": [
+                     {
+                       "id": "{{presentationDefinitionId}}",
+                       "format": "dc+sd-jwt",
+                       "meta": {
+                         "vct_values": ["betaid-sdjwt"]
+                       },
+                       "claims": [
+             		     { "path": [ "$.family_name" ] },
+                         { "path": [ "$.given_name" ] },     
+             		     { "path": [ "$.birth_date" ] }
+                       ],
+                       "require_cryptographic_holder_binding": true
+                     }
+                   ]
                  }
              }
              """;

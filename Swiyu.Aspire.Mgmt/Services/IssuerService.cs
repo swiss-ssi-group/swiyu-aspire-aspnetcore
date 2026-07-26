@@ -62,9 +62,9 @@ public class IssuerService
                  "{{vcType}}"
                ],
                "credential_subject_data": {
-                 "firstName": "{{payloadCredentialData.FirstName}}",
-                 "lastName": "{{payloadCredentialData.LastName}}",
-                 "birthDate": "{{payloadCredentialData.BirthDate}}"
+                 "family_name": "{{payloadCredentialData.FamilyName}}",
+                 "given_name": "{{payloadCredentialData.GivenName}}",
+                 "birth_date": "{{payloadCredentialData.BirthDate}}"
                },
                "offer_validity_seconds": 86400,
                "credential_valid_until": "2030-01-01T19:23:24Z",

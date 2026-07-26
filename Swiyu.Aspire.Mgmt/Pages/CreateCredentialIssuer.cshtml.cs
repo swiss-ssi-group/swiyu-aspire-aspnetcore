@@ -39,8 +39,8 @@ public class CreateCredentialIssuerModel : PageModel
         var vci = await _issuerService.IssuerCredentialAsync(
             new PayloadCredentialData
             {
-                FirstName = "damienbod",
-                LastName = "cool apps",
+                FamilyName = "McGarry",
+                GivenName = "Eoin",
                 BirthDate = DateTime.UtcNow.ToShortDateString()
             });
 
