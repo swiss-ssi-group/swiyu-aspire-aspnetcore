@@ -1,11 +1,16 @@
 
 # Change log
 
-## 2026-02-27 1.0.0
+## 2026-09-12
 - Updated packages
-- Move to actual swiyu containerss
+- Move to actual swiyu containers, 4.2.0
+- Fixed Aspire multi-line secrets handling
 
-## 2026-02-27 1.0.0
+## 2026-02-27
+- Updated packages
+- Move to actual swiyu containers
+
+## 2026-02-27
 - Add nonce API for wallet calls
 - Update deeplinks
 - swiyu integration for identity verification updated
