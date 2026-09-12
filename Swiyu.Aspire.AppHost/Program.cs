@@ -50,7 +50,7 @@ var verifierJwtIssuer = builder.AddParameter("verifierjwtissuer");
 // Add security to management API, disabled
 // https://github.com/swiyu-admin-ch/swiyu-verifier?tab=readme-ov-file#security
 /////////////////////////////////////////////////////////////////
-swiyuVerifier = builder.AddContainer("swiyu-verifier", "ghcr.io/swiyu-admin-ch/swiyu-verifier", "4.1.1")
+swiyuVerifier = builder.AddContainer("swiyu-verifier", "ghcr.io/swiyu-admin-ch/swiyu-verifier", "4.2.0")
     .WithEnvironment("EXTERNAL_URL", verifierExternalUrl)
     .WithEnvironment("OPENID_CLIENT_METADATA_FILE", verifierOpenIdClientMetaDataFile)
     .WithEnvironment("VERIFIER_DID", verifierDid)
@@ -61,7 +61,7 @@ swiyuVerifier = builder.AddContainer("swiyu-verifier", "ghcr.io/swiyu-admin-ch/s
     .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
     .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
     .WithEnvironment("SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI", verifierJwtIssuer)
-    .WithHttpEndpoint(port: 8084, targetPort: 8080, name: HTTP);  // local development
+    .WithHttpEndpoint(port: 8085, targetPort: 8080, name: HTTP);  // local development
     //.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment 
     // Testing only, not required for IDP
 
@@ -72,7 +72,7 @@ swiyuVerifier = builder.AddContainer("swiyu-verifier", "ghcr.io/swiyu-admin-ch/s
 // Add security to management API, disabled
 // https://github.com/swiyu-admin-ch/swiyu-issuer?tab=readme-ov-file#security
 /////////////////////////////////////////////////////////////////
-swiyuIssuer = builder.AddContainer("swiyu-issuer", "ghcr.io/swiyu-admin-ch/swiyu-issuer", "4.1.0")
+swiyuIssuer = builder.AddContainer("swiyu-issuer", "ghcr.io/swiyu-admin-ch/swiyu-issuer", "4.2.0")
     .WithEnvironment("EXTERNAL_URL", issuerExternalUrl)
     .WithEnvironment("SPRING_APPLICATION_NAME", issuerName)
     .WithEnvironment("ISSUER_ID", issuerId)
@@ -101,7 +101,7 @@ swiyuIssuer = builder.AddContainer("swiyu-issuer", "ghcr.io/swiyu-admin-ch/swiyu
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbIssuer)
     .WithEnvironment("POSTGRES_JDBC", postGresJdbcIssuer)
-    .WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP); // local development
+    .WithHttpEndpoint(port: 8086, targetPort: 8080, name: HTTP); // local development
     //.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment
 
 
