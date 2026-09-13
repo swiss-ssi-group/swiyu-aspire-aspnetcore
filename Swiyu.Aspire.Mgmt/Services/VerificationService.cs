@@ -56,7 +56,7 @@ public class VerificationService
         _logger.LogInformation("Creating verification presentation");
 
         var inputDescriptorsId = Guid.NewGuid().ToString();
-        var presentationDefinitionId = "00000000-0000-0000-0000-000000000000"; // Guid.NewGuid().ToString();
+        var presentationDefinitionId =  "00000000-0000-0000-0000-000000000000"; // Guid.NewGuid().ToString();
 
         var json = GetDataForLocalCredential(inputDescriptorsId, presentationDefinitionId, _issuerId!, "damienbod-vc");
 
@@ -116,12 +116,12 @@ public class VerificationService
         var json = $$"""
              {
                  "accepted_issuer_dids": [ "{{issuer}}" ],
-                 "response_mode": "direct_post.jwt",
+                 "response_mode": "direct_post",
 
                  "verification_purpose": {
-                   "scope": "ch.identity",
+                   "scope": "ch.damienbod.local",
                    "purpose_name": {
-                     "default": "Identity verification"
+                     "default": "Identity verification using local credentials"
                    },
                    "purpose_description": {
                      "default": "Used to verify the identity of an individual"
@@ -172,7 +172,7 @@ public class VerificationService
                        "id": "{{presentationDefinitionId}}",
                        "format": "dc+sd-jwt",
                        "meta": {
-                         "vct_values": ["betaid-sdjwt"]
+                         "vct_values": ["betaid-sdjwt", "urn:vct:ch.admin.bcs-intg.betaid"]
                        },
                        "claims": [
                          { "path": [ "$.birth_date" ] },
