@@ -47,13 +47,13 @@ public class CreateCredentialIssuerModel : PageModel
                 BirthDate = DateTime.UtcNow.ToShortDateString()
             });
 
-        var data = JsonSerializer.Deserialize<CredentialIssuerModel>(vci);
+        var issueCredential = JsonSerializer.Deserialize<CredentialIssuerModel>(vci);
 
-        var qrCode = QrCode.EncodeText(data!.offer_deeplink, QrCode.Ecc.Quartile);
+        var qrCode = QrCode.EncodeText(issueCredential!.offer_deeplink, QrCode.Ecc.Quartile);
         QrCodePng = qrCode.ToPng(20, 4, MagickColors.Black, MagickColors.White);
 
-        QrCodeUrl = data!.offer_deeplink;
-        DeepLink = data.offer_deeplink;
-        ManagementId = data!.management_id;
+        QrCodeUrl = issueCredential!.offer_deeplink;
+        DeepLink = issueCredential.offer_deeplink;
+        ManagementId = issueCredential!.management_id;
     }
 }

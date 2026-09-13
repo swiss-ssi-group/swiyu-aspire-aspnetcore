@@ -22,7 +22,7 @@ public class VerifyDamienbodCredentialModel : PageModel
     public byte[] QrCodePng { get; set; } = [];
 
     [BindProperty]
-    public string? VerificationDeeplink { get; set; } = string.Empty;
+    public string? DeepLink { get; set; } = string.Empty;
 
     public VerifyDamienbodCredentialModel(VerificationService verificationService,
         IConfiguration configuration)
@@ -43,13 +43,14 @@ public class VerifyDamienbodCredentialModel : PageModel
             .CreateDamienbodVerificationPresentationAsync();
 
         var verificationResponse = JsonSerializer.Deserialize<CreateVerificationPresentationModel>(presentation);
+  
         // verification_url
         QrCodeUrl = verificationResponse!.verification_url;
-        VerificationDeeplink = verificationResponse!.verification_deeplink;
 
-        var qrCode = QrCode.EncodeText(verificationResponse!.verification_url, QrCode.Ecc.Quartile);
+        var qrCode = QrCode.EncodeText(verificationResponse!.verification_deeplink, QrCode.Ecc.Quartile);
         QrCodePng = qrCode.ToPng(20, 4, MagickColors.Black, MagickColors.White);
 
+        DeepLink = verificationResponse.verification_deeplink;
         VerificationId = verificationResponse.id;
     }
 }
