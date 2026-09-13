@@ -40,7 +40,7 @@ public class VerificationService
         var presentationDefinitionId = "00000000-0000-0000-0000-000000000000"; // Guid.NewGuid().ToString();
 
         var json = GetBetaIdVerificationPresentationBodyV4(inputDescriptorsId,
-            presentationDefinitionId, acceptedIssuerDid, "betaid-sdjwt");
+            presentationDefinitionId, acceptedIssuerDid, "urn:vct:ch.admin.bcs.betaid");
 
         return await SendCreateVerificationPostRequest(json);
     }
@@ -156,7 +156,7 @@ public class VerificationService
              {
                  "accepted_issuer_dids": [ "{{acceptedIssuerDid}}" ],
                  "jwt_secured_authorization_request": true,
-                 "response_mode": "direct_post.jwt",
+                 "response_mode": "direct_post",
                  "verification_purpose": {
                    "scope": "ch.identity",
                    "purpose_name": {
@@ -172,7 +172,7 @@ public class VerificationService
                        "id": "{{presentationDefinitionId}}",
                        "format": "dc+sd-jwt",
                        "meta": {
-                         "vct_values": ["betaid-sdjwt", "urn:vct:ch.admin.bcs-intg.betaid"]
+                         "vct_values": ["{{vcType}}"]
                        },
                        "claims": [
                          { "path": [ "$.birth_date" ] },
