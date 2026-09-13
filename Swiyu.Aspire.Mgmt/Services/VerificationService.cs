@@ -39,7 +39,7 @@ public class VerificationService
         var inputDescriptorsId = Guid.NewGuid().ToString();
         var presentationDefinitionId = "00000000-0000-0000-0000-000000000000"; // Guid.NewGuid().ToString();
 
-        var json = GetBetaIdVerificationPresentationBody(inputDescriptorsId,
+        var json = GetBetaIdVerificationPresentationBodyV4(inputDescriptorsId,
             presentationDefinitionId, acceptedIssuerDid, "betaid-sdjwt");
 
         return await SendCreateVerificationPostRequest(json);
