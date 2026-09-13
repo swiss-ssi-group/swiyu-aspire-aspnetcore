@@ -44,7 +44,7 @@ var verifierOpenIdClientMetaDataFile = builder.AddParameter("verifieropenidclien
 var verifierDid = builder.AddParameter("verifierdid");
 var didVerifierMethod = builder.AddParameter("didverifiermethod");
 var verifierName = builder.AddParameter("verifiername");
-var verifierJwtIssuer = builder.AddParameter("verifierjwtissuer");
+var swiyuMgmtJwtIssuer = builder.AddParameter("verifierjwtissuer");
 var verifierSigningKeyBase64 = builder.AddParameter("verifiersigningkeybase64", secret: true);
 
 var verifierSigningKeyBase64Value = await verifierSigningKeyBase64.Resource.GetValueAsync(default);
@@ -70,7 +70,7 @@ swiyuVerifier = builder.AddContainer("swiyu-verifier", "ghcr.io/swiyu-admin-ch/s
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
     .WithEnvironment("POSTGRES_JDBC", postGresJdbcVerifier)
-    .WithEnvironment("SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI", verifierJwtIssuer)
+    .WithEnvironment("SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI", swiyuMgmtJwtIssuer)
     .WithHttpEndpoint(port: 8085, targetPort: 8080, name: HTTP);  // local development
     //.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment 
     // Testing only, not required for IDP
@@ -103,6 +103,7 @@ swiyuIssuer = builder.AddContainer("swiyu-issuer", "ghcr.io/swiyu-admin-ch/swiyu
     .WithEnvironment("SWIYU_STATUS_REGISTRY_AUTH_ENABLE_REFRESH_TOKEN_FLOW", "true")
 
     .WithEnvironment("OPENID_CONFIG_FILE", issuerOpenIdConfigFile)
+    .WithEnvironment("SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI", swiyuMgmtJwtIssuer)
     .WithEnvironment("METADATA_CONFIG_FILE", issuerMetaDataConfigFile)
     .WithEnvironment("TOKEN_TTL", issuerTokenTtl)
 

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Duende.IdentityModel.Client;
+using System.Text;
 using System.Text.Json;
 using System.Web;
 
@@ -10,6 +11,7 @@ public class VerificationService
     private readonly string? _swiyuVerifierMgmtUrl;
     private readonly string? _issuerId;
     private readonly HttpClient _httpClient;
+    private readonly IConfiguration _configuration;
 
     public VerificationService(IHttpClientFactory httpClientFactory,
         ILoggerFactory loggerFactory, IConfiguration configuration)
@@ -18,6 +20,7 @@ public class VerificationService
         _issuerId = configuration["ISSUER_ID"];
         _httpClient = httpClientFactory.CreateClient();
         _logger = loggerFactory.CreateLogger<VerificationService>();
+        _configuration = configuration;
     }
 
     /// <summary>
@@ -88,10 +91,12 @@ public class VerificationService
 
     private async Task<string> SendCreateVerificationPostRequest(string json)
     {
-        var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
+        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration);
 
+        var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
+        _httpClient.SetBearerToken(accessToken);
         var response = await _httpClient.PostAsync($"{_swiyuVerifierMgmtUrl}/management/api/verifications", jsonContent);
-        
+
         if (response.IsSuccessStatusCode)
         {
             var jsonResponse = await response.Content.ReadAsStringAsync();

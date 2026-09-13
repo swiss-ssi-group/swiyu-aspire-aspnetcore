@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Duende.IdentityModel.Client;
+using System.Text;
 using System.Text.Json;
 using System.Web;
 
@@ -9,6 +10,7 @@ public class IssuerService
     private readonly ILogger<IssuerService> _logger;
     private readonly string? _swiyuIssuerMgmtUrl;
     private readonly HttpClient _httpClient;
+    private readonly IConfiguration _configuration;
 
     public IssuerService(IHttpClientFactory httpClientFactory,
         ILoggerFactory loggerFactory, IConfiguration configuration)
@@ -16,6 +18,7 @@ public class IssuerService
         _swiyuIssuerMgmtUrl = configuration["SwiyuIssuerMgmtUrl"];
         _httpClient = httpClientFactory.CreateClient();
         _logger = loggerFactory.CreateLogger<IssuerService>();
+        _configuration = configuration;
     }
 
     public async Task<string> IssuerCredentialAsync(PayloadCredentialData payloadCredentialData)
@@ -34,6 +37,9 @@ public class IssuerService
         // -d '
 
         var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration);
+        _httpClient.SetBearerToken(accessToken);
 
         using HttpResponseMessage response = await _httpClient.PostAsync(
             $"{_swiyuIssuerMgmtUrl}/management/api/credentials", jsonContent);
