@@ -50,6 +50,11 @@ var verifierSigningKeyBase64 = builder.AddParameter("verifiersigningkeybase64", 
 var verifierSigningKeyBase64Value = await verifierSigningKeyBase64.Resource.GetValueAsync(default);
 var verifierSigningKey = Encoding.UTF8.GetString(Convert.FromBase64String((verifierSigningKeyBase64Value ?? string.Empty)));
 
+var swiyuManagementClientId = builder.AddParameter("SwiyuManagementClientId");
+var swiyuManagementClientSecretEntra = builder.AddParameter("SwiyuManagementClientSecretEntra", true);
+var swiyuManagementAuthority = builder.AddParameter("SwiyuManagementAuthority");
+var swiyuManagementScope = builder.AddParameter("SwiyuManagementScope");
+
 /////////////////////////////////////////////////////////////////
 // Verifier OpenID Endpoint: Must be deployed to a public URL
 /////////////////////////////////////////////////////////////////
@@ -63,6 +68,10 @@ swiyuVerifier = builder.AddContainer("swiyu-verifier", "ghcr.io/swiyu-admin-ch/s
     .WithEnvironment("VERIFIER_DID", verifierDid)
     .WithEnvironment("DID_VERIFICATION_METHOD", didVerifierMethod)
     .WithEnvironment("SIGNING_KEY", verifierSigningKey)
+    .WithEnvironment("SwiyuManagementClientId", swiyuManagementClientId)
+    .WithEnvironment("SwiyuManagementClientSecretEntra", swiyuManagementClientSecretEntra)
+    .WithEnvironment("SwiyuManagementAuthority", swiyuManagementAuthority)
+    .WithEnvironment("SwiyuManagementScope", swiyuManagementScope)
     .WithEnvironment("POSTGRES_USER", postGresUser)
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbVerifier)

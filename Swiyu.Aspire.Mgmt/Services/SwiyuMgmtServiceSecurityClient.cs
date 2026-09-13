@@ -3,7 +3,7 @@ using Microsoft.Identity.Client;
 
 namespace Swiyu.Aspire.Mgmt.Services;
 
-public class VerificationServiceSecurityClient
+public class SwiyuMgmtServiceSecurityClient
 {
     /// <summary>
     /// MSAL
