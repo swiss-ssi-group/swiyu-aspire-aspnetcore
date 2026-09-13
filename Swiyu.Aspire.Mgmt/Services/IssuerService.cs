@@ -12,6 +12,8 @@ public class IssuerService
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
 
+    public const string DAMIENBOD_VC = "damienbod-vc";
+
     public IssuerService(IHttpClientFactory httpClientFactory,
         ILoggerFactory loggerFactory, IConfiguration configuration)
     {
@@ -27,7 +29,7 @@ public class IssuerService
 
         var statusRegistryUrl = "https://status-reg.trust-infra.swiyu-int.admin.ch/api/v1/statuslist/2ba92b09-f05a-4831-ab2b-1370a470ebcb.jwt";
         
-        var vcType = "damienbod-vc";
+        var vcType = DAMIENBOD_VC;
 
         var json = GetBody(statusRegistryUrl, vcType, payloadCredentialData);
 

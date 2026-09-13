@@ -58,7 +58,7 @@ public class VerificationService
         var inputDescriptorsId = Guid.NewGuid().ToString();
         var presentationDefinitionId =  "00000000-0000-0000-0000-000000000000"; // Guid.NewGuid().ToString();
 
-        var json = GetDataForLocalCredential(inputDescriptorsId, presentationDefinitionId, _issuerId!, "damienbod-vc");
+        var json = GetDataForLocalCredential(inputDescriptorsId, presentationDefinitionId, _issuerId!, IssuerService.DAMIENBOD_VC);
 
         return await SendCreateVerificationPostRequest(json);
     }
@@ -133,7 +133,7 @@ public class VerificationService
                        "id": "{{presentationDefinitionId}}",
                        "format": "dc+sd-jwt",
                        "meta": {
-                         "vct_values": ["damienbod-vc"]
+                         "vct_values": ["{{vcType}}"]
                        },
                        "claims": [
              		     { "path": [ "$.family_name" ] },
