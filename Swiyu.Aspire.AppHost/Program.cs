@@ -95,14 +95,13 @@ swiyuIssuer = builder.AddContainer("swiyu-issuer", "ghcr.io/swiyu-admin-ch/swiyu
     .WithEnvironment("SWIYU_STATUS_REGISTRY_CUSTOMER_SECRET", swiyuCustomerSecret)
     .WithEnvironment("SWIYU_STATUS_REGISTRY_BOOTSTRAP_REFRESH_TOKEN", swiyuRefreshToken)
     .WithEnvironment("DID_SDJWT_VERIFICATION_METHOD", issuerDidSdJwtVerficiationMethod)
-
+    .WithEnvironment("SDJWT_KEY", issuerSdJwtKey)
     .WithEnvironment("SWIYU_STATUS_REGISTRY_TOKEN_URL", "https://keymanager-prd.api.admin.ch/keycloak/realms/APIGW/protocol/openid-connect/token")
     .WithEnvironment("SWIYU_STATUS_REGISTRY_API_URL", "https://status-reg-api.trust-infra.swiyu-int.admin.ch")
 
     .WithEnvironment("LOGGING_LEVEL_CH_ADMIN_BJ_SWIYU", "DEBUG")
     .WithEnvironment("SWIYU_STATUS_REGISTRY_AUTH_ENABLE_REFRESH_TOKEN_FLOW", "true")
 
-    .WithEnvironment("SDJWT_KEY", issuerSdJwtKey)
     .WithEnvironment("OPENID_CONFIG_FILE", issuerOpenIdConfigFile)
     .WithEnvironment("METADATA_CONFIG_FILE", issuerMetaDataConfigFile)
     .WithEnvironment("TOKEN_TTL", issuerTokenTtl)
