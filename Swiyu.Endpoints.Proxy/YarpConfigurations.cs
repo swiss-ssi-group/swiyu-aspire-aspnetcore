@@ -5,10 +5,27 @@ namespace Swiyu.Endpoints.Proxy;
 
 public static class YarpConfigurations
 {
-    public static RouteConfig[] GetRoutes()
+    public static RouteConfig[] GetVerifierRoutes()
     {
-        var routes = new[]
-        {
+        return
+        [
+            new RouteConfig()
+            {
+                RouteId = "routeverifier",
+                ClusterId = "clusterverifier",
+                AuthorizationPolicy = "Anonymous",
+                Match = new RouteMatch
+                {
+                    Path = "/oid4vp/{**catch-all}"
+                }
+            }
+        ]; 
+    }
+
+    public static RouteConfig[] GetAllRoutes()
+    {
+        return
+        [
             new RouteConfig()
             {
                 RouteId = "routeissuer",
@@ -21,16 +38,6 @@ public static class YarpConfigurations
             },
             new RouteConfig()
             {
-                RouteId = "routeissuerwellknown",
-                ClusterId = "clusterissuer",
-                AuthorizationPolicy = "Anonymous",
-                Match = new RouteMatch
-                {
-                    Path = "/.well-known/{**catch-all}"
-                }
-            },
-            new RouteConfig()
-            {
                 RouteId = "routeverifier",
                 ClusterId = "clusterverifier",
                 AuthorizationPolicy = "Anonymous",
@@ -38,16 +45,40 @@ public static class YarpConfigurations
                 {
                     Path = "/oid4vp/{**catch-all}"
                 }
+            },
+            new RouteConfig()
+            {
+                RouteId = "routeissuerwellknown",
+                ClusterId = "clusterissuer",
+                AuthorizationPolicy = "Anonymous",
+                Match = new RouteMatch
+                {
+                    Path = "/.well-known/{**catch-all}"
+                }
             }
-         };
-
-        return routes;
+        ];
     }
 
-    public static ClusterConfig[] GetClusters(string issuer, string verifier)
+    public static ClusterConfig[] GetVerifierClusters(string verifier)
     {
-        var clusters = new[]
-        {
+        return
+        [
+            new ClusterConfig()
+            {
+                ClusterId = "clusterverifier",
+                Destinations = new Dictionary<string, DestinationConfig>
+                {
+                    { "destination1", new DestinationConfig() { Address = $"{verifier}/" } }
+                },
+                HttpClient = new HttpClientConfig { MaxConnectionsPerServer = 10, SslProtocols =  SslProtocols.Tls12 }
+            }
+        ];    
+    }
+
+    public static ClusterConfig[] GetAllClusters(string issuer, string verifier)
+    {
+        return 
+        [
             new ClusterConfig()
             {
                 ClusterId = "clusterissuer",
@@ -66,8 +97,6 @@ public static class YarpConfigurations
                 },
                 HttpClient = new HttpClientConfig { MaxConnectionsPerServer = 10, SslProtocols =  SslProtocols.Tls12 }
             }
-        };
-
-        return clusters;
+        ];
     }
 }

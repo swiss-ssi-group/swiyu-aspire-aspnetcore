@@ -4,8 +4,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
 builder.Services.AddReverseProxy()
-    .LoadFromMemory(YarpConfigurations.GetRoutes(), 
-        YarpConfigurations.GetClusters(builder.Configuration["SwiyuIssuerMgmtUrl"]!, 
+    .LoadFromMemory(YarpConfigurations.GetAllRoutes(), 
+        YarpConfigurations.GetAllClusters(builder.Configuration["SwiyuIssuerMgmtUrl"]!, 
             builder.Configuration["SwiyuVerifierMgmtUrl"]!));
 
 var app = builder.Build();
@@ -22,4 +22,4 @@ app.Run();
 // https://localhost:7009/.well-known/openid-configuration
 // https://swiyu-endpoints-proxy.livelysand-4f5c661d.switzerlandnorth.azurecontainerapps.io/.well-known/openid-configuration
 
-// https://swiyu-endpoints-proxy.livelysand-4f5c661d.switzerlandnorth.azurecontainerapps.io/issuer_openidconfigfile_v2.json
+// https://swiyu-endpoints-proxy.livelysand-4f5c661d.switzerlandnorth.azurecontainerapps.io/issuer_openidconfigfile_v7.json
