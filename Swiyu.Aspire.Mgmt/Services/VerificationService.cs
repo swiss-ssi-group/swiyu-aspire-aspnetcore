@@ -133,7 +133,7 @@ public class VerificationService
                        "id": "{{presentationDefinitionId}}",
                        "format": "dc+sd-jwt",
                        "meta": {
-                         "vct_values": ["betaid-sdjwt"]
+                         "vct_values": ["damienbod-vc"]
                        },
                        "claims": [
              		     { "path": [ "$.family_name" ] },
