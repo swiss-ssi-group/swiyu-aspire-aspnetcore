@@ -58,8 +58,6 @@ var swiyuManagementScope = builder.AddParameter("SwiyuManagementScope");
 /////////////////////////////////////////////////////////////////
 // Verifier OpenID Endpoint: Must be deployed to a public URL
 /////////////////////////////////////////////////////////////////
-// Verifier Management Endpoint: TODO Add JWT security verifier
-// Add security to management API, disabled
 // https://github.com/swiyu-admin-ch/swiyu-verifier?tab=readme-ov-file#security
 /////////////////////////////////////////////////////////////////
 swiyuVerifier = builder.AddContainer("swiyu-verifier", "ghcr.io/swiyu-admin-ch/swiyu-verifier", "4.2.0")
@@ -68,10 +66,6 @@ swiyuVerifier = builder.AddContainer("swiyu-verifier", "ghcr.io/swiyu-admin-ch/s
     .WithEnvironment("VERIFIER_DID", verifierDid)
     .WithEnvironment("DID_VERIFICATION_METHOD", didVerifierMethod)
     .WithEnvironment("SIGNING_KEY", verifierSigningKey)
-    .WithEnvironment("SwiyuManagementClientId", swiyuManagementClientId)
-    .WithEnvironment("SwiyuManagementClientSecretEntra", swiyuManagementClientSecretEntra)
-    .WithEnvironment("SwiyuManagementAuthority", swiyuManagementAuthority)
-    .WithEnvironment("SwiyuManagementScope", swiyuManagementScope)
     .WithEnvironment("POSTGRES_USER", postGresUser)
     .WithEnvironment("POSTGRES_PASSWORD", postGresPassword)
     .WithEnvironment("POSTGRES_DB", postGresDbVerifier)
@@ -134,6 +128,10 @@ swiyuMgmt = builder.AddProject<Projects.Swiyu_Aspire_Mgmt>("swiyu-mgmt")
     .WithEnvironment("SwiyuOid4vciUrl", issuerExternalUrl)
     .WithEnvironment("SwiyuOid4vpUrl", verifierExternalUrl)
     .WithEnvironment("ISSUER_ID", issuerId)
+    .WithEnvironment("SwiyuManagementClientId", swiyuManagementClientId)
+    .WithEnvironment("SwiyuManagementClientSecretEntra", swiyuManagementClientSecretEntra)
+    .WithEnvironment("SwiyuManagementAuthority", swiyuManagementAuthority)
+    .WithEnvironment("SwiyuManagementScope", swiyuManagementScope)
     .WaitFor(swiyuIssuer)
     .WaitFor(swiyuVerifier)
     .WaitFor(swiyuProxy);
