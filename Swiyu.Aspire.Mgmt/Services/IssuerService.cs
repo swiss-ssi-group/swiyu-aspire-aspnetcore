@@ -88,6 +88,9 @@ public class IssuerService
     public async Task<StatusModel?> GetIssuanceStatus(string id)
     {
         var idEncoded = HttpUtility.UrlEncode(id);
+        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration);
+        _httpClient.SetBearerToken(accessToken);
+
         using HttpResponseMessage response = await _httpClient.GetAsync(
             $"{_swiyuIssuerMgmtUrl}/management/api/credentials/{idEncoded}/status");
 
@@ -125,6 +128,9 @@ public class IssuerService
         """;
 
         var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration);
+        _httpClient.SetBearerToken(accessToken);
 
         using HttpResponseMessage response = await _httpClient.PostAsync($"{_swiyuIssuerMgmtUrl}/management/api/status-list", jsonContent);
 
