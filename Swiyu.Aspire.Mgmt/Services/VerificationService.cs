@@ -37,7 +37,7 @@ public class VerificationService
         var acceptedIssuerDid = "did:tdw:QmPEZPhDFR4nEYSFK5bMnvECqdpf1tPTPJuWs9QrMjCumw:identifier-reg.trust-infra.swiyu-int.admin.ch:api:v1:did:9a5559f0-b81c-4368-a170-e7b4ae424527";
 
         var inputDescriptorsId = Guid.NewGuid().ToString();
-        var presentationDefinitionId = "00000000-0000-0000-0000-000000000000"; // Guid.NewGuid().ToString();
+        var presentationDefinitionId = "urn:vct:ch.admin.bcs.betaid"; // Guid.NewGuid().ToString();
 
         var json = GetBetaIdVerificationPresentationBodyV4(inputDescriptorsId,
             presentationDefinitionId, acceptedIssuerDid, "urn:vct:ch.admin.bcs.betaid");
@@ -56,7 +56,7 @@ public class VerificationService
         _logger.LogInformation("Creating verification presentation");
 
         var inputDescriptorsId = Guid.NewGuid().ToString();
-        var presentationDefinitionId =  "00000000-0000-0000-0000-000000000000"; // Guid.NewGuid().ToString();
+        var presentationDefinitionId = IssuerService.DAMIENBOD_VC; // Guid.NewGuid().ToString();
 
         var json = GetDataForLocalCredential(inputDescriptorsId, presentationDefinitionId, _issuerId!, IssuerService.DAMIENBOD_VC);
 
@@ -116,7 +116,7 @@ public class VerificationService
         var json = $$"""
              {
                  "accepted_issuer_dids": [ "{{issuer}}" ],
-                 "response_mode": "direct_post",
+                 "response_mode": ""direct_post.jwt",
 
                  "verification_purpose": {
                    "scope": "ch.damienbod.local",
@@ -156,7 +156,7 @@ public class VerificationService
              {
                  "accepted_issuer_dids": [ "{{acceptedIssuerDid}}" ],
                  "jwt_secured_authorization_request": true,
-                 "response_mode": "direct_post",
+                 "response_mode": ""direct_post.jwt",
                  "verification_purpose": {
                    "scope": "ch.identity",
                    "purpose_name": {
