@@ -66,6 +66,10 @@ public class VerificationService
     public async Task<VerificationManagementModel?> GetVerificationStatus(string verificationId)
     {
         var idEncoded = HttpUtility.UrlEncode(verificationId);
+
+        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration);
+        _httpClient.SetBearerToken(accessToken);
+
         using HttpResponseMessage response = await _httpClient.GetAsync(
             $"{_swiyuVerifierMgmtUrl}/management/api/verifications/{idEncoded}");
 
