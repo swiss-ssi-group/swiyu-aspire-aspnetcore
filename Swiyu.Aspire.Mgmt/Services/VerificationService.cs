@@ -136,9 +136,9 @@ public class VerificationService
                          "vct_values": ["{{vcType}}"]
                        },
                        "claims": [
-             		     { "path": [ "family_name" ] },
+                         { "path": [ "family_name" ] },
                          { "path": [ "given_name" ] },     
-             		     { "path": [ "birth_date" ] }
+                         { "path": [ "birth_date" ] }
                        ],
                        "require_cryptographic_holder_binding": true
                      }
@@ -175,10 +175,10 @@ public class VerificationService
                          "vct_values": ["{{vcType}}"]
                        },
                        "claims": [
-                              { "path": [ "birth_date" ] },
-                              { "path": [ "given_name" ] },
-                              { "path": [ "family_name" ] },
-                              { "path": [ "birth_place" ] }
+                         { "path": [ "birth_date" ] },
+                         { "path": [ "given_name" ] },
+                         { "path": [ "family_name" ] },
+                         { "path": [ "birth_place" ] }
                        ],
                        "require_cryptographic_holder_binding": true
                      }
