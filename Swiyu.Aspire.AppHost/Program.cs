@@ -132,6 +132,7 @@ swiyuMgmt = builder.AddProject<Projects.Swiyu_Aspire_Mgmt>("swiyu-mgmt")
     .WithEnvironment("SwiyuManagementClientSecretEntra", swiyuManagementClientSecretEntra)
     .WithEnvironment("SwiyuManagementAuthority", swiyuManagementAuthority)
     .WithEnvironment("SwiyuManagementScope", swiyuManagementScope)
+    .WithEnvironment("VERIFICATION_EXPIRY_MUST_BE_PRESENT", "false")
     .WaitFor(swiyuIssuer)
     .WaitFor(swiyuVerifier)
     .WaitFor(swiyuProxy);
