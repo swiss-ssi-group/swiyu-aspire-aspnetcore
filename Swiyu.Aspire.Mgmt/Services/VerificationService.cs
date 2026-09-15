@@ -116,7 +116,7 @@ public class VerificationService
         var json = $$"""
              {
                  "accepted_issuer_dids": [ "{{issuer}}" ],
-                 "response_mode": ""direct_post.jwt",
+                 "response_mode": "direct_post.jwt",
 
                  "verification_purpose": {
                    "scope": "ch.damienbod.local",
@@ -156,7 +156,7 @@ public class VerificationService
              {
                  "accepted_issuer_dids": [ "{{acceptedIssuerDid}}" ],
                  "jwt_secured_authorization_request": true,
-                 "response_mode": ""direct_post.jwt",
+                 "response_mode": "direct_post.jwt",
                  "verification_purpose": {
                    "scope": "ch.identity",
                    "purpose_name": {
