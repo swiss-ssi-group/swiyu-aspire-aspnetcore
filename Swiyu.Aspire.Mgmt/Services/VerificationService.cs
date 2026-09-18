@@ -12,6 +12,7 @@ public class VerificationService
     private readonly string? _issuerId;
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
+    private const string SWIYU_BETA_ID = "swiyu-beta-id";
 
     public VerificationService(IHttpClientFactory httpClientFactory,
         ILoggerFactory loggerFactory, IConfiguration configuration)
@@ -36,11 +37,9 @@ public class VerificationService
         // from "betaid-sdjwt"
         var acceptedIssuerDid = "did:tdw:QmPEZPhDFR4nEYSFK5bMnvECqdpf1tPTPJuWs9QrMjCumw:identifier-reg.trust-infra.swiyu-int.admin.ch:api:v1:did:9a5559f0-b81c-4368-a170-e7b4ae424527";
 
-        var inputDescriptorsId = Guid.NewGuid().ToString();
-        var presentationDefinitionId = "00000000-0000-0000-0000-000000000000"; // Guid.NewGuid().ToString();
+        var presentationDefinitionId = SWIYU_BETA_ID;
 
-        var json = GetBetaIdVerificationPresentationBodyV4(inputDescriptorsId,
-            presentationDefinitionId, acceptedIssuerDid, "urn:vct:ch.admin.bcs.betaid");
+        var json = GetBetaIdVerificationPresentationBodyV4(presentationDefinitionId, acceptedIssuerDid, "urn:vct:ch.admin.bcs.betaid");
 
         return await SendCreateVerificationPostRequest(json);
     }
@@ -55,10 +54,9 @@ public class VerificationService
     {
         _logger.LogInformation("Creating verification presentation");
 
-        var inputDescriptorsId = Guid.NewGuid().ToString();
-        var presentationDefinitionId = "00000000-0000-0000-0000-000000000000"; // Guid.NewGuid().ToString();
+        var presentationDefinitionId = "damienbod-vc-pres-id";
 
-        var json = GetDataForLocalCredential(inputDescriptorsId, presentationDefinitionId, _issuerId!, IssuerService.DAMIENBOD_VC);
+        var json = GetDataForLocalCredential(presentationDefinitionId, _issuerId!, IssuerService.DAMIENBOD_VC);
 
         return await SendCreateVerificationPostRequest(json);
     }
@@ -114,7 +112,7 @@ public class VerificationService
         throw new ArgumentException(error);
     }
 
-    private static string GetDataForLocalCredential(string inputDescriptorsId, string presentationDefinitionId, string issuer, string vcType)
+    private static string GetDataForLocalCredential(string presentationDefinitionId, string issuer, string vcType)
     {
         // jwt_secured_authorization_request disabled, need docs for this
         var json = $$"""
@@ -154,7 +152,7 @@ public class VerificationService
         return json;
     }
 
-    private static string GetBetaIdVerificationPresentationBodyV4(string inputDescriptorsId, string presentationDefinitionId, string acceptedIssuerDid, string vcType)
+    private static string GetBetaIdVerificationPresentationBodyV4(string presentationDefinitionId, string acceptedIssuerDid, string vcType)
     {
         var json = $$"""
              {
