@@ -99,7 +99,7 @@ swiyuVerifier = builder.AddContainer("swiyu-verifier", "ghcr.io/swiyu-admin-ch/s
 
     .WithEnvironment("SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI", SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI)
     .WithEnvironment("VERIFICATION_EXPIRY_MUST_BE_PRESENT", "false")
-    .WithHttpEndpoint(port: 8084, targetPort: 8080, name: HTTP);  // local development
+    .WithHttpEndpoint(port: 8085, targetPort: 8080, name: HTTP);  // local development
     //.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment 
 
 // Testing only, not required for IDP
@@ -140,7 +140,7 @@ swiyuIssuer = builder.AddContainer("swiyu-issuer", "ghcr.io/swiyu-admin-ch/swiyu
     .WithEnvironment("POSTGRES_PASSWORD", ISSUER_POSTGRES_PASSWORD)
     .WithEnvironment("POSTGRES_DB", ISSUER_POSTGRES_DB)
     .WithEnvironment("POSTGRES_JDBC", ISSUER_POSTGRES_JDBC)
-    .WithHttpEndpoint(port: 8082, targetPort: 8080, name: HTTP); // local development
+    .WithHttpEndpoint(port: 8086, targetPort: 8080, name: HTTP); // local development
     //.WithHttpEndpoint(port: 80, targetPort: 8080, name: HTTP); // for deployment
 
 swiyuProxy = builder.AddProject<Projects.Swiyu_Endpoints_Proxy>("swiyu-endpoints-proxy")
