@@ -1,0 +1,4 @@
+{
+	"issuer": "https://swiyu-endpoints-proxy.calmmeadow-53af0554.switzerlandnorth.azurecontainerapps.io",
+	"token_endpoint": "https://swiyu-endpoints-proxy.calmmeadow-53af0554.switzerlandnorth.azurecontainerapps.io/oid4vci/api/token"
+}
