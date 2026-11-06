@@ -119,7 +119,6 @@ public class VerificationService
              {
                  "accepted_issuer_dids": [ "{{issuer}}" ],
                  "response_mode": "direct_post.jwt",
-
                  "verification_purpose": {
                    "scope": "ch.damienbod.local",
                    "purpose_name": {
