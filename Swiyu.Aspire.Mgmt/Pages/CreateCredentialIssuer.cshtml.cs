@@ -45,7 +45,7 @@ public class CreateCredentialIssuerModel : PageModel
                 FamilyName = "McGarry",
                 GivenName = "Eoin",
                 BirthDate = DateTime.UtcNow.ToShortDateString()
-            });
+            }, HttpContext.RequestAborted);
 
         var issueCredential = JsonSerializer.Deserialize<CredentialIssuerModel>(vci);
 

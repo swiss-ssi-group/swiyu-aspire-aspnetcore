@@ -30,7 +30,7 @@ public class VerificationService
     ///       -H "Content-Type: application/json" \
     ///       -d '
     /// </summary>
-    public async Task<string> CreateBetaIdVerificationPresentationAsync()
+    public async Task<string> CreateBetaIdVerificationPresentationAsync(CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Creating verification presentation");
 
@@ -41,7 +41,7 @@ public class VerificationService
 
         var json = GetBetaIdVerificationPresentationBodyV4(presentationDefinitionId, acceptedIssuerDid, "urn:vct:ch.admin.bcs.betaid");
 
-        return await SendCreateVerificationPostRequest(json);
+        return await SendCreateVerificationPostRequest(json, cancellationToken);
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public class VerificationService
     ///       -H "Content-Type: application/json" \
     ///       -d '
     /// </summary>
-    public async Task<string> CreateDamienbodVerificationPresentationAsync()
+    public async Task<string> CreateDamienbodVerificationPresentationAsync(CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Creating verification presentation");
 
@@ -58,22 +58,22 @@ public class VerificationService
 
         var json = GetDataForLocalCredential(presentationDefinitionId, _issuerId!, IssuerService.DAMIENBOD_VC);
 
-        return await SendCreateVerificationPostRequest(json);
+        return await SendCreateVerificationPostRequest(json, cancellationToken);
     }
 
-    public async Task<VerificationManagementModel?> GetVerificationStatus(string verificationId)
+    public async Task<VerificationManagementModel?> GetVerificationStatus(string verificationId, CancellationToken cancellationToken = default)
     {
         var idEncoded = HttpUtility.UrlEncode(verificationId);
 
-        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration);
+        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration, _logger, cancellationToken);
         _httpClient.SetBearerToken(accessToken);
 
         using HttpResponseMessage response = await _httpClient.GetAsync(
-            $"{_swiyuVerifierMgmtUrl}/management/api/verifications/{idEncoded}");
+            $"{_swiyuVerifierMgmtUrl}/management/api/verifications/{idEncoded}", cancellationToken);
 
         if (response.IsSuccessStatusCode)
         {
-            var jsonResponse = await response.Content.ReadAsStringAsync();
+            var jsonResponse = await response.Content.ReadAsStringAsync(cancellationToken);
 
             if (jsonResponse == null)
             {
@@ -85,28 +85,28 @@ public class VerificationService
             return JsonSerializer.Deserialize<VerificationManagementModel>(jsonResponse);
         }
 
-        var error = await response.Content.ReadAsStringAsync();
+        var error = await response.Content.ReadAsStringAsync(cancellationToken);
         _logger.LogError("Could not create verification presentation {vp}", error);
 
         throw new ArgumentException(error);
     }
 
-    private async Task<string> SendCreateVerificationPostRequest(string json)
+    private async Task<string> SendCreateVerificationPostRequest(string json, CancellationToken cancellationToken = default)
     {
-        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration);
+        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration, _logger, cancellationToken);
 
         var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
         _httpClient.SetBearerToken(accessToken);
-        var response = await _httpClient.PostAsync($"{_swiyuVerifierMgmtUrl}/management/api/verifications", jsonContent);
+        var response = await _httpClient.PostAsync($"{_swiyuVerifierMgmtUrl}/management/api/verifications", jsonContent, cancellationToken);
 
         if (response.IsSuccessStatusCode)
         {
-            var jsonResponse = await response.Content.ReadAsStringAsync();
+            var jsonResponse = await response.Content.ReadAsStringAsync(cancellationToken);
 
             return jsonResponse;
         }
 
-        var error = await response.Content.ReadAsStringAsync();
+        var error = await response.Content.ReadAsStringAsync(cancellationToken);
         _logger.LogError("Could not create verification presentation {vp}", error);
 
         throw new ArgumentException(error);

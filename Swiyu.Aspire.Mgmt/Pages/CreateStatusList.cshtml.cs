@@ -27,7 +27,7 @@ public class CreateStatusListModel : PageModel
 
     public async Task OnPostAsync()
     {
-        StatusList = await _issuerService.CreateStatusList();
+        StatusList = await _issuerService.CreateStatusList(HttpContext.RequestAborted);
         return;
     }
 }

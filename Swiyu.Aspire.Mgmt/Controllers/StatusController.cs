@@ -26,7 +26,7 @@ public class StatusController : ControllerBase
                 return BadRequest(new { error = "400", error_description = "Missing argument 'id'" });
             }
 
-            var statusModel = await _issuerService.GetIssuanceStatus(id);
+            var statusModel = await _issuerService.GetIssuanceStatus(id, HttpContext.RequestAborted);
 
             return Ok(statusModel);
         }
