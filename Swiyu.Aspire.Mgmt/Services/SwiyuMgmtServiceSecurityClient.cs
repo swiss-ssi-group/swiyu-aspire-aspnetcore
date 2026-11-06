@@ -29,7 +29,7 @@ public class SwiyuMgmtServiceSecurityClient
         try
         {
             var authResult = await app
-                .AcquireTokenForClient(new[] { scope })
+                .AcquireTokenForClient([scope])
                 .ExecuteAsync(cancellationToken);
 
             logger.LogInformation("Token acquired. ExpiresOn={ExpiresOn}", authResult.ExpiresOn);
