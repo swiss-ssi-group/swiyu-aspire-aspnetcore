@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".github/workflows/dotnet.yml" />
+    <File Path=".github/workflows/sonarbuild.yml" />
+    <File Path="CHANGELOG.md" />
+    <File Path="DEV.md" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="ConvertCertificatesBase64/ConvertCertificatesBase64.csproj" />
+  <Project Path="Swiyu.Aspire.AppHost/Swiyu.Aspire.AppHost.csproj" />
+  <Project Path="Swiyu.Aspire.Mgmt/Swiyu.Aspire.Mgmt.csproj" />
+  <Project Path="Swiyu.Aspire.ServiceDefaults/Swiyu.Aspire.ServiceDefaults.csproj" />
+  <Project Path="Swiyu.Endpoints.Proxy/Swiyu.Endpoints.Proxy.csproj" />
+</Solution>

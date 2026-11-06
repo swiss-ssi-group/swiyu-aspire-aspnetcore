@@ -23,7 +23,7 @@ public class IssuerService
         _configuration = configuration;
     }
 
-    public async Task<string> IssuerCredentialAsync(PayloadCredentialData payloadCredentialData)
+    public async Task<string> IssuerCredentialAsync(PayloadCredentialData payloadCredentialData, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Issuer credential for data");
 
@@ -40,7 +40,9 @@ public class IssuerService
 
         var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration);
+        var accessToken = await SwiyuMgmtServiceSecurityClient
+            .RequestTokenAsync(_configuration, _logger, cancellationToken);
+
         _httpClient.SetBearerToken(accessToken);
 
         using HttpResponseMessage response = await _httpClient.PostAsync(
@@ -87,10 +89,10 @@ public class IssuerService
     }
 
 
-    public async Task<StatusModel?> GetIssuanceStatus(string id)
+    public async Task<StatusModel?> GetIssuanceStatus(string id, CancellationToken cancellationToken)
     {
         var idEncoded = HttpUtility.UrlEncode(id);
-        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration);
+        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration, _logger, cancellationToken);
         _httpClient.SetBearerToken(accessToken);
 
         using HttpResponseMessage response = await _httpClient.GetAsync(
@@ -115,7 +117,7 @@ public class IssuerService
         throw new ArgumentException(error);
     }
 
-    public async Task<string> CreateStatusList()
+    public async Task<string> CreateStatusList(CancellationToken cancellationToken)
     {
         _logger.LogInformation("Creating status list");
         var json = 
@@ -131,7 +133,7 @@ public class IssuerService
 
         var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration);
+        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration, _logger, cancellationToken);
         _httpClient.SetBearerToken(accessToken);
 
         using HttpResponseMessage response = await _httpClient.PostAsync($"{_swiyuIssuerMgmtUrl}/management/api/status-list", jsonContent);
