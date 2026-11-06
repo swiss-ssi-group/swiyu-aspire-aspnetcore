@@ -24,7 +24,6 @@ public class SwiyuMgmtServiceSecurityClient
             .ExecuteAsync();
 
         return authResult.AccessToken;
-
     }
 
     /// <summary>
