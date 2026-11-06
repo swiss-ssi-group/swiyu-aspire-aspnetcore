@@ -65,8 +65,8 @@ dotnet ef database update
 
 ## Swagger
 
-https://swiyu-endpoints-proxy.livelysand-4f5c661d.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
-https://swiyu-endpoints-proxy.livelysand-4f5c661d.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
+https://swiyu-endpoints-proxy.calmmeadow-53af0554.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
+https://swiyu-endpoints-proxy.calmmeadow-53af0554.switzerlandnorth.azurecontainerapps.io/swagger-ui/index.html
 
 
 ## Links
