@@ -1,7 +1,7 @@
 
 # Change log
 
-## 2026-11-05 2.1.0
+## 2026-11-07 2.1.0,beta
 - Updated to "ghcr.io/swiyu-admin-ch/swiyu-verifier", "5.0.1" 
 - Updated packages
 - Updated configuration definitions
