@@ -112,15 +112,21 @@ public class VerificationService
         throw new ArgumentException(error);
     }
 
+    /// <summary>
+    /// Must match the scope and vctype from the trust/vqps-submissions
+    /// https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/#81-submit-the-vqps
+    /// </summary>
+    /// <returns></returns>
     private static string GetDataForLocalCredential(string presentationDefinitionId, string issuer, string vcType)
     {
         // jwt_secured_authorization_request disabled, need docs for this
         var json = $$"""
              {
                  "accepted_issuer_dids": [ "{{issuer}}" ],
+                 "jwt_secured_authorization_request": true,
                  "response_mode": "direct_post.jwt",
                  "verification_purpose": {
-                   "scope": "ch.damienbod.local",
+                   "scope": "identity_presentation",
                    "purpose_name": {
                      "default": "Identity verification using local credentials"
                    },
