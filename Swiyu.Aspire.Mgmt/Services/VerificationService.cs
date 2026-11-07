@@ -116,7 +116,6 @@ public class VerificationService
     /// Must match the scope and vctype from the trust/vqps-submissions
     /// https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/#81-submit-the-vqps
     /// </summary>
-    /// <returns></returns>
     private static string GetDataForLocalCredential(string presentationDefinitionId, string issuer, string vcType)
     {
         // jwt_secured_authorization_request disabled, need docs for this
