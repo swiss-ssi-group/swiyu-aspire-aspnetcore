@@ -10,15 +10,18 @@ public class VerificationService
     private readonly ILogger<VerificationService> _logger;
     private readonly string? _swiyuVerifierMgmtUrl;
     private readonly string? _issuerId;
+    private readonly string? _verifierDid;
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
     private const string SWIYU_BETA_ID = "swiyu-beta-id";
+    private const string VERIFICATION_SCOPE = "identity_presentation";
 
     public VerificationService(IHttpClientFactory httpClientFactory,
         ILoggerFactory loggerFactory, IConfiguration configuration)
     {
         _swiyuVerifierMgmtUrl = configuration["SwiyuVerifierMgmtUrl"];
         _issuerId = configuration["ISSUER_ID"];
+        _verifierDid = configuration["VERIFIER_DID"];
         _httpClient = httpClientFactory.CreateClient();
         _logger = loggerFactory.CreateLogger<VerificationService>();
         _configuration = configuration;
@@ -55,10 +58,74 @@ public class VerificationService
         _logger.LogInformation("Creating verification presentation");
 
         var presentationDefinitionId = "damienbod-vc-pres-id";
+        var scope = VERIFICATION_SCOPE;
 
-        var json = GetDataForLocalCredential(presentationDefinitionId, _issuerId!, IssuerService.DAMIENBOD_VC);
+        var json = GetDataForLocalCredential(presentationDefinitionId, _issuerId!, IssuerService.DAMIENBOD_VC, scope);
 
         return await SendCreateVerificationPostRequest(json, cancellationToken);
+    }
+
+    public async Task<string> CreateVqpsSubmissionsAsync(CancellationToken cancellationToken = default)
+    {
+        _logger.LogInformation("Create Vqps Submissions");
+
+        var presentationDefinitionId = "damienbod-vc-pres-id";
+        var scope = VERIFICATION_SCOPE;
+
+        var json = GenerateBodyForVqpsSubmissionsAsync(scope, presentationDefinitionId, _verifierDid!, IssuerService.DAMIENBOD_VC);
+
+        return await SendVqpsSubmissionsRequest(json, cancellationToken);
+    }
+
+    private string GenerateBodyForVqpsSubmissionsAsync(string scope, string presentationDefinitionId, string verifierdid, string vcType)
+    {
+        var json = $$"""
+             {
+             	"waitForPublication": true,
+             	"sub": "{{verifierdid}}",
+             	"purpose_name": {"default": "Identity verification", "de-CH": "Identity verification", "fr-CH": "Identity verification"},
+             	"purpose_description": {"default": "Used to verify the identity of an individual", "de-CH": "Dieser Zweck ermöglicht die Identitätsprüfung", "fr-CH": "Cet objectif permet la vérification identité"},
+             	"scope": "{{scope}}",
+             	"query": {
+             	  "credentials": [
+             		{
+             		  "id": "{{presentationDefinitionId}}",
+             		  "format": "dc+sd-jwt",
+             		  "meta": {
+             			"vct_values": ["{{vcType}}"]
+             		  },
+             		  "claims": [
+                         { "path": [ "birth_date" ] },
+                         { "path": [ "given_name" ] },
+                         { "path": [ "family_name" ] }
+             		   ]
+             		}
+             	  ]
+             	}
+             """;
+
+        return json;
+    }
+
+    private async Task<string> SendVqpsSubmissionsRequest(string json, CancellationToken cancellationToken = default)
+    {
+        var accessToken = await SwiyuMgmtServiceSecurityClient.RequestTokenAsync(_configuration, _logger, cancellationToken);
+
+        var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
+        _httpClient.SetBearerToken(accessToken);
+        var response = await _httpClient.PostAsync($"https://trust-reg-api.trust-infra.swiyu-int.admin.ch/api/v1/trust/vqps-submissions", jsonContent, cancellationToken);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync(cancellationToken);
+
+            return jsonResponse;
+        }
+
+        var error = await response.Content.ReadAsStringAsync(cancellationToken);
+        _logger.LogError("Could not create verification presentation {vp}", error);
+
+        throw new ArgumentException(error);
     }
 
     public async Task<VerificationManagementModel?> GetVerificationStatus(string verificationId, CancellationToken cancellationToken = default)
@@ -115,8 +182,13 @@ public class VerificationService
     /// <summary>
     /// Must match the scope and vctype from the trust/vqps-submissions
     /// https://swiyu-admin-ch.github.io/cookbooks/onboarding-base-and-trust-registry/#81-submit-the-vqps
+    /// Validate the used vqps-submission
+    /// curl -X GET \
+    /// "https://trust-reg-api.trust-infra.swiyu-int.admin.ch/api/v1/trust/vqps-submissions" \
+    /// -H "Authorization: Bearer $SWIYU_TRUST_REGISTRY_ACCESS_TOKEN"
     /// </summary>
-    private static string GetDataForLocalCredential(string presentationDefinitionId, string issuer, string vcType)
+    private static string GetDataForLocalCredential(string presentationDefinitionId, 
+        string issuer, string vcType, string scope)
     {
         // jwt_secured_authorization_request disabled, need docs for this
         var json = $$"""
@@ -125,7 +197,7 @@ public class VerificationService
                  "jwt_secured_authorization_request": true,
                  "response_mode": "direct_post.jwt",
                  "verification_purpose": {
-                   "scope": "identity_presentation",
+                   "scope": "{{scope}}",
                    "purpose_name": {
                      "default": "Identity verification using local credentials"
                    },
